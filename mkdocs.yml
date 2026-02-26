@@ -1,9 +1,9 @@
 site_name: Pytorch Lightning Template
-site_description: "Generic template to bootstrap your PyTorch project"
-site_url: "https://insane-group.github.io/pytorch-lightning-template"
-repo_url: "https://github.com/insane-group/pytorch-lightning-template"
+site_description: "Sci-ImageMiner - Information Extraction from Atomic Layer Deposition/Etching (ALD/E) Scientific Figures (ICDAR 2026)"
+site_url: "https://insane-group.github.io/sci-imageminer-2026"
+repo_url: "https://github.com/insane-group/sci-imageminer-2026"
 edit_uri: "edit/master/docs/"
-repo_name: "insane-group/pytorch-lightning-template"
+repo_name: "insane-group/sci-imageminer-2026"
 copyright: |
   Copyright &copy; 2024 <a href="https://github.com/orgs/insane-group" target="_blank" rel="noopener">INSANE Group</a>
 nav:

@@ -14,35 +14,35 @@
       alt="arXiv"
     />
   </a>
-  <a href="https://insane-group.github.io/pytorch-lightning-template/">
+  <a href="https://insane-group.github.io/sci-imageminer-2026/">
     <img src="https://img.shields.io/badge/Docs-526CFE?logo=MaterialForMkDocs&logoColor=white" alt="Mkdocs" />
   </a>
-  <a href="https://colab.research.google.com/github/insane-group/pytorch-lightning-template/blob/master/notebooks/template.ipynb">
+  <a href="https://colab.research.google.com/github/insane-group/sci-imageminer-2026/blob/master/notebooks/template.ipynb">
     <img
       src="https://colab.research.google.com/assets/colab-badge.svg"
       alt="Open In Colab"/>
   </a>
-  <a href="https://github.com/insane-group/pytorch-lightning-template/actions/workflows/tests.yml">
+  <a href="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/tests.yml">
     <img
-      src="https://github.com/insane-group/pytorch-lightning-template/actions/workflows/tests.yml/badge.svg"
+      src="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/tests.yml/badge.svg"
       alt="CI"
     />
   </a>
-  <a href="https://github.com/insane-group/pytorch-lightning-template/actions/workflows/pre-commit.yml">
+  <a href="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/pre-commit.yml">
     <img
-      src="https://github.com/insane-group/pytorch-lightning-template/actions/workflows/pre-commit.yml/badge.svg"
+      src="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/pre-commit.yml/badge.svg"
       alt="pre-commit"
     />
   </a>
   <a href="https://www.apache.org/licenses/LICENSE-2.0">
     <img
-      src="https://img.shields.io/github/license/insane-group/pytorch-lightning-template"
+      src="https://img.shields.io/github/license/insane-group/sci-imageminer-2026"
       alt="LICENSE"
     />
   </a>
 </p>
 
-## Project Name
+## [Sci-ImageMiner - Information Extraction from Atomic Layer Deposition/Etching (ALD/E) Scientific Figures (ICDAR 2026)](https://sites.google.com/view/sci-imageminer/download-the-data)
 
 > Accompanying code for the paper [**Paper Title**](https://arxiv.org/abs/1234.56789).
 
@@ -52,7 +52,6 @@ Make sure you:
 
 - [ ] Replace the **Project Name** with the name of your project
 - [ ] Add a brief description of your project
-- [ ] Remove the **:thinking: Why ?** section
 - [ ] Rename the project appropriately
 - [ ] Change the project details (e.g. name, description, URLs) in the following files:
   - [ ] pyproject.toml
@@ -62,15 +61,6 @@ Make sure you:
 - [ ] Update the arXiv badge in the README.md with the correct arXiv ID (when available)
 - [ ] Update the logo in the README.md
 
-## :thinking: Why ?
-
-When working on a new project, we frequently encountered challenges such as:
-
-1. **Reproducibility**: How can we ensure that our results are reproducible across different environments?
-2. **Boilerplate Code**: We often find ourselves writing the same boilerplate code over and over again.
-
-To address these challenges, we have created a template for PyTorch projects that streamlines the setup process and helps you focus on your research.
-
 ### Main Technologies
 
 - [**PyTorch Lightning**](https://lightning.ai/docs/pytorch/stable/starter/introduction.html): A lightweight wrapper for PyTorch that streamlines high-performance AI research. It serves as a structured framework for organizing PyTorch code.
@@ -78,7 +68,7 @@ To address these challenges, we have created a template for PyTorch projects tha
 
 ## :rocket: Getting Started
 
-Click [<kbd>Use this template</kbd>](https://github.com/insane-group/pytorch-lightning-template/generate) to create a new repository.
+Click [<kbd>Use this template</kbd>](https://github.com/insane-group/sci-imageminer-2026/generate) to create a new repository.
 
 Once your repository is set up [using the template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template), clone it and start working with the following commands (We use the [Rye](https://rye.astral.sh/) Python package manager):
 
@@ -216,7 +206,7 @@ The project follows a standard structure for a Python project.
 
 ## :book: Exploring the Documentation
 
-The documentation is generated from Python docstrings using [`MkDocs`](https://www.mkdocs.org/) and [`mkdocstrings`](https://mkdocstrings.github.io/) for the source code, while the rest is written in standard Markdown. To view it, run `poe docs` in the terminal or visit [`https://insane-group.github.io/pytorch-lightning-template/`](https://insane-group.github.io/pytorch-lightning-template/).
+The documentation is generated from Python docstrings using [`MkDocs`](https://www.mkdocs.org/) and [`mkdocstrings`](https://mkdocstrings.github.io/) for the source code, while the rest is written in standard Markdown. To view it, run `poe docs` in the terminal or visit [`https://insane-group.github.io/sci-imageminer-2026/`](https://insane-group.github.io/sci-imageminer-2026/).
 
 ## :bookmark_tabs: Citation
 
@@ -230,12 +220,3 @@ Please use the following citation if you use this project in your work:
   url = {https://github.com/insane-group/scikit-learn-template}
 }
 ```
-
-## :coin: Credits
-
-This template was created by [INSANE Group](https://github.com/orgs/insane-group) and is based on the following projects:
-
-- [**NN-Template by Grok AI**](https://github.com/grok-ai/nn-template)
-- [**Lightning Hydra Template by ashleve**](https://github.com/ashleve/lightning-hydra-template)
-- [**Pytorch Lightning Template by DavidZhang73**](https://github.com/DavidZhang73/pytorch-lightning-template)
-- [**MNIST Classifier by kengz**](https://github.com/kengz/mnist-classifier)

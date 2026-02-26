@@ -180,3 +180,4 @@ cython_debug/
 /logs/
 /outputs/
 lightning_logs/
+ALD-E-ImageMiner/

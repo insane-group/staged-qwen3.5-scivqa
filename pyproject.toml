@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 requires = [ "hatchling" ]
 
 [project]
-name = "pytorch-lightning-template"
+name = "sci-imageminer-2026"
 version = "0.1.0"
-description = "Generic template to bootstrap your PyTorch project"
+description = "Sci-ImageMiner - Information Extraction from Atomic Layer Deposition/Etching (ALD/E) Scientific Figures (ICDAR 2026)"
 authors = [ { name = "Vassilis Sioros", email = "v.sioros@iit.demokritos.gr" } ]
 requires-python = ">=3.11"
 

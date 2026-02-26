@@ -2,7 +2,7 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: pytorch-lightning-template
+title: sci-imageminer-2026
 message: 'If you use this software, please cite it as below.'
 type: software
 authors:
@@ -11,9 +11,9 @@ authors:
     email: v.sioros@iit.demokritos.gr
     affiliation: NCSR “Demokritos”
     orcid: 'https://orcid.org/0000-0002-6266-0755'
-repository-code: 'https://github.com/insane-group/pytorch-lightning-template'
-url: 'https://insane-group.github.io/pytorch-lightning-template/'
-abstract: Generic template to bootstrap your PyTorch project
+repository-code: 'https://github.com/insane-group/sci-imageminer-2026'
+url: 'https://insane-group.github.io/sci-imageminer-2026/'
+abstract: Sci-ImageMiner - Information Extraction from Atomic Layer Deposition/Etching (ALD/E) Scientific Figures (ICDAR 2026)
 keywords:
   - template
   - pytorch
