@@ -19,7 +19,7 @@ from unsloth import FastVisionModel
 
 import json
 from pathlib import Path
-
+import warnings
 from PIL import Image
 from tqdm.auto import tqdm
 from collections import defaultdict
@@ -88,67 +88,76 @@ DATA_DIR = BASE_DIR / "data"
 # %%
 def load_test_dataset(case_dir: Path) -> list[dict]:
     samples = []
-
     json_files = list(case_dir.rglob("*.json"))
-
-    pbar = tqdm(json_files, desc="Converting to Qwen Format")
+    pbar = tqdm(json_files, desc="Converting Test to Qwen Format")
 
     for json_file in pbar:
-        try:
-            with open(json_file, "r") as f:
-                data = json.load(f)
+        fullpath = str(json_file)
+        if "images" not in fullpath or ".vscode" in fullpath:
+            continue
 
-            img_path = json_file.with_suffix(".jpg")
-            if not img_path.exists():
-                img_path = json_file.parent / f"{json_file.stem}.jpg"
-                if not img_path.exists():
-                    continue
+        pbar.set_description(f"Processing {json_file.name}")
 
-            if "vqa" not in data:
+        with open(json_file, "r") as f:
+            data = json.load(f)
+
+        img_path = json_file.with_suffix(".jpg")
+        if not img_path.exists():
+            continue
+
+        # 2. Open source image once per JSON file
+        full_img = Image.open(img_path.absolute())
+        bboxes = data.get("bbox", {})
+
+        # 3. Iterate through subfigures (a, b, etc.)
+        for sub_fig, q_list in data.get("vqa", {}).items():
+            # 4. Check for bounding box and crop
+            if sub_fig not in bboxes:
+                warnings.warn(f"Subfigure {sub_fig} missing bbox in {json_file.name}")
                 continue
 
-            for sub_fig, q_list in data["vqa"].items():
-                for q_obj in q_list:
-                    question_text = q_obj.get("question") or q_obj.get("questions")
-                    question_type = q_obj.get("question_type", "")
-                    answer_type = q_obj.get("answer_type", "")
+            box = bboxes[sub_fig]
+            left = box["x"]
+            top = box["y"]
+            right = left + box["width"]
+            bottom = top + box["height"]
 
-                    human_prompt = PROMPT_TEMPLATE.format(
-                        question=question_text,
-                        question_type=question_type,
-                        answer_type=answer_type,
-                    )
+            sub_image = full_img.crop((left, top, right, bottom))
 
-                    image = Image.open(img_path.absolute())
+            for q_obj in q_list:
+                question_text = q_obj.get("question") or q_obj.get("questions")
+                question_type = q_obj.get("question_type", "")
+                answer_type = q_obj.get("answer_type", "")
 
-                    # Format matches inference usage pattern
-                    conversation = [
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "text", "text": human_prompt},
-                                {"type": "image", "image": image},
-                            ],
-                        }
-                    ]
+                human_prompt = PROMPT_TEMPLATE.format(
+                    question=question_text,
+                    question_type=question_type,
+                    answer_type=answer_type,
+                )
 
-                    samples.append(
-                        {
-                            "messages": conversation,
-                            # Retain metadata for writing predictions back to JSON
-                            "meta": {
-                                "sample_id": data["sample_id"],
-                                "sub_fig": sub_fig,
-                                "question_type": question_type,
-                                "answer_type": answer_type,
-                                "question": question_text,
-                            },
-                        }
-                    )
+                # 5. Format for inference (User role only)
+                conversation = [
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": human_prompt},
+                            {"type": "image", "image": sub_image},
+                        ],
+                    }
+                ]
 
-        except (json.JSONDecodeError, AttributeError):
-            pbar.set_description(f"Failed to load {json_file.name}")
-            raise
+                samples.append(
+                    {
+                        "messages": conversation,
+                        "meta": {
+                            "sample_id": data["sample_id"],
+                            "sub_fig": sub_fig,
+                            "question_type": question_type,
+                            "answer_type": answer_type,
+                            "question": question_text,
+                        },
+                    }
+                )
 
     return samples
 
@@ -184,8 +193,26 @@ FastVisionModel.for_inference(model)  # Enable for inference!
 # %%
 predictions = defaultdict(lambda: defaultdict(list))
 
+STATE_FILE = Path.cwd() / "state.json"
+if STATE_FILE.exists():
+    with open(STATE_FILE, "r") as f:
+        saved_state = json.load(f)
+
+    predictions = defaultdict(
+        lambda: defaultdict(list),
+        {k: defaultdict(list, v) for k, v in saved_state.items()},
+    )
+    print(f"Loaded existing state from {STATE_FILE}. Resuming inference...")
+else:
+    predictions = defaultdict(lambda: defaultdict(list))
+
 for sample in tqdm(dataset, desc="Running Inference"):
     meta = sample["meta"]
+
+    existing_answers = predictions.get(meta["sample_id"], {}).get(meta["sub_fig"], [])
+    if any(ans.get("question") == meta["question"] for ans in existing_answers):
+        continue
+
     messages_content = sample["messages"][0]["content"]
 
     image = messages_content[1]["image"]
@@ -228,6 +255,12 @@ for sample in tqdm(dataset, desc="Running Inference"):
             "answer": generated,
         }
     )
+
+    with open(STATE_FILE, "w") as f:
+        json.dump(predictions, f)
+
+if STATE_FILE.exists():
+    STATE_FILE.unlink()
 
 # %%
 submission = []
