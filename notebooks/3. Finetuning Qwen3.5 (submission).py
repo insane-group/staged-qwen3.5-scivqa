@@ -1,5 +1,5 @@
 # %% [markdown]
-# ### Unsloth Qwen3.5
+# # Creating our submission
 #
 # > Originally, adapted from [Qwen3_5_(0_8B)_Vision.ipynb](https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/Qwen3_5_(0_8B)_Vision.ipynb#scrollTo=gGFzmplrEy9I)
 #
@@ -26,7 +26,10 @@ from collections import defaultdict
 
 # %%
 LORA_CHECKPOINT = "Sci-ImageMiner-Qwen3.5-0.8B-LORA"
-SUBMISSION_PATH = Path.cwd() / "submission.json"
+
+BASE_DIR = Path.cwd()
+STATE_FILE = BASE_DIR / "submission_state.json"
+SUBMISSION_PATH = BASE_DIR / "submission.json"
 
 # %% [markdown]
 # <a name="Data"></a>
@@ -191,25 +194,25 @@ model, tokenizer = FastVisionModel.from_pretrained(
 FastVisionModel.for_inference(model)  # Enable for inference!
 
 # %%
-predictions = defaultdict(lambda: defaultdict(list))
+state = defaultdict(lambda: defaultdict(list))
 
-STATE_FILE = Path.cwd() / "state.json"
 if STATE_FILE.exists():
     with open(STATE_FILE, "r") as f:
         saved_state = json.load(f)
 
-    predictions = defaultdict(
+    state = defaultdict(
         lambda: defaultdict(list),
         {k: defaultdict(list, v) for k, v in saved_state.items()},
     )
     print(f"Loaded existing state from {STATE_FILE}. Resuming inference...")
 else:
-    predictions = defaultdict(lambda: defaultdict(list))
+    state = defaultdict(lambda: defaultdict(list))
 
+# %%
 for sample in tqdm(dataset, desc="Running Inference"):
     meta = sample["meta"]
 
-    existing_answers = predictions.get(meta["sample_id"], {}).get(meta["sub_fig"], [])
+    existing_answers = state.get(meta["sample_id"], {}).get(meta["sub_fig"], [])
     if any(ans.get("question") == meta["question"] for ans in existing_answers):
         continue
 
@@ -247,7 +250,7 @@ for sample in tqdm(dataset, desc="Running Inference"):
         skip_special_tokens=True,
     ).strip()
 
-    predictions[meta["sample_id"]][meta["sub_fig"]].append(
+    state[meta["sample_id"]][meta["sub_fig"]].append(
         {
             "question_type": meta["question_type"],
             "question": meta["question"],
@@ -257,10 +260,7 @@ for sample in tqdm(dataset, desc="Running Inference"):
     )
 
     with open(STATE_FILE, "w") as f:
-        json.dump(predictions, f)
-
-if STATE_FILE.exists():
-    STATE_FILE.unlink()
+        json.dump(state, f)
 
 # %%
 submission = []
@@ -272,7 +272,9 @@ for sample_id, sub_figs in predictions.items():
         }
     )
 
-# %%
 with SUBMISSION_PATH.open("w") as f:
     json.dump(submission, f, indent=2)
 print(f"Saved {len(submission)} samples to {SUBMISSION_PATH}")
+
+if STATE_FILE.exists():
+    STATE_FILE.unlink()

@@ -63,6 +63,7 @@ Make sure you:
 
 ### Main Technologies
 
+- [**Z3**](https://github.com/Z3Prover/z3): A high-performance theorem prover.
 - [**PyTorch Lightning**](https://lightning.ai/docs/pytorch/stable/starter/introduction.html): A lightweight wrapper for PyTorch that streamlines high-performance AI research. It serves as a structured framework for organizing PyTorch code.
 - [**Hydra**](https://hydra.cc/): A powerful configuration framework for managing complex applications. It enables dynamic composition of hierarchical configurations, allowing overrides via config files and the command line.
 

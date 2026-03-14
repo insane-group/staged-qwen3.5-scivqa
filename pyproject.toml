@@ -16,13 +16,13 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
+  "bert-score>=0.3.13",
   "bitsandbytes>=0.49.2",
-  "hydra-core>=1.3.2",
-  "matplotlib>=3.10.1",
   "numpy<3",
-  "pandas>=2.2.3",
   "pillow>=12.1.1",
-  "seaborn>=0.13.2",
+  "pyswip>=0.3.3",
+  "rouge-score>=0.1.2",
+  "scikit-learn>=1.8",
   "tensorboard>=2.19",
   "tokenizers>=0.22.2",
   "torch==2.8",
@@ -34,6 +34,7 @@ dependencies = [
   "unsloth[base]>=2026.3.3",
   "unsloth-zoo[base]>=2026.3.1",
   "xformers==0.0.32.post2",
+  "z3-solver>=4.16",
 ]
 
 [dependency-groups]
