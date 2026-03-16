@@ -27,9 +27,15 @@ from collections import defaultdict
 # %%
 LORA_CHECKPOINT = "Sci-ImageMiner-Qwen3.5-0.8B-LORA"
 
-BASE_DIR = Path.cwd()
-STATE_FILE = BASE_DIR / "submission_state.json"
-SUBMISSION_PATH = BASE_DIR / "submission.json"
+BASE_DIR = Path.cwd().parent
+CATEGORY = "dev"
+
+COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
+CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
+
+DATA_DIR = BASE_DIR / "data"
+STATE_FILE = BASE_DIR / f"submission_finetuning_{CATEGORY}_state.json"
+SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_{CATEGORY}.json"
 
 # %% [markdown]
 # <a name="Data"></a>
@@ -77,15 +83,6 @@ Strict requirements:
 
 Output your answer as plain text only, with no JSON, no labels, no code fences, and no surrounding text.
 """
-
-# %%
-BASE_DIR = Path.cwd().parent
-CATEGORY = "test"
-
-COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
-CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
-
-DATA_DIR = BASE_DIR / "data"
 
 
 # %%
@@ -264,7 +261,7 @@ for sample in tqdm(dataset, desc="Running Inference"):
 
 # %%
 submission = []
-for sample_id, sub_figs in predictions.items():
+for sample_id, sub_figs in state.items():
     submission.append(
         {
             "sample_id": sample_id,
