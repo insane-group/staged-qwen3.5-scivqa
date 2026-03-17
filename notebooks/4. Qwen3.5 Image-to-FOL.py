@@ -19,7 +19,6 @@ from unsloth import FastVisionModel
 
 import json
 from pathlib import Path
-import os
 
 from PIL import Image
 import warnings
@@ -44,8 +43,20 @@ from z3 import (
 from collections import defaultdict
 
 # %%
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
-MODEL_ID = "unsloth/Qwen3.5-9B"
+MODEL_ID = "unsloth/Qwen3.5-0.8B"
+ENABLE_THINKING = True
+
+# https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
+if ENABLE_THINKING:
+    TEMPERATURE = 0.6
+    MIN_P = 0.0
+    TOP_P = 0.95
+    TOP_K = 20
+else:
+    TEMPERATURE = 0.7
+    MIN_P = 0.01
+    TOP_P = 0.8
+    TOP_K = 20
 
 BASE_DIR = Path.cwd().parent
 CATEGORY = "train"
@@ -295,7 +306,9 @@ def query_qwen(image, instruction, tokenizer, model):
         }
     ]
 
-    input_text = tokenizer.apply_chat_template(messages, add_generation_prompt=True)
+    input_text = tokenizer.apply_chat_template(
+        messages, add_generation_prompt=True, enable_thinking=ENABLE_THINKING
+    )
     inputs = tokenizer(
         image,
         input_text,
@@ -305,9 +318,12 @@ def query_qwen(image, instruction, tokenizer, model):
 
     output_ids = model.generate(
         **inputs,
-        max_new_tokens=512,  # Increased for Z3 code blocks
+        max_new_tokens=1024,  # Increased for Z3 code blocks
         use_cache=True,
-        temperature=0.7,  # Lowered for more consistent code generation
+        temperature=TEMPERATURE,
+        min_p=MIN_P,
+        top_p=TOP_P,
+        top_k=TOP_K,
     )
 
     model_output = tokenizer.decode(
