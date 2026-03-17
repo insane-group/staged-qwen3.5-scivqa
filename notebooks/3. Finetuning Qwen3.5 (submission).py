@@ -27,7 +27,7 @@ from collections import defaultdict
 # %%
 LORA_CHECKPOINT = "Sci-ImageMiner-Qwen3.5-0.8B-LORA"
 ENABLE_THINKING = True
-MAX_NEW_TOKENS = 512
+MAX_NEW_TOKENS = 256
 
 # https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
 if ENABLE_THINKING:
