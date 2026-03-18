@@ -44,19 +44,13 @@ from collections import defaultdict
 
 # %%
 MODEL_ID = "unsloth/Qwen3.5-0.8B"
-ENABLE_THINKING = True
 
 # https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
-if ENABLE_THINKING:
-    TEMPERATURE = 0.6
-    MIN_P = 0.0
-    TOP_P = 0.95
-    TOP_K = 20
-else:
-    TEMPERATURE = 0.7
-    MIN_P = 0.01
-    TOP_P = 0.8
-    TOP_K = 20
+ENABLE_THINKING = False
+TEMPERATURE = 0.7
+MIN_P = 0.01
+TOP_P = 0.8
+TOP_K = 20
 
 BASE_DIR = Path.cwd().parent
 CATEGORY = "train"
