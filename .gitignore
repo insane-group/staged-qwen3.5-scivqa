@@ -182,7 +182,7 @@ cython_debug/
 lightning_logs/
 ALD-E-ImageMiner/
 outputs/
-Sci-ImageMiner-Qwen3.5-0.8B-LORA*
+Sci-ImageMiner-Qwen3.5-*B-LORA-*
 unsloth_compiled_cache/
 notebooks/nohup.out
 notebooks/*.json
