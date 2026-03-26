@@ -21,6 +21,7 @@ dependencies = [
   "llguidance>=1.7",
   "numpy<3",
   "outlines>=1.2.12",
+  "pandas>=3.0.1",
   "pillow>=12.1.1",
   "pyswip>=0.3.3",
   "rouge-score>=0.1.2",

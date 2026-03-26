@@ -29,7 +29,7 @@ from transformers import TextStreamer
 from trl import SFTConfig, SFTTrainer
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-0.8B"
+MODEL_ID = "unsloth/Qwen3.5-4B"
 MAX_NEW_TOKENS = 256
 NUM_TRAIN_EPOCHS = 2
 
@@ -77,32 +77,93 @@ model, tokenizer = FastVisionModel.from_pretrained(
 # ```
 
 # %%
-PROMPT_TEMPLATE = """
+PROMPT_YES_NO = """
 <image>
 
 Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
 
 Question type: {question_type}
-Answer type: {answer_type}
 Question: {question}
 
 Strict requirements:
+1. Identify the main variables shown (axes, units, and any legend information).
+2. Ignore decorative graphics, schematics, arrows, and background elements.
+3. Use the provided caption/context only to support interpretation when necessary.
+4. Do not speculate or infer beyond what is visually supported.
+5. Output plain text only, with no JSON, no code fences, and no surrounding explanatory text.
+6. Output your answer STRICTLY as "Yes" or "No" (title case).
 
-1. Detect each distinct plot (subfigure a, b, c, etc.).
-2. Process only valid chart regions (axes, ticks, labels, legends, plotted data).
-3. Ignore decorative graphics, schematics, arrows, background elements, and repeated fragments.
-4. Answer based only on visible chart data and annotations.
-5. Do not speculate beyond the visual evidence.
-6. Strictly follow the answer type format:
-   - "Yes/No": respond with only "yes" or "no".
-   - "Factoid": concise term or short phrase only.
-   - "List": comma-separated values only (order-insensitive).
-   - "Paragraph": at least three sentences of explanation.
-7. For comparative or trend questions, reference only observable relationships.
-8. No stylistic commentary or extraneous explanations.
-
-Output your answer as plain text only, with no JSON, no labels, no code fences, and no surrounding text.
+Example:
+Yes
 """
+
+PROMPT_FACTOID = """
+<image>
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+
+Question type: {question_type}
+Question: {question}
+
+Strict requirements:
+1. Identify the main variables shown (axes, units, and any legend information).
+2. Ignore decorative graphics, schematics, arrows, and background elements.
+3. Use the provided caption/context only to support interpretation when necessary.
+4. Do not speculate or infer beyond what is visually supported.
+5. Output plain text only, with no JSON, no code fences, and no surrounding explanatory text.
+6. Output your answer STRICTLY as a concise term or short phrase.
+
+Example:
+The feature corresponds to an interband electronic transition or optical absorption edge.
+"""
+
+PROMPT_LIST = """
+<image>
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+
+Question type: {question_type}
+Question: {question}
+
+Strict requirements:
+1. Identify the main variables shown (axes, units, and any legend information).
+2. Ignore decorative graphics, schematics, arrows, and background elements.
+3. Use the provided caption/context only to support interpretation when necessary.
+4. Do not speculate or infer beyond what is visually supported.
+5. Output plain text only, with no JSON, no bullet points, no numbered lists, no code fences, and no surrounding explanatory text.
+6. Output your answer STRICTLY as comma-separated values (order-insensitive).
+
+Example:
+Absence of pits or voids, Smooth and continuous surface, Lack of corrosive attack patterns, Reduced by-product interaction with copper
+"""
+
+PROMPT_PARAGRAPH = """
+<image>
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+
+Question type: {question_type}
+Question: {question}
+
+Strict requirements:
+1. Identify the main variables shown (axes, units, and any legend information).
+2. Ignore decorative graphics, schematics, arrows, and background elements.
+3. Use the provided caption/context only to support interpretation when necessary.
+4. Do not speculate or infer beyond what is visually supported.
+5. Output plain text only, with no JSON, no bullet points, no numbered lists, no code fences, and no surrounding explanatory text.
+6. Output your answer STRICTLY as a paragraph containing at least 3 sentences providing an explanatory answer.
+
+Example:
+Multiple well-defined interfaces, Alternating high-contrast layers, Disruption of continuous grain boundaries, Uniform nanometer-scale layer thickness
+"""
+
+# %%
+PROMPTS = {
+    "Yes/No": PROMPT_YES_NO,
+    "Factoid": PROMPT_FACTOID,
+    "List": PROMPT_LIST,
+    "Paragraph": PROMPT_PARAGRAPH,
+}
 
 
 # %%
@@ -167,10 +228,9 @@ def load_dataset(case_dir: Path) -> list[dict]:
                 question_type = q_obj.get("question_type", "")
                 answer_type = q_obj.get("answer_type", "")
 
-                human_prompt = PROMPT_TEMPLATE.format(
+                human_prompt = PROMPTS[answer_type].format(
                     question=question_text,
                     question_type=question_type,
-                    answer_type=answer_type,
                 )
 
                 gt_response = q_obj.get("answer", "")
@@ -265,7 +325,9 @@ FastVisionModel.for_training(model)  # Enable for training!
 trainer = SFTTrainer(
     model=model,
     tokenizer=tokenizer,
-    data_collator=UnslothVisionDataCollator(model, tokenizer),  # Must use!
+    data_collator=UnslothVisionDataCollator(
+        model, tokenizer, max_seq_length=4096, resize="max"
+    ),  # https://github.com/unslothai/unsloth/issues/2764
     train_dataset=dataset,
     args=SFTConfig(
         per_device_train_batch_size=2,
@@ -285,7 +347,7 @@ trainer = SFTTrainer(
         remove_unused_columns=False,
         dataset_text_field="",
         dataset_kwargs={"skip_prepare_dataset": True},
-        max_length=2048,
+        max_length=4096,
     ),
 )
 

@@ -1,0 +1,949 @@
+[
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_5",
+    "summarization": {
+      "a": "The figure shows the etch per cycle (\u00c5/cycle) of Al\u2082O\u2083 as a function of etch temperature for NbF\u2085 + CCl\u2084 (3/6/3/6s) and CCl\u2084 (3/6s)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_7",
+    "summarization": {
+      "a": "The figure shows the atomic percentage of C, O, F, Al, and Nb as a function of sputter time for a sample that has been subjected to 3/6 x 150 cycles at 460 \u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_2",
+    "summarization": {
+      "a": "The line chart shows the etch per cycle [\u00c5/cycle] as a function of NbF5 pulse time at 460\u00b0C. The etch rate increases with increasing pulse time."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_8",
+    "summarization": {
+      "a": "The figure shows the atomic percentages of C 1s, O 1s, F 1s, Al 2p, Nb 3d, and Cl 2p as a function of sputter time."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_6",
+    "summarization": {
+      "a": "The figure shows the etched thickness of Al\u2082O\u2083, SiO\u2082, and Si\u2083N\u2084 as a function of etch cycles at 460\u00b0C using NbF\u2085/N\u2082/CCl\u2084. Al\u2082O\u2083 is etched linearly with etch cycles, while SiO\u2082 and Si\u2083N\u2084 show no etching."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_4",
+    "summarization": {
+      "a": "The line chart shows the etch per cycle (\u00c5/cycle) as a function of CCl\u2084 pulse time at 460\u00b0C for NbF\u2085 + CCl\u2084 (3/6/X/6s). The etch rate remains nearly constant at ~1.1 \u00c5/cycle for pulse times up to 1.75 s, then increases to ~1.4 \u00c5/cycle at 3 s, indicating a self-limiting etch process."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_10",
+    "summarization": {
+      "a": "The figure shows the Gibbs free energy change (\u0394G) of various reactions as a function of temperature."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/30/figure_11",
+    "summarization": {
+      "a": "The figure shows the Gibbs free energy change (\u0394G) of various reactions as a function of temperature."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/22/fig_8",
+    "summarization": {
+      "a": "The timeline chart illustrates the evolution of atomic layer etching (ALE) technology from 1988 to 2014, highlighting key milestones and advancements in the field."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/22/fig_3",
+    "summarization": {
+      "a": "The bar chart shows the number of ALE reports per year from 1988 to 2014. The first wave of publications occurred in the 1990s. A resurgence of ALE activity is now occurring."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_1",
+    "summarization": {
+      "a": "The figure shows the F fraction (%) as a function of height h (\u00c5) for different numbers of CF2+ impacts."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_10",
+    "summarization": {
+      "a": "The line chart shows the number of atoms of F and C as a function of time for 10 eV.",
+      "b": "The figure shows the number of atoms of F and C as a function of the number of CF2+ ion impacts at 20 eV."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_2",
+    "summarization": {
+      "a": "The line chart shows the number of atoms of F and C as a function of the number of CF2+ ion impacts. The number of F atoms increases with the number of CF2+ ion impacts, while the number of C atoms remains relatively constant."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_12",
+    "summarization": {
+      "a": "The figure shows the fraction of fluorine removed from a silicon sample as a function of Ar ion impacts for different ion energies (20 eV, 30 eV, and 40 eV). The curves show that higher ion energy leads to faster fluorine removal.",
+      "b": "The figure shows the number of sputtered Si atoms as a function of the number of Ar\u207a ion impacts for different ion energies (20 eV, 30 eV, and 40 eV). The sputtering increases with the number of ion impacts and is higher for higher ion energies."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_8",
+    "summarization": {
+      "a": "The figure shows the side view of the SiO2 sample after bombardment by Ar+ ions of energies of 20 eV and 40 eV. This sample had initially a fluorocarbon overlayer grown using 20 eV CF3+ ions (400 impacts).",
+      "b": "The figure shows the side view of the SiO2 sample after bombardment by Ar+ ions of energies of 20 eV and 40 eV. This sample had initially a fluorocarbon overlayer grown using 20 eV CF3+ ions (400 impacts)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_13",
+    "summarization": {
+      "a": "The figure shows the F density as a function of sample height in the Si sample with the fluorocarbon overlayer (10 eV CF2+, 300 impacts). Results have been plotted for the initial sample and after 300 and 600 Ar+ ion impacts. Ar+ ion energies are 20 eV.",
+      "b": "The figure shows the F density as a function of sample height in the Si sample with the fluorocarbon overlayer (10 eV CF2+, 300 impacts). Results have been plotted for the initial sample and after 300 and 1000 Ar+ ion impacts. Ar+ ion energies are 40 eV."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_7",
+    "summarization": {
+      "a": "The figure shows the F density (atoms/A\u00b3) as a function of height (\u00c5) for a SiO\u2082 sample with a fluorocarbon overlayer grown using CF\u2083\u207a ions (400 impacts) at 50 eV. The initial sample has a high F density that decreases with height. After 200 Ar\u207a impacts, the F density decreases significantly. After 400 Ar\u207a impacts, the F density is further reduced.",
+      "b": "The figure shows the F density (atoms/A\u00b3) as a function of the number of Ar\u207a impacts for different ion energies (20 eV, 200 Ar\u207a impacts, 400 Ar\u207a impacts) on an initial sample."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_4",
+    "summarization": {
+      "a": "The line chart shows the number of atoms of F and C as a function of the number of CF3+ ion impacts."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/05d40bf8e4185a7d637c9c609c63dc088ef74db80781baadd53a09a35b0b7607",
+    "summarization": {
+      "a": "The figure shows the atomic structure of a SiO\u2082 surface after bombardment with CF\u2083\u207a ions at 20 eV for 200 impacts.",
+      "b": "The figure shows the atomic structure of a SiO\u2082 surface after CF\u2083\u207a ion bombardment at 20 eV for 400 impacts. The surface is heavily modified, with many fluorine and carbon atoms incorporated into the top layers."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/531fd5bc67740324af3ef5f33b6ab08029b469d0484592d03ac76a6ba17c0830",
+    "summarization": {
+      "a": "The figure shows a series of atomic-scale images of a silicon oxide surface under different conditions.",
+      "b": "The figure shows the surface morphology of a material after 100 and 200 impacts of CF2+ ions at 20 eV.",
+      "c": "The figure shows the evolution of a fluorocarbon layer on a SiO\u2082 surface under increasing ion bombardment. The fluorocarbon layer grows and densifies with more impacts, eventually reaching a quasi-steady state."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_11",
+    "summarization": {
+      "a": "The figure shows the F density as a function of sample height in the Si sample with the fluorocarbon overlayer. Results have been plotted for 100, 300, and 600 eV ion impacts on the initial crystalline sample. CF2+ ion energies are 10 eV.",
+      "b": "The figure shows the F density as a function of height for 30 eV ion impacts."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_14",
+    "summarization": {
+      "a": "The figure shows a sequence of atomic-scale simulations of silicon (Si) surface evolution under ion bombardment at different energies. At 20 eV, the surface exhibits a relatively ordered structure with minimal disruption. As the ion energy increases to 40 eV, the surface becomes more disordered, with increased mixing and displacement of atoms, indicating enhanced sputtering and surface damage. The progression illustrates how increasing ion energy affects surface morphology and structural integrity.",
+      "b": "The figure shows the final atomic configuration of the Si surface after bombardment by 1000 Ar\u207a ions with energies of 20 eV and 40 eV. The initial Si surface has a fluorocarbon overlayer grown using 10 eV CF\u2082\u207a ions (300 impacts)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_6",
+    "summarization": {
+      "a": "The figure shows the number of sputtered O atoms as a function of the number of Ar ion impacts for different ion energies (20 eV, 40 eV, and 50 eV).",
+      "b": "The figure shows the number of sputtered Si and O atoms as a function of the number of Ar\u207a ion impacts for different ion energies (20 eV, 40 eV, and 50 eV)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/simulation-usecase/1/fig_9",
+    "summarization": {
+      "a": "The figure shows the evolution of a Si surface under CF\u2082\u207a ion bombardment at different energies (10, 20, and 30 eV). At 10 eV, the surface remains largely intact with a thin fluorocarbon layer forming. At 20 eV, the fluorocarbon layer thickens and begins to penetrate the Si lattice. At 30 eV, significant Si etching is observed, with deeper penetration and disruption of the crystalline structure.",
+      "b": "The figure shows the evolution of a silicon surface under increasing CF\u2082\u207a ion bombardment energy, with corresponding changes in surface morphology and fluorocarbon layer thickness.",
+      "c": "The figure shows the evolution of a Si surface under CF\u2082\u207a ion bombardment at different energies (10, 20, and 30 eV), illustrating increasing fluorocarbon layer thickness and Si etching with higher ion energy.",
+      "d": "The figure shows the evolution of a Si surface under CF\u2082\u207a ion bombardment at 30 eV, with increasing ion impact leading to progressive fluorocarbon layer formation and surface roughening."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_9",
+    "summarization": {
+      "a": "The figure shows the Al\u2082O\u2083 film thickness as a function of the number of cycles for Al\u2082O\u2083 ALE at 300 \u00b0C. The data are presented for two different initial Al\u2082O\u2083 films grown at 300 \u00b0C and 200 \u00b0C. The thickness decreases linearly with the number of cycles, indicating a constant etch rate."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_12",
+    "summarization": {
+      "a": "The figure shows the absorbance spectra of TMA and HF at 300\u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_5",
+    "summarization": {
+      "a": "The figure shows the mass change over time for Al\u2082O\u2083 ALE at different temperatures."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_7",
+    "summarization": {
+      "a": "The figure shows the mass changes during TMA and HF exposures at 250\u00b0C.",
+      "b": "The figure shows the mass changes during TMA and HF exposures at 275\u00b0C.",
+      "c": "The figure shows the mass changes over time during the sequential TMA and HF exposures at 325\u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_2",
+    "summarization": {
+      "a": "The figure shows the mass change over time during the sequential TMA and HF exposures at 300\u00b0C on Al\u2082O\u2083."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_3",
+    "summarization": {
+      "a": "The figure shows the mass change per cycle (MCPC) and the mass change after HF exposure (\u0394M_HF) versus the number of cycles at 300\u00b0C on Al\u2082O\u2083.",
+      "b": "The scatter plot shows the ratio of \u0394M_TMA / MCPC against the number of cycles. The data points are scattered around a value of approximately 2.0."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_8",
+    "summarization": {
+      "a": "The figure shows the change in mass (\u0394M) for TMA and HF reactions at different temperatures.",
+      "b": "The line chart shows the relationship between temperature and MCPC (mass change per cycle) for Al\u2082O\u2083 ALE. The MCPC decreases as the temperature increases."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_13",
+    "summarization": {
+      "a": "The figure illustrates a proposed reaction mechanism for Al\u2082O\u2083 atomic layer etching (ALE), showing the surface chemistry during HF and TMA exposures.",
+      "b": "The figure illustrates a proposed reaction mechanism for Al\u2082O\u2083 atomic layer etching (ALE), showing the fluorination and ligand-exchange steps."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_1",
+    "summarization": {
+      "a": "The line chart shows the mass change over time at 300\u00b0C on Al\u2082O\u2083, with a linear decrease from 0 to -1500 ng/cm\u00b2 over 6000 seconds."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_6",
+    "summarization": {
+      "a": "The figure shows the mass change over time during the ALE of Al\u2082O\u2083 at different temperatures."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_4",
+    "summarization": {
+      "a": "The figure shows the change in mass (\u0394M_TMA) as a function of TMA exposure time at 300\u00b0C.",
+      "b": "The figure shows the change in mass (\u0394M_HF) as a function of HF exposure time at 300\u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/c466ef032e36d8a6b1b99692843b6c50f4f3f7ca51d12676e6844eb1f694e786",
+    "summarization": {
+      "a": "The figure illustrates the atomic layer etching (ALE) of Al\u2082O\u2083 using trimethylaluminum (TMA) and HF. The left panel shows the initial Al\u2082O\u2083 film, while the right panel depicts the etched surface after HF and TMA exposure.",
+      "b": "The figure illustrates the atomic layer etching (ALE) of Al\u2082O\u2083 using trimethylaluminum (TMA) and HF. The process involves sequential self-limiting thermal reactions, where the Al\u2082O\u2083 film is first fluorinated by HF and then ligand-exchanged with TMA to produce volatile AlF(CH\u2083)\u2082 and H\u2082O. The resulting Al\u2082O\u2083 etching rate increases with temperature, as shown by the mass change per cycle (MCPC) values."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_10",
+    "summarization": {
+      "a": "The figure shows the absorbance of Al\u2082O\u2083 films at different ALE cycles."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/24/figure_11",
+    "summarization": {
+      "a": "The figure shows FTIR difference spectra for TMA and HF exposures on Al\u2082O\u2083 at 300\u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_1",
+    "summarization": {
+      "a": "The figure illustrates the thermal ALE cycle, showing the sequential half-reactions (A and B) that occur during one complete cycle.",
+      "b": "The figure illustrates the four steps of a typical ALD cycle, showing the adsorption of precursors, purging, adsorption of co-reactants, and purging to achieve atomic layer addition."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_2",
+    "summarization": {
+      "a": "The figure illustrates a proposed reaction mechanism for thermal atomic layer etching (ALE) of Al\u2082O\u2083 thin films using HF and TMA as reactants. The process involves sequential fluorination and ligand-exchange reactions. Fluorination converts Al\u2082O\u2083 to AlF\u2083, followed by ligand-exchange where TMA reacts with AlF\u2083 to form volatile AlF(CH\u2083)\u2082, enabling etching.",
+      "b": "The figure illustrates a proposed reaction mechanism for thermal atomic layer etching (ALE) of Al\u2082O\u2083 thin films using HF and TMA as reactants. It shows the fluorination and ligand-exchange reactions that occur during the process."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_8",
+    "summarization": {
+      "a": "The figure illustrates a proposed reaction mechanism for thermal atomic layer etching (ALE) of tungsten (W) thin films using O\u2082/O\u2083, BCl\u2083, and HF. The process involves oxidation of W to WO\u2083, conversion of WO\u2083 to B\u2082O\u2083 with volatile WO\u2093Cl\u1d67 byproducts, and final fluorination of B\u2082O\u2083 by HF to form volatile BF\u2083 and H\u2082O.",
+      "b": "The figure illustrates a proposed reaction mechanism for thermal atomic layer etching (ALE) of tungsten (W) thin films using O\u2082/O\u2083, BCl\u2083, and HF as reactants.",
+      "c": "The figure illustrates a proposed reaction mechanism for thermal atomic layer etching (ALE) of tungsten (W) thin films using O\u2082/O\u2083, BCl\u2083, and HF. The process involves oxidation of W to WO\u2083, conversion to B\u2082O\u2083, and fluorination to volatile products such as BF\u2083 and H\u2082O."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_3",
+    "summarization": {
+      "a": "The figure illustrates a proposed reaction mechanism for Al\u2082O\u2083 thermal atomic layer etching (ALE), showing the interaction of Sn(acac)\u2082 and HF with the Al\u2082O\u2083 film.",
+      "b": "The figure illustrates a two-step etching process involving HF and Sn(acac)\u2082 on an Al\u2082O\u2083 film. In the first step, Sn(acac)\u2082 reacts with the Al\u2082O\u2083 surface, while in the second step, HF reacts with the modified surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_7",
+    "summarization": {
+      "a": "The figure illustrates a schematic of a thermal atomic layer etching (ALE) process for ZnO thin films. The process involves the use of HF as a reactant, leading to the formation of AlF\u2083 and Al\u2082O\u2083.",
+      "b": "The figure illustrates a thermal atomic layer etching (ALE) process for ZnO thin films using HF and TMA. The initial stack includes AlF\u2083, Al\u2082O\u2083, and ZnO layers. After TMA exposure, the AlF\u2083 and Al\u2082O\u2083 layers are removed, leaving only the ZnO layer."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_4",
+    "summarization": {
+      "a": "The figure shows the change in mass per cycle (\u0394M_TMA) as a function of TMA exposure time at 300\u00b0C.",
+      "b": "The line chart shows the change in mass per cycle (\u0394M_HF) as a function of HF exposure time at 300\u00b0C. The mass change increases with increasing HF exposure time, reaching a steady state around 1.0 s.",
+      "c": "The figure shows the change in mass (\u0394M) of Al\u2082O\u2083 and SiO\u2082 films during thermal ALE using TMA and HF as reactants. The \u0394M_TMA and \u0394M_HF values are plotted against the number of cycles.",
+      "d": "The line chart shows the mass change per cycle (MCPC) of Al\u2082O\u2083 films as a function of temperature."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_6",
+    "summarization": {
+      "a": "The figure illustrates a proposed reaction mechanism for TMA/HF thermal ALE of SiO\u2082 thin films."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_5",
+    "summarization": {
+      "a": "The figure shows the film thickness of various materials (TiN, SiO\u2082, Si\u2083N\u2084, HfO\u2082, Al\u2082O\u2083, ZrO\u2082) as a function of the number of cycles for the metal ALE process using fluorination and ligand-exchange reactions.",
+      "b": "The figure shows the film thickness of various materials as a function of the number of cycles for TMA at 300\u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig_9",
+    "summarization": {
+      "a": "The figure illustrates a schematic of TiN atomic layer etching (ALE) using ozone (O\u2083) and HF as reactants. The oxidation of Ti\u00b3\u207a to Ti\u2074\u207a occurs during the O\u2083 exposure, followed by fluorination with HF. This process is depicted as a two-step mechanism involving O\u2083 and NO\u2093 or N\u2082 as byproducts.",
+      "b": "The figure illustrates a schematic of TiN atomic layer etching (ALE) using ozone (O\u2083) and hydrofluoric acid (HF) as reactants. The process involves oxidation of TiN by O\u2083 and subsequent fluorination by HF, leading to the formation of volatile TiF\u2084 and H\u2082O, which are removed from the surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/19/fig10",
+    "summarization": {
+      "a": "The figure shows the film thickness of various materials as a function of the number of cycles."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/15/fig_3",
+    "summarization": {
+      "a": "The bar chart shows the number of ALE reports per year from 1988 to 2014. There is a first wave of publications in the 1990s, followed by a resurgence in the 2010s."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/15/fig_6",
+    "summarization": {
+      "a": "The figure illustrates the energy scan for the ALE removal step, showing the relationship between EPC and removal energy."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/10/fig_7",
+    "summarization": {
+      "a": "The figure shows the thickness change of SiO\u2082 and Al\u2082O\u2083 films as a function of ALE cycles at 300 \u00b0C. The SiO\u2082 film shows negligible thickness change, while the Al\u2082O\u2083 film shows a linear decrease in thickness with increasing cycles.",
+      "b": "The figure shows the absorbance spectra of Al\u2082O\u2083 and SiO\u2082 films after exposure to Hhfac."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/10/fig_6",
+    "summarization": {
+      "a": "The figure shows the thickness change of HfO\u2082 films during HfO\u2082 ALE as a function of the number of HfO\u2082 pulses."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/10/fig_5",
+    "summarization": {
+      "a": "The figure shows the etch per cycle (EPC) as a function of the number of Hhfac pulses.",
+      "b": "The figure shows the EPC (nm) as a function of H\u2082 plasma exposure time (s)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/5/figure_5",
+    "summarization": {
+      "a": "The figure shows the etch depth of InGaAs as a function of acceleration grid voltage.",
+      "b": "The figure shows the etch depth of InGaAs as a function of Ar\u207a ion desorption time for two different acceleration voltages (10 V and 30 V). The etch depth increases with increasing desorption time, with the etch rate being higher for the 30 V case."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/5/figure_7",
+    "summarization": {
+      "a": "The figure shows the atomic percentage of In, Ga, As, C, and Rq for Ref, ALE, and RIE."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/5/figure_2",
+    "summarization": {
+      "a": "The figure shows the atomic percentage of In, Ga, As, and Cl on the InGaAs surface as a function of Cl adsorption time. The In, Ga, and As atomic percentages remain relatively constant, while the Cl atomic percentage increases with adsorption time and saturates at about 16%."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/5/figure_3",
+    "summarization": {
+      "a": "The figure shows the etch depth of InGaAs as a function of the first grid voltage (acceleration grid voltage) of the ICP ion gun for chlorine species (ions/radicals) exposure time of 15 min.",
+      "b": "The figure shows the etch depth of InGaAs as a function of chlorine species exposure time for two different acceleration voltages (15V and 10V). The etch depth increases with exposure time for both voltages, but the rate of increase is higher for 15V."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/5/figure_6",
+    "summarization": {
+      "a": "The figure shows the etch depth and etch rate of InGaAs as a function of the number of ALE cycles. The etch depth increases linearly with the number of cycles, while the etch rate remains constant at approximately 1.1 \u00c5/cycle."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-etching/experimental-usecase/5/figure_4",
+    "summarization": {
+      "a": "The figure shows the etch depth of InGaAs and other materials as a function of Ar\u207a ion exposure time."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/58/figure_9",
+    "summarization": {
+      "a": "The figure shows the reaction pathway for the oxidation of the third Si\u2013H bond to form a \u2013Si(OH)\u2083 group. The reaction proceeds through an initial state (R3), transition state (TS3), and final product (P3). The activation barrier is 10.5 kcal/mol, and the reaction is strongly exothermic, with a thermochemical energy of \u2013109.9 kcal/mol. The ground electronic states of R3 and TS3 are singlet, while the ground state of the final product P3 is triplet."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/58/figure_12",
+    "summarization": {
+      "a": "The figure shows the energy profile of three different reaction pathways (Path(a), Path(b), and Path(c)) for a chemical reaction. The energy is plotted against the reaction pathway, with the transition state (TS) and product (P) states indicated."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/58/figure_7",
+    "summarization": {
+      "a": "The figure shows the energy profiles of three different reaction pathways (Path(a), Path(b), and Path(c)) for the elimination of H2 during the oxidation of a SiH3 species. The energy is plotted against the reaction pathway, with the transition state (TS) and product (P) states indicated. The activation energies and reaction energies are shown for each pathway."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/58/figure_13",
+    "summarization": {
+      "a": "The figure shows the energy profile of the DSBAS dissociation reaction, with the transition state (TS) and products (OH* and SiH\u2083) at different energy levels."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/58/figure_4",
+    "summarization": {
+      "a": "The figure shows the energy profile of the dissociative chemisorption of DSBAS on the hydroxylated SiO\u2082(001) surface. The reaction proceeds through a transition state (TS) and forms a product (P) with a significant energy drop. The overall reaction is exothermic, with the product energy being lower than the reactant energy."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig3",
+    "summarization": {
+      "a": "The figure shows the transition state and product structures for the methyl transfer reaction during the first ALD cycle on graphene.",
+      "b": "The figure shows the release of Me2 from the complex.",
+      "c": "The figure shows the release of CH4 from the surface.",
+      "d": "The figure shows the structures of various Pt precursors and products on graphene."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig9",
+    "summarization": {
+      "a": "The figure shows the minimum energy paths for the reaction 2(C\u2013O)* + Pt(acac)\u2082 \u2192 C\u2013O\u2013Ptacac* + acac* on epoxydated and hydroxylated graphene oxide surfaces. The reaction energy profile is depicted as a function of the reaction coordinate, with the transition state and intermediate species highlighted. The activation energy (\u0394E\u2090) is 4.46 eV, and the reaction energy (\u0394E\u1d63) is 1.48 eV.",
+      "b": "The figure shows the minimum energy paths for the reaction 2 C\u2013OH* + Pt(acac)\u2082 \u2192 C\u2013O\u2013Ptacac* + Hacac* on hydroxylated graphene oxide. The reaction proceeds through a stable intermediate where two adjacent hydroxyl groups are coordinated to Pt, followed by ligand dissociation and release of Hacac*. The overall reaction is thermodynamically favorable, with a final energy of \u22120.86 eV relative to the separated reactants."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig2",
+    "summarization": {
+      "a": "The figure shows the structure of pristine graphene (PG) and defective graphene (DG) with different types of defects.",
+      "b": "The figure shows the monovacancy model of graphene.",
+      "c": "The figure shows the top and side views of pristine and defective graphene models.",
+      "d": "The figure shows the top and side views of the graphene model with 558 grain boundaries (GB).",
+      "e": "The figure shows the top and side views of the model systems for pristine and defective graphenes.",
+      "f": "The figure shows the top and side views of the model systems for pristine and defective graphenes."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig_7",
+    "summarization": {
+      "a": "The figure shows the lowest-energy adsorbed states of two precursors, MeCpPtMe\u2083 and Pt(acac)\u2082, on single-sided epoxydated GO. For each precursor, the panels display the corresponding physisorbed and chemisorbed configurations together with the associated energy values.",
+      "b": "The figure shows the lowest-energy adsorbed states of MeCpPtMe\u2083 and Pt(acac)\u2082 on hydroxylated and epoxy-terminated GO surfaces, with relative energies indicated in brackets.",
+      "c": "The figure shows ball-and-stick representations of the lowest-energy physisorbed and chemisorbed species of MeCpPtMe\u2083 and Pt(acac)\u2082 on selected graphene oxide models. The relative energies with respect to the separated species are given in brackets. Colour code, C: brown; O: red; H: pink-white; Pt: grey. Hydrogen bonds are represented by black dashed lines."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig4",
+    "summarization": {
+      "a": "The figure shows the minimum energy paths for the reaction of (C-C)* + MeCpPtMe3 \u2192 C-MeCpPtMe2 + Me2(g) and (C-C)* + MeCpPtMe3 \u2192 C-MeCpPtMe + Me2(g) at the PBE-D3 level. The reaction coordinate is shown on the x-axis and the energy is shown on the y-axis. The figure also shows the structures of the reactants and products.",
+      "b": "The figure shows the minimum energy paths for the reaction of (C-C)* + Me\u2083CpPtMe\u2083 \u2192 C-MeCpPtCH\u2083* + CH\u2084(g) with \u0394E\u2090 = 1.38 eV and \u0394E\u1d63 = 0.63 eV.",
+      "c": "The figure shows the minimum energy paths for the reaction of (C-C)* + Pt(acac)2 \u2192 (C-C)-Pt-acac* + acac* with \u0394E = 4.14 eV and \u0394E = 3.80 eV."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig_11",
+    "summarization": {
+      "a": "The figure illustrates the chemisorption mechanisms of two different precursors, MeCpPtMe\u2083 and Pt(acac)\u2082, on various graphene surfaces, including pristine and functionalized surfaces.",
+      "b": "The figure illustrates the proposed chemisorption mechanisms of  MeCpPtMe\u2083 and Pt(acac)\u2082 on various graphene surfaces, including pristine and functionalized graphene."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig_6",
+    "summarization": {
+      "a": "The figure shows the ball-and-stick representation of the models (supercells) used for simulating graphene oxide in the current DFT calculations.",
+      "b": "The figure shows the double-sided epoxydated graphene oxide (GO) model used in DFT simulations. Both sides of the graphene sheet are decorated with epoxy groups, and the structure is shown in a ball-and-stick representation.",
+      "c": "The figure shows a ball-and-stick representation of the hydroxylated GO (single-sided) model.",
+      "d": "The figure shows a ball-and-stick representation of the hydroxylated graphene oxide (GO) double-sided model used in DFT simulations. The structure displays a hexagonal carbon lattice decorated with hydroxyl groups on both sides.",
+      "e": "The figure shows the molecular structure of graphene oxide with epoxy, hydroxyl, and hydrogen groups.",
+      "f": "The figure shows a ball-and-stick representation of the mixture model with random distribution of functional groups.",
+      "g": "The figure shows the ball-and-stick representation of the models (supercells) used for simulating graphene oxide in the current DFT calculations.",
+      "h": "The figure shows a ball-and-stick representation of the epoxy-doped graphene oxide (GO) double-sided model used in DFT simulations. The structure displays a graphene sheet with epoxy groups attached to both sides, along with hydroxyl and oxygen-containing functional groups. The color-coded atoms (C, O, H, Pt) illustrate the atomic arrangement and doping configuration."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig_5",
+    "summarization": {
+      "a": "The figure shows the ball-and-stick representation of the lowest-energy chemisorbed MeCpPtMe3 species on various graphene surfaces. The relative energies with respect to the separated species are given in brackets. The color code is as follows: C: brown; O: red; H: pink-white; Pt: grey.",
+      "b": "The figure shows the ball-and-stick representation of the lowest-energy chemisorbed MeCpPtMe3 species on graphene surfaces with 585 DVP defects, with energies of -0.91 eV.",
+      "c": "The figure shows the lowest-energy chemisorbed MeCpPtMe3 species on various graphene surfaces, with relative energies given in brackets.",
+      "d": "The figure shows the ball-and-stick representation of the lowest-energy chemisorbed MeCpPtMe3 species on various graphene surfaces. The relative energies with respect to the separated species are given in brackets. The color code is as follows: C: brown; O: red; H: pink-white; Pt: grey.",
+      "e": "The figure shows the ball-and-stick representation of the lowest-energy chemisorbed MeCpPtMe3 species on various graphene surfaces. The relative energies with respect to the separated species are given in brackets. The color code is as follows: C: brown; O: red; H: pink-white; Pt: grey.",
+      "f": "The figure shows the hydrogenated graphene model with a binding energy of 0.38 eV."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig8",
+    "summarization": {
+      "a": "The figure shows the minimum energy paths for the reaction of 2(C-O)* + Pt(acac)2 \u2192 C-O-Ptacac* + acac* on epoxydated and hydroxylated graphene oxide. The reaction energy (\u0394E) is 4.46 eV and the activation energy (\u0394E\u2021) is 1.48 eV.",
+      "b": "The figure shows the minimum energy paths for the reaction 2(C\u2013OH)* + MeCpPtMe\u2083 \u2192 C\u2013O\u2013MeCpPtMe\u2082* + CH\u2084* on hydroxylated graphene oxide. The reaction proceeds through a physisorbed intermediate, a transition state, and a chemisorbed product, with a small activation barrier (\u0394E\u2090 = 0.42 eV) and a negative reaction energy (\u0394E\u1d63 = \u22123.04 eV)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/13/fig10",
+    "summarization": {
+      "a": "The figure shows the C 1s XPS spectra of pristine and O\u2082 plasma-treated graphene. The spectra reveal the presence of sp\u00b2, sp\u00b3, C\u2013O, and C=O bonds, indicating the formation of oxygen-containing functional groups on the graphene surface after plasma treatment.",
+      "b": "The figure shows SEM images of graphene surfaces after various plasma treatments.",
+      "c": "The figure shows SEM images of graphene surfaces treated with varying durations of O\u2082 plasma, illustrating progressive surface roughening and textural evolution.",
+      "d": "The figure displays SEM images of graphene surfaces treated with varying durations of O\u2082 plasma, showing progressive surface roughening and textural changes.",
+      "e": "The figure displays SEM images of graphene surfaces treated with varying durations of O\u2082 plasma exposure, illustrating progressive surface roughening and feature evolution.",
+      "f": "The figure displays SEM images of graphene surfaces treated with varying durations of O\u2082 plasma exposure, showing progressive changes in surface morphology and roughness."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_1",
+    "summarization": {
+      "a": "The figure shows the structures of the Si(OH)3-OH, SiH3OS(OH)2-OH, (SiH3O)3Si-OH, Si(OH)3OZrCl3, SiH3OS(OH)2OZrCl3, and (SiH3O)3SiOZrCl3 clusters used in this study.",
+      "b": "The figure shows the structures of the Si(OH)3-OH, SiH3OS(OH)2-OH, (SiH3O)3Si-OH, Si(OH)3OZrCl3, SiH3OS(OH)2OZrCl3, and (SiH3O)3SiOZrCl3 clusters used in this study.",
+      "c": "The figure shows the structures of the Si(OH)3-OH, SiH3OS(OH)2-OH, (SiH3O)3Si-OH, Si(OH)3OZrCl3, SiH3OS(OH)2OZrCl3, and (SiH3O)3SiOZrCl3 clusters used in this study.",
+      "d": "The figure shows the structures of the SiH3OS(OH)2OZrCl3 and (SiH3O)3SiOZrCl3 clusters used in the study.",
+      "e": "The figure shows the structures of the Si(OH)3-OH, SiH3OS(OH)2-OH, (SiH3O)3Si-OH, Si(OH)3OZrCl3, SiH3OS(OH)2OZrCl3, and (SiH3O)3SiOZrCl3 clusters used in this study.",
+      "f": "The figure shows the structures of the Si(OH)3-OH, SiH3OS(OH)2-OH, (SiH3O)3Si-OH, Si(OH)3OZrCl3, SiH3OS(OH)2OZrCl3, and (SiH3O)3SiOZrCl3 clusters used in this study."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_10",
+    "summarization": {
+      "a": "The figure shows the reaction energy profile for the reaction of HCl with HCl(a) on the SiO2 surface. The energy profile is divided into three regions: Complex, TS, and HCl(g). The energy of the Complex is lower than that of HCl(a) and HCl(g). The energy of the TS is higher than that of HCl(a) and HCl(g). The energy of HCl(g) is lower than that of HCl(a)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_2",
+    "summarization": {
+      "a": "The figure shows the reaction path and predicted energetics for the reaction of gaseous ZrCl4 on SiO2-OH* surface sites."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_8",
+    "summarization": {
+      "a": "The figure shows the potential energy surfaces (PES) for the removal of three chlorine atoms from a Zr atom in a silicon oxide surface. The PES curves for the three steps are shown for three different clusters."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_3",
+    "summarization": {
+      "a": "The figure shows the reaction path and predicted energetics for the reaction of H\u2082O on SiO\u2082-O-ZrCl\u2083* sites."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_7",
+    "summarization": {
+      "a": "The figure shows the reaction path and predicted energetics for the reaction of H\u2082O on the O\u2083Si-O-Zr-Cl* sites calculated using the O\u2083Si-O-Zr-Cl* cluster."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_4",
+    "summarization": {
+      "a": "The figure shows the potential energy surfaces (PESs) for the reaction of H\u2082O with three Cl atoms on a Zr-containing surface, calculated using the Si(OH)\u2083SiOZrCl\u2083 cluster. The PESs are plotted for the removal of the first, second, and third Cl atoms, labeled as A, B, and C respectively. The curves show the energy changes (\u0394E in kcal/mol) as a function of the reaction coordinate, with key points labeled as Complex, TS (transition state), and HCl(a)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_11",
+    "summarization": {
+      "a": "The figure shows the reaction path and predicted energetics for the reaction of ZrCl4 on multiple surface hydroxyl sites using a Si(OH)2-OH*-O-Si(OH)2-OH* cluster. The green pathway represents the elimination of a second HCl from the adsorbed ZrCl4. The blue and red pathways represent the second ALD half-reaction with water. The purple, gray, red, green, and white atoms denote the zirconium, silicon, oxygen, chlorine and hydrogen atoms, respectively."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_6",
+    "summarization": {
+      "a": "The figure shows the reaction path and predicted energetics for the reaction of gaseous ZrCl4 on the SiO2-OH* sites calculated using the SiH3OSi(OH)2-OH cluster. The purple, gray, red, green, and white atoms denote the zirconium, silicon, oxygen, chlorine and hydrogen atoms, respectively."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_5",
+    "summarization": {
+      "a": "The figure illustrates the activation barriers for HCl formation during successive Cl removal steps from a Zr-centered complex on SiO\u2082. The activation barrier decreases progressively from 20.3 kcal/mol in the first Cl removal to 14.8 kcal/mol in the third, indicating increasing ease of HCl formation as the Zr center becomes more hydroxylated.",
+      "b": "The figure illustrates the activation barriers and reaction energies for the removal of chlorine atoms from a Zr-containing surface complex."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/24/fig_9",
+    "summarization": {
+      "a": "The figure shows the reaction energy profile for the reaction of HCl(g) with the surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/4/figure_5",
+    "summarization": {
+      "a": "The figure shows infrared spectra of Hacac and BDEAS adsorbed on SiO\u2082.",
+      "b": "The figure shows in situ infrared spectra recorded after Hacac and BDEAS dosing during ALD of SiO\u2082 on Al\u2082O\u2083 and SiO\u2082."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/4/figure_2",
+    "summarization": {
+      "a": "The figure shows the thickness of different materials as a function of the number of cycles."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/4/figure_3",
+    "summarization": {
+      "a": "The figure shows the apparent thickness of Al\u2082O\u2083 and SiO\u2082 films after each reactant dosing pulse (Hacac, BDEAS, and O\u2082 plasma) during ALD cycles. The data reveals that the addition of Hacac does not significantly affect the deposition of SiO\u2082 on SiO\u2082 starting surfaces, while it effectively blocks precursor adsorption on Al\u2082O\u2083, demonstrating selectivity in the ABC-type ALD process.",
+      "b": "The figure shows the apparent thickness of a film deposited on SiO\u2082 as a function of the number of cycles for three different processes: Hacac, BDEAS, and O\u2082 plasma."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/4/figure_6",
+    "summarization": {
+      "a": "The figure shows the DFT minimum energy paths for the Hacac adsorption on Al2O3 and SiO2 surfaces.",
+      "b": "The figure shows the DFT minimum energy paths for the Si-OH* + Hacac \u2192 Si(acac)* + H\u2082O(g) reaction on SiO\u2082 and Al\u2082O\u2083 surfaces. The reaction involves the adsorption of Hacac and subsequent formation of a Si(acac)* complex with water release. The activation energy (E\u2090) is 2.35 eV and the reaction energy (\u0394E) is 0.98 eV. The structures of the reactant, transition state, and product are shown in the insets."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/4/figure_4",
+    "summarization": {
+      "a": "The figure displays TOF-SIMS elemental mappings for Ge\u207a, Al\u207a, and Si\u207a after 15 SiO\u2082 ABC-type ALD cycles using Hacac as inhibitor. The scale bar is 10 \u03bcm.",
+      "b": "The figure displays TOF-SIMS elemental mappings of Ge\u207a, Al\u207a, and Si\u207a after 15 SiO\u2082 ALD cycles on a patterned Al\u2082O\u2083/GeO\u2082 surface. The Si signal is localized to the GeO\u2082 regions, confirming area-selective deposition.",
+      "c": "The figure displays TOF-SIMS elemental mappings for Ge\u207a, Al\u207a, and Si\u207a after 15 SiO\u2082 ABC-type ALD cycles using Hacac as inhibitor. The scale bar is 10 \u03bcm.",
+      "d": "The figure shows the intensity of Ge+, Al+, and Si+ as a function of distance."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig_2",
+    "summarization": {
+      "a": "The figure shows the structure of the N-rich surface for modeling the half-cycle reaction with a Si precursor.",
+      "b": "The figure shows the structure of the N-rich surface for modeling the half-cycle reaction with a Si precursor.",
+      "c": "The figure shows the structure of the N-rich surface for modeling the half-cycle reaction with a Si precursor.",
+      "d": "The figure shows a molecular structure of a chemical compound.",
+      "e": "The figure shows a chemical structure diagram."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig_3",
+    "summarization": {
+      "a": "The figure shows the relative energy profile of a reaction pathway, with steps labeled (a) through (e)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig_4",
+    "summarization": {
+      "a": "The figure shows the molecular structures of DCS and the transition state of the reaction between DCS and the N-rich surface.",
+      "b": "The figure shows the molecular structures of DCS adsorbed on the N-rich surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig1",
+    "summarization": {
+      "a": "The figure shows a schematic representation of a molecular structure.",
+      "b": "The figure shows a molecular structure diagram.",
+      "c": "The figure shows the optimized geometry of the DCS adsorbed on the N-rich surface of the beta-Si3N4 (0001) (1x1) surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig7",
+    "summarization": {
+      "a": "The figure shows a molecular structure of a silicon nitride surface with labeled atoms and bonds.",
+      "b": "The figure illustrates the dissociation of the DCS-amine intermediate adduct, showing the release of a proton and a Cl\u207b anion, leading to the formation of a quaternary ammonium group and a Si-H\u2082Cl fragment."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig_6",
+    "summarization": {
+      "a": "The figure shows a molecular structure of a chemical compound.",
+      "b": "The figure shows the molecular structure of a chemical compound at a specific time point.",
+      "c": "The figure shows the molecular structures of DCS and its reaction intermediates on the surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/simulation-usecase/50/fig_5",
+    "summarization": {
+      "a": "The figure shows a molecular structure with a nitrogen atom (N) and a silicon atom (Si) connected by a bond. The nitrogen atom is bonded to three hydrogen atoms, and the silicon atom is bonded to two hydrogen atoms and a chlorine atom.",
+      "b": "The figure shows the molecular structure of a DCS molecule adsorbed on a silicon nitride surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/58/fig5",
+    "summarization": {
+      "a": "The figure shows the intensity of a material as a function of the angle phi."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/58/fig_2",
+    "summarization": {
+      "a": "The figure shows the Si core level PE-ALD Co/Si(001) spectrum with raw data, deconvoluted, and peak sum."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/58/fig_3",
+    "summarization": {
+      "a": "The figure shows the XRD spectra of PE-ALD Co/Si(001) samples with different annealing temperatures."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_1",
+    "summarization": {
+      "a": "The figure shows a schematic of a gas flow rate over time for a single cycle of a PEALD process. The gas flow rates for Ga source, Ar purge, O2 (plasma), and Ar purge are shown as a function of time."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_10",
+    "summarization": {
+      "a": "The figure shows the measured and model-fitted values of \u03a8 (psi) in degrees for Ga2O3 thin films at different angles (65\u00b0, 70\u00b0, and 75\u00b0).",
+      "b": "The figure shows the change in phase angle (\u0394) as a function of photon energy for Ga2O3 thin films annealed at 65\u00b0, 70\u00b0, and 75\u00b0."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_8",
+    "summarization": {
+      "a": "The figure shows the transmission spectra of Ga2O3 thin films at different annealing temperatures.",
+      "b": "The figure shows the band gap energy of a material as a function of temperature."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_3",
+    "summarization": {
+      "a": "The figure shows the Auger intensity of Ga, O, C, and Si as a function of sputter time for an As-deposited Ga2O3 film."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_7",
+    "summarization": {
+      "a": "The scatter plot shows the dielectric constant of a material as a function of temperature. The dielectric constant decreases with increasing temperature."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_4",
+    "summarization": {
+      "a": "The figure shows XRD patterns of Ga2O3 thin films deposited at different temperatures (500, 700, and 900 \u00b0C) and annealed at 500 \u00b0C."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_11",
+    "summarization": {
+      "a": "The figure shows the refractive index of Ga2O3 thin films as a function of photon energy for different annealing temperatures."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_6",
+    "summarization": {
+      "a": "The figure shows the gate current density of Ga2O3 thin films as a function of gate voltage for different annealing temperatures."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/17/fig_9",
+    "summarization": {
+      "a": "The figure shows a linear fit for the As-deposited thin film, with the equation Y = A + B * X, where A = -561.82073 and B = 112.26343."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/46/fig_1",
+    "summarization": {
+      "a": "The figure shows the intensity of the S 2s peak for different samples.",
+      "b": "The figure shows XPS spectra of As 3d core level for unpassivated and passivated InGaAs surfaces."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/46/fig_2",
+    "summarization": {
+      "a": "The figure shows the capacitance (C) as a function of gate bias (V_g) for different passivation conditions (unpassivated, 350\u00b0C H\u2082S, 200\u00b0C H\u2082S, 50\u00b0C H\u2082S). The passivation conditions affect the capacitance behavior, with the 50\u00b0C H\u2082S passivation showing the highest capacitance.",
+      "b": "The figure shows the capacitance (C) as a function of gate bias (V_g) for different frequencies (1 kHz, 10 kHz, 100 kHz, and 1 MHz)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/46/fig_3",
+    "summarization": {
+      "a": "The figure shows bright-field TEM images of InGaAs devices with varying thicknesses of HfO\u2082 and interfacial layers (IL) after in situ H\u2082S passivation at 50\u00b0C. The 9.4 nm HfO\u2082 device exhibits a significantly reduced IL thickness (~0.8 nm) compared to the unpassivated device (~1.9 nm), demonstrating effective passivation and suppression of interfacial oxide growth.",
+      "b": "The figure shows bright-field TEM images of a passivated InGaAs device with a 9.4 nm HfO\u2082 layer and a 0.8 nm interfacial layer (IL)."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/46/fig4",
+    "summarization": {
+      "a": "The figure shows the capacitance-voltage (C-V) characteristics of MOS capacitors with different gate oxide thicknesses (3 nm, 9.4 nm, and 16.8 nm).",
+      "b": "The figure shows the capacitance (C) and current density (J) as a function of gate bias voltage (V_g) for two different materials, (NH4)2S and 50\u00b0C H2S."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/47/fig_2",
+    "summarization": {
+      "a": "The figure shows the thermal decomposition of AlCl3 with Al(DEA)3 and Al(DIA)3."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/47/fig_3",
+    "summarization": {
+      "a": "The figure shows the dependence of the deposition rate per cycle on the precursor purge time. The deposition rate decreases with increasing purge time, indicating that longer purge times lead to lower deposition rates.",
+      "b": "The figure shows the deposition rate per cycle as a function of reactor temperature. The deposition rate increases with increasing temperature.",
+      "c": "The scatter plot shows the relationship between the number of cycles and the thickness of a film."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_2",
+    "summarization": {
+      "a": "The scatter plot shows the relationship between deposition cycles and film thickness in angstroms."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_8",
+    "summarization": {
+      "a": "The figure shows the atomic concentration of various elements (W, C, N, Ti, O, F, Si) as a function of sputter time."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_3",
+    "summarization": {
+      "a": "The scatter plot shows the atomic percentages of oxygen and fluorine in a film as a function of deposition temperature. Both O and F content decrease with increasing temperature, with O showing a more pronounced decrease."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_7",
+    "summarization": {
+      "a": "The image shows a high-resolution transmission electron microscopy (HRTEM) image of a nanolaminate film stack. The image reveals alternating layers of materials, with clear boundaries between the layers. The scale bar indicates that the image is at a very high magnification, with a scale of 10 nm."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_4",
+    "summarization": {
+      "a": "The figure shows SEM images of a copper surface after 100 cycles of  $\\mathrm{WN}_x\\mathrm{C}_y$  deposition. The surface is smooth and uniform, with no visible pitting or damage.",
+      "b": "The figure shows SEM images of a copper surface after 100 cycles of  $\\mathrm{WN}_x\\mathrm{C}_y$  deposition, with a scale bar of 6 \u03bcm."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig1",
+    "summarization": {
+      "a": "The figure shows a TEM image of a TiN film."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_6",
+    "summarization": {
+      "a": "The figure shows a high-resolution transmission electron microscopy (HRTEM) image of a nanolaminate film stack consisting of alternating tungsten nitride (WN\u2093C\u1d67) and titanium nitride (TiN) layers. The clear, periodic layering confirms successful atomic layer deposition (ALD) and good interfacial control. The scale bar indicates the nanometer-scale thickness of individual layers."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/11/fig_5",
+    "summarization": {
+      "a": "The figure shows SEM images of a nanolaminate film stack composed of alternating TiN and W_xN layers. The image reveals a continuous grain structure with visible boundaries between layers.",
+      "b": "The figure shows SEM images of nanolaminate films."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG4_a2",
+    "summarization": {
+      "a": "The figure shows a schematic representation of a crystal lattice structure."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG4_b",
+    "summarization": {
+      "a": "The figure illustrates the atomic structure of a NiO film, highlighting the presence of Ni vacancies."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG5_a",
+    "summarization": {
+      "a": "The figure displays a high-resolution transmission electron microscopy (HRTEM) image of a material with a textured, granular surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG2_b",
+    "summarization": {
+      "a": "The scatter plot shows the growth per cycle (GPC) as a function of precursor purge time. The GPC remains nearly constant across the range, with a slight decrease at longer purge times."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG6",
+    "summarization": {
+      "a": "The figure shows the XRD spectra of NiO films prepared using different precursors."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG2_a",
+    "summarization": {
+      "a": "The figure shows the growth per cycle as a function of cumulative precursor dose. The growth per cycle increases with increasing precursor dose, reaching a steady state."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG2_d",
+    "summarization": {
+      "a": "The scatter plot shows the growth per cycle (GPC) as a function of oxygen plasma purge time. The GPC remains nearly constant across the range, with a slight decrease at longer purge times."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG3_a",
+    "summarization": {
+      "a": "The figure shows the thickness of NiO films as a function of the number of ALD cycles for three different precursors: NiO_Alanis, NiO_MeCp, and NiO_Bu-MeAMD. The thickness increases linearly with the number of cycles for all three precursors."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG7_b",
+    "summarization": {
+      "a": "The figure shows the absorption coefficient of NiO films as a function of wavelength for three different NiO films."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG3_b",
+    "summarization": {
+      "a": "The scatter plot shows the growth per cycle of NiO films using different precursors (Alanis, MeCp, and Bu-MeAMD) at various temperatures."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG7_a",
+    "summarization": {
+      "a": "The figure shows the transmittance spectra of NiO films prepared using different precursors (Alanis, MeCp, and Bu-MeAMD) compared to a glass reference. The transmittance decreases with increasing wavelength for all samples."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG5_e",
+    "summarization": {
+      "a": "The figure shows a cross-sectional transmission electron microscopy (STEM) image of a NiO film deposited on a silicon wafer. The image reveals the film's thickness and uniformity."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG5_b",
+    "summarization": {
+      "a": "The image shows a high-resolution scanning electron microscopy (SEM) image of a material surface."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG2_c",
+    "summarization": {
+      "a": "The scatter plot shows the growth per cycle (GPC) as a function of oxygen plasma exposure time. The GPC increases rapidly at short exposure times and then plateaus, indicating saturation behavior."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG1",
+    "summarization": {
+      "a": "The figure illustrates the time sequence of a single NiO ALD cycle, detailing the timing of precursor dosing, purging, and plasma exposure steps."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG5_c",
+    "summarization": {
+      "a": "The figure shows a high-resolution scanning electron microscopy (SEM) image of a material surface with a textured pattern. The scale bar indicates a length of 10 nm."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG5_f",
+    "summarization": {
+      "a": "The figure shows a cross-sectional TEM image of a NiO film on a Si wafer. The NiO film is dark and continuous. The film is on top of a SiOx layer. The SiOx layer is on top of a Si wafer. The image shows short grains in the NiO film."
+    }
+  },
+  {
+    "sample_id": "atomic-layer-deposition/experimental-usecase/68/FIG5_d",
+    "summarization": {
+      "a": "The figure displays a high-resolution transmission electron microscopy (HRTEM) image of a NiO film deposited on a silicon wafer."
+    }
+  }
+]
