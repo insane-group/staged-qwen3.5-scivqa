@@ -1,0 +1,26 @@
+[
+    {
+        "run_type": "submission_evaluation",
+        "task": "Summarization",
+        "submission_file": "submission_finetuning_summary_dev.json",
+        "sample_size": 242,
+        "metrics": {
+            "ROUGE-L F1": 0.27993651465913116,
+            "BERTScore F1": 0.8247115612030029,
+            "BERTScore Precision": 0.8382478952407837,
+            "BERTScore Recall": 0.813399612903595
+        }
+    },
+    {
+        "run_type": "submission_evaluation",
+        "task": "Summarization",
+        "submission_file": "submission_finetuning_summary_dev.json",
+        "sample_size": 242,
+        "metrics": {
+            "ROUGE-L F1": 0.27993651465913116,
+            "BERTScore F1": 0.8247116208076477,
+            "BERTScore Precision": 0.8382478952407837,
+            "BERTScore Recall": 0.813399612903595
+        }
+    }
+]

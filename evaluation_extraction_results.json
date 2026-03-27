@@ -1,0 +1,13 @@
+[
+    {
+        "run_type": "table_extraction_evaluation",
+        "submission_file": "submission_finetuning_extraction_dev.json",
+        "metrics": {
+            "Data Table Extraction": {
+                "TEDS": 0.3664101695807386,
+                "RMS": 0.11244806553963863,
+                "Total_Tables_Evaluated": 244
+            }
+        }
+    }
+]
