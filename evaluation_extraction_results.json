@@ -9,5 +9,28 @@
                 "Total_Tables_Evaluated": 244
             }
         }
+    },
+    {
+        "run_type": "table_extraction_evaluation",
+        "submission_file": "submission_finetuning_extraction_dev.json",
+        "metrics": {
+            "Data Table Extraction": {
+                "TEDS": 0.36609865522802726,
+                "RMS": 0.11244806553963863
+            }
+        }
+    },
+    {
+        "run_type": "submission_evaluation",
+        "task": "Summarization",
+        "timestamp": "2026-03-27 23:52:52",
+        "submission_file": "submission_finetuning_extraction_dev.json",
+        "sample_size": 244,
+        "metrics": {
+            "Data Table Extraction": {
+                "TEDS": 0.36609865522802726,
+                "RMS": 0.11244806553963863
+            }
+        }
     }
 ]

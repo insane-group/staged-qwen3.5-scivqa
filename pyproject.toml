@@ -19,7 +19,6 @@ dependencies = [
   "apted>=1.0.3",
   "bert-score>=0.3.13",
   "bitsandbytes>=0.49.2",
-  "distance>=0.1.3",
   "llguidance>=1.7",
   "lxml>=6.0.2",
   "numpy<3",
