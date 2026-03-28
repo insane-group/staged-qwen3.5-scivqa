@@ -16,8 +16,9 @@
 # %%
 from unsloth import FastVisionModel
 from unsloth.trainer import UnslothVisionDataCollator
-# Force unsloth to be on top
 
+# Force unsloth to be on top
+import re
 import json
 from pathlib import Path
 
@@ -27,9 +28,11 @@ import warnings
 from tqdm.auto import tqdm
 from transformers import TextStreamer
 from trl import SFTConfig, SFTTrainer
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-7B"
+MODEL_ID = "unsloth/Qwen3.5-9B"
 
 MAX_NEW_TOKENS = 256
 NUM_TRAIN_EPOCHS = 5
@@ -108,6 +111,29 @@ Polar heatmap of Al₂O₃ etch rate distribution (nm/cycle) across a wafer, wit
 
 
 # %%
+def clean_summary(raw_summary: str) -> tuple[str, bool]:
+    """
+    Cleans the raw summary and verifies it meets the 1-3 sentence requirement.
+    Returns: (cleaned_summary, is_valid)
+    """
+    if not raw_summary or not isinstance(raw_summary, str):
+        return "", False
+
+    # 1. Remove common bullet points at the start of lines
+    cleaned = re.sub(r"^\s*[•\-\*]\s+", "", raw_summary, flags=re.MULTILINE)
+
+    # 2. Replace newlines and multiple spaces with a single space
+    cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+    # 3. Extract sentences by splitting on punctuation to count them
+    sentences = [s for s in re.split(r"[.!?]+", cleaned) if s.strip()]
+
+    # 4. Validate sentence count (1 to 3 sentences)
+    is_valid = len(sentences) >= 1
+
+    return cleaned, is_valid
+
+
 def convert_to_conversation(prompt: str, image: Image, response: str) -> dict:
     conversation = [
         {
@@ -187,12 +213,16 @@ def load_dataset(case_dir: Path) -> list[dict]:
     json_files = list(case_dir.rglob("*.json"))
     pbar = tqdm(json_files, desc="Processing Subfigures")
 
+    # Trackers for dataset hygiene
+    valid_count = 0
+    invalid_count = 0
+
     for json_file in pbar:
         fullpath = str(json_file)
         if "images" not in fullpath or ".vscode" in fullpath:
             continue
 
-        pbar.set_description(f"Processing {json_file}")
+        pbar.set_description(f"Processing {json_file.name}")
 
         with open(json_file, "r") as f:
             data = json.load(f)
@@ -207,17 +237,28 @@ def load_dataset(case_dir: Path) -> list[dict]:
         # Extract bounding box info
         bboxes = data.get("bbox", {})
 
-        # Iterate through subfigures (a, b, etc.) present in the VQA data
+        # Iterate through subfigures (a, b, etc.)
         for sub_key, summary in data.get("summarization", {}).items():
-            # Skip if there's no table for this subfigure
+            # Skip empty summaries entirely
             if not summary.strip():
-                warnings.warn(f"Subfigure {sub_key} has no table in {json_file.name}")
+                warnings.warn(
+                    f"Subfigure {sub_key} has empty summary in {json_file.name}"
+                )
                 continue
 
             # Skip if there's no bounding box for this subfigure
             if sub_key not in bboxes:
                 warnings.warn(f"Subfigure {sub_key} missing bbox in {json_file.name}")
                 continue
+
+            cleaned_summary, is_valid = clean_summary(summary)
+
+            # Skip invalid formats (e.g., too long, too short) to keep dataset pristine
+            if not is_valid:
+                invalid_count += 1
+                continue
+
+            valid_count += 1
 
             # Get coordinates and crop
             box = bboxes[sub_key]
@@ -231,17 +272,23 @@ def load_dataset(case_dir: Path) -> list[dict]:
 
             # Process Data Extraction associated with this sub-figure
             instruction = PROMPT_TEMPLATE.format(context=context)
-            sample = convert_to_conversation(instruction, sub_image, summary)
+            sample = convert_to_conversation(instruction, sub_image, cleaned_summary)
             samples.append(sample)
 
-    return samples
+    return samples, valid_count, invalid_count
 
 
 # %% [markdown]
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-dataset = load_dataset(CASE_DIR)
+dataset, valid_count, invalid_count = load_dataset(CASE_DIR)
+
+print("\n" + "-" * 40)
+print("📋 DATASET CREATION SUMMARY")
+print(f"Added to dataset (Valid, 1-3 sentences): {valid_count}")
+print(f"Skipped (Invalid length or format): {invalid_count}")
+print("-" * 40 + "\n")
 
 # %% [markdown]
 # We look at how the conversations are structured for the first example:
@@ -251,6 +298,78 @@ dataset[0]["messages"][0]["content"][1]["image"]
 
 # %%
 dataset[0]["messages"]
+
+
+# %%
+def calculate_token_stats(dataset_samples, processor, max_samples=500):
+    stats = []
+
+    # Limit samples for speed during exploration
+    samples_to_process = (
+        dataset_samples[:max_samples] if max_samples else dataset_samples
+    )
+
+    for sample in tqdm(samples_to_process, desc="Calculating token lengths"):
+        messages = sample["messages"]
+
+        # 1. Extract the image and assistant text
+        image = messages[0]["content"][1]["image"]
+        assistant_text = messages[1]["content"][0]["text"]
+
+        # 2. Calculate MAX_NEW_TOKENS (Assistant output only)
+        # Access the underlying text tokenizer inside the processor
+        assistant_tokens = len(
+            processor.tokenizer.encode(assistant_text, add_special_tokens=False)
+        )
+
+        # 3. Calculate max_length (Entire sequence: Image + Prompt + Formatting + Answer)
+        # Apply the chat template to the full multi-turn conversation
+        full_text = processor.apply_chat_template(
+            messages, add_generation_prompt=False, tokenize=False
+        )
+
+        # Pass the image and the formatted text using keyword arguments
+        inputs = processor(
+            text=full_text, images=image, add_special_tokens=False, return_tensors="pt"
+        )
+        total_tokens = inputs["input_ids"].shape[1]
+
+        stats.append(
+            {
+                "assistant_tokens": assistant_tokens,
+                "total_tokens": total_tokens,
+                "image_width": image.width,
+                "image_height": image.height,
+            }
+        )
+
+    return pd.DataFrame(stats)
+
+
+# %%
+# Run the analysis
+df_tokens = calculate_token_stats(dataset, tokenizer, max_samples=200)
+
+# Display statistics
+print("\n--- Token Length Statistics ---")
+display(
+    df_tokens[["assistant_tokens", "total_tokens"]].describe(
+        percentiles=[0.5, 0.75, 0.9, 0.95, 0.99]
+    )
+)
+
+# Plotting
+fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+df_tokens["assistant_tokens"].hist(
+    bins=30, ax=axes[0], color="salmon", edgecolor="black"
+)
+axes[0].set_title("Assistant Tokens (for MAX_NEW_TOKENS)")
+axes[0].set_xlabel("Token Count")
+
+df_tokens["total_tokens"].hist(bins=30, ax=axes[1], color="skyblue", edgecolor="black")
+axes[1].set_title("Total Sequence Tokens (for max_length)")
+axes[1].set_xlabel("Token Count")
+plt.show()
 
 # %% [markdown]
 # Let's first see before we do any finetuning what the model outputs for the first example!

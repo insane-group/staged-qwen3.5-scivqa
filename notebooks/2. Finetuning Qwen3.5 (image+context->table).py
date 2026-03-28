@@ -18,6 +18,7 @@ from unsloth import FastVisionModel
 from unsloth.trainer import UnslothVisionDataCollator
 # Force unsloth to be on top
 
+import re
 import json
 from pathlib import Path
 
@@ -27,11 +28,13 @@ import warnings
 from tqdm.auto import tqdm
 from transformers import TextStreamer
 from trl import SFTConfig, SFTTrainer
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-7B"
+MODEL_ID = "unsloth/Qwen3.5-9B"
 
-MAX_NEW_TOKENS = 256
+MAX_NEW_TOKENS = 2048  # Covers the 99th percentile (1806) and most of the max (2603).
 NUM_TRAIN_EPOCHS = 5
 
 # https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
@@ -118,6 +121,68 @@ Example:
 
 
 # %%
+def markdown_to_mapping(md_string: str) -> list[tuple[str, str, str]]:
+    """
+    Parses a markdown table into a list of (row_header, col_header, value) mappings.
+    Safely handles escaped pipes (\\|) in cells.
+    Assumes standard format: first column is the row header, first row is column headers.
+    """
+    if not md_string or not isinstance(md_string, str):
+        return []
+
+    lines = [line.strip() for line in md_string.strip().split("\n") if line.strip()]
+    if len(lines) < 3:
+        return []
+
+    def parse_row(row_str: str) -> list[str]:
+        # Strip leading and trailing unescaped pipes
+        row_str = re.sub(r"^\||\|$", "", row_str.strip())
+        # Split by pipes that are NOT preceded by a backslash
+        cells = re.split(r"(?<!\\)\|", row_str)
+        # Unescape the pipes for the final content and strip whitespace
+        return [cell.replace("\\|", "|").strip() for cell in cells]
+
+    # Extract column headers
+    col_headers = parse_row(lines[0])
+
+    mappings = []
+    # Skip line 0 (headers) and line 1 (separators like |---|---|)
+    for line in lines[2:]:
+        cells = parse_row(line)
+        if not cells or not any(cells):  # Skip empty rows
+            continue
+
+        row_header = cells[0]
+        # Map remaining cells to their corresponding column headers
+        for col_idx in range(1, len(cells)):
+            col_header = (
+                col_headers[col_idx] if col_idx < len(col_headers) else f"Col_{col_idx}"
+            )
+            value = cells[col_idx]
+            mappings.append((row_header, col_header, value))
+
+    return mappings
+
+
+def clean_table(raw_table: str) -> tuple[str, bool]:
+    """
+    Cleans the raw markdown table string and validates its structure
+    using the markdown_to_mapping helper.
+    Returns: (cleaned_table, is_valid_format)
+    """
+    if not raw_table or not isinstance(raw_table, str):
+        return "", False
+
+    # Basic cleaning (strip surrounding whitespace/newlines)
+    cleaned = raw_table.strip()
+
+    # If it parses to a non-empty list of mappings, it's a structurally valid table
+    mappings = markdown_to_mapping(cleaned)
+    is_valid = len(mappings) > 0
+
+    return cleaned, is_valid
+
+
 def convert_to_conversation(prompt: str, image: Image, response: str) -> dict:
     conversation = [
         {
@@ -197,12 +262,16 @@ def load_dataset(case_dir: Path) -> list[dict]:
     json_files = list(case_dir.rglob("*.json"))
     pbar = tqdm(json_files, desc="Processing Subfigures")
 
+    # Simple trackers for your dataset quality
+    valid_count = 0
+    invalid_count = 0
+
     for json_file in pbar:
         fullpath = str(json_file)
         if "images" not in fullpath or ".vscode" in fullpath:
             continue
 
-        pbar.set_description(f"Processing {json_file}")
+        pbar.set_description(f"Processing {json_file.name}")
 
         with open(json_file, "r") as f:
             data = json.load(f)
@@ -239,19 +308,36 @@ def load_dataset(case_dir: Path) -> list[dict]:
             # Create the sub-image crop
             sub_image = full_img.crop((left, top, right, bottom))
 
+            cleaned_table, is_valid = clean_table(gt_table)
+
+            # Skip invalid formats to keep the fine-tuning dataset pristine
+            if not is_valid:
+                invalid_count += 1
+                continue
+
+            valid_count += 1
+
             # Process Data Extraction associated with this sub-figure
             instruction = PROMPT_TEMPLATE.format(context=context)
-            sample = convert_to_conversation(instruction, sub_image, gt_table)
+
+            # Pass the cropped sub_image and the CLEANED table
+            sample = convert_to_conversation(instruction, sub_image, cleaned_table)
             samples.append(sample)
 
-    return samples
+    return samples, valid_count, invalid_count
 
 
 # %% [markdown]
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-dataset = load_dataset(CASE_DIR)
+dataset, valid_count, invalid_count = load_dataset(CASE_DIR)
+
+print("-" * 40)
+print("📋 TABLE EXTRACTION DATASET SUMMARY")
+print(f"Added to dataset (Valid Markdown): {valid_count}")
+print(f"Skipped (Invalid/Unparseable): {invalid_count}")
+print("-" * 40)
 
 # %% [markdown]
 # We look at how the conversations are structured for the first example:
@@ -261,6 +347,78 @@ dataset[0]["messages"][0]["content"][1]["image"]
 
 # %%
 dataset[0]["messages"]
+
+
+# %%
+def calculate_token_stats(dataset_samples, processor, max_samples=500):
+    stats = []
+
+    # Limit samples for speed during exploration
+    samples_to_process = (
+        dataset_samples[:max_samples] if max_samples else dataset_samples
+    )
+
+    for sample in tqdm(samples_to_process, desc="Calculating token lengths"):
+        messages = sample["messages"]
+
+        # 1. Extract the image and assistant text
+        image = messages[0]["content"][1]["image"]
+        assistant_text = messages[1]["content"][0]["text"]
+
+        # 2. Calculate MAX_NEW_TOKENS (Assistant output only)
+        # Access the underlying text tokenizer inside the processor
+        assistant_tokens = len(
+            processor.tokenizer.encode(assistant_text, add_special_tokens=False)
+        )
+
+        # 3. Calculate max_length (Entire sequence: Image + Prompt + Formatting + Answer)
+        # Apply the chat template to the full multi-turn conversation
+        full_text = processor.apply_chat_template(
+            messages, add_generation_prompt=False, tokenize=False
+        )
+
+        # Pass the image and the formatted text using keyword arguments
+        inputs = processor(
+            text=full_text, images=image, add_special_tokens=False, return_tensors="pt"
+        )
+        total_tokens = inputs["input_ids"].shape[1]
+
+        stats.append(
+            {
+                "assistant_tokens": assistant_tokens,
+                "total_tokens": total_tokens,
+                "image_width": image.width,
+                "image_height": image.height,
+            }
+        )
+
+    return pd.DataFrame(stats)
+
+
+# %%
+# Run the analysis
+df_tokens = calculate_token_stats(dataset, tokenizer, max_samples=200)
+
+# Display statistics
+print("\n--- Token Length Statistics ---")
+display(
+    df_tokens[["assistant_tokens", "total_tokens"]].describe(
+        percentiles=[0.5, 0.75, 0.9, 0.95, 0.99]
+    )
+)
+
+# Plotting
+fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+df_tokens["assistant_tokens"].hist(
+    bins=30, ax=axes[0], color="salmon", edgecolor="black"
+)
+axes[0].set_title("Assistant Tokens (for MAX_NEW_TOKENS)")
+axes[0].set_xlabel("Token Count")
+
+df_tokens["total_tokens"].hist(bins=30, ax=axes[1], color="skyblue", edgecolor="black")
+axes[1].set_title("Total Sequence Tokens (for max_length)")
+axes[1].set_xlabel("Token Count")
+plt.show()
 
 # %% [markdown]
 # Let's first see before we do any finetuning what the model outputs for the first example!

@@ -16,8 +16,9 @@
 # %%
 from unsloth import FastVisionModel
 from unsloth.trainer import UnslothVisionDataCollator
-# Force unsloth to be on top
 
+# Force unsloth to be on top
+import re
 import json
 from pathlib import Path
 
@@ -27,9 +28,11 @@ import warnings
 from tqdm.auto import tqdm
 from transformers import TextStreamer
 from trl import SFTConfig, SFTTrainer
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-7B"
+MODEL_ID = "unsloth/Qwen3.5-9B"
 MAX_NEW_TOKENS = 256
 NUM_TRAIN_EPOCHS = 5
 
@@ -167,6 +170,45 @@ PROMPTS = {
 
 
 # %%
+def clean_answer(raw_answer: str, expected_type: str) -> tuple[str, bool]:
+    """
+    Cleans the answer and checks if it conforms to the expected type.
+    Returns: (cleaned_answer, is_valid_format)
+    """
+    if not raw_answer or not isinstance(raw_answer, str):
+        return "", False
+
+    # Basic cleaning
+    cleaned = raw_answer.strip()
+
+    if expected_type == "Yes/No":
+        ans_lower = cleaned.lower()
+        # Use regex word boundaries (\b) to avoid matching "eyes", "note", "nothing", etc.
+        if re.search(r"\byes\b", ans_lower):
+            return "Yes", True
+        elif re.search(r"\bno\b", ans_lower):
+            return "No", True
+        return cleaned, False
+
+    elif expected_type == "List":
+        # Split by comma, strip whitespace, and drop any empty strings
+        elements = [item.strip() for item in cleaned.split(",") if item.strip()]
+        return ", ".join(elements), len(elements) > 0
+
+    elif expected_type == "Factoid":
+        # Remove trailing punctuation often mistakenly added by LLMs to short terms
+        cleaned_factoid = cleaned.rstrip(".!? \n")
+        return cleaned_factoid, len(cleaned_factoid) > 0
+
+    elif expected_type == "Paragraph":
+        # Replace multiple spaces/newlines with single spaces for a clean paragraph
+        cleaned_para = re.sub(r"\s+", " ", cleaned).strip()
+        sentences = [s for s in re.split(r"[.!?]+", cleaned_para) if s.strip()]
+        return cleaned_para, len(sentences) >= 1
+
+    return cleaned, True
+
+
 def convert_to_conversation(prompt: str, image: Image, response: str) -> dict:
     conversation = [
         {
@@ -186,12 +228,16 @@ def load_dataset(case_dir: Path) -> list[dict]:
     json_files = list(case_dir.rglob("*.json"))
     pbar = tqdm(json_files, desc="Processing Subfigures")
 
+    # Simple trackers for your sanity
+    valid_count = 0
+    invalid_count = 0
+
     for json_file in pbar:
         fullpath = str(json_file)
         if "images" not in fullpath or ".vscode" in fullpath:
             continue
 
-        pbar.set_description(f"Processing {json_file}")
+        pbar.set_description(f"Processing {json_file.name}")
 
         with open(json_file, "r") as f:
             data = json.load(f)
@@ -233,20 +279,40 @@ def load_dataset(case_dir: Path) -> list[dict]:
                     question_type=question_type,
                 )
 
-                gt_response = q_obj.get("answer", "")
+                raw_response = q_obj.get("answer", "")
 
-                # Pass the cropped sub_image instead of the full_img
-                sample = convert_to_conversation(human_prompt, sub_image, gt_response)
+                # --- APPLY CLEANING HERE ---
+                cleaned_response, is_valid = clean_answer(
+                    raw_answer=raw_response, expected_type=answer_type
+                )
+
+                # Skip invalid formats to keep the fine-tuning dataset pristine
+                if not is_valid:
+                    invalid_count += 1
+                    continue
+
+                valid_count += 1
+
+                # Pass the cropped sub_image and the CLEANED response
+                sample = convert_to_conversation(
+                    human_prompt, sub_image, cleaned_response
+                )
                 samples.append(sample)
 
-    return samples
+    return samples, valid_count, invalid_count
 
 
 # %% [markdown]
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-dataset = load_dataset(CASE_DIR)
+dataset, valid_count, invalid_count = load_dataset(CASE_DIR)
+
+print("-" * 40)
+print("📋 DATASET CREATION SUMMARY")
+print(f"Added to dataset (Valid): {valid_count}")
+print(f"Skipped (Invalid format): {invalid_count}")
+print("-" * 40)
 
 # %% [markdown]
 # We look at how the conversations are structured for the first example:
@@ -256,6 +322,78 @@ dataset[0]["messages"][0]["content"][1]["image"]
 
 # %%
 dataset[0]["messages"]
+
+
+# %%
+def calculate_token_stats(dataset_samples, processor, max_samples=500):
+    stats = []
+
+    # Limit samples for speed during exploration
+    samples_to_process = (
+        dataset_samples[:max_samples] if max_samples else dataset_samples
+    )
+
+    for sample in tqdm(samples_to_process, desc="Calculating token lengths"):
+        messages = sample["messages"]
+
+        # 1. Extract the image and assistant text
+        image = messages[0]["content"][1]["image"]
+        assistant_text = messages[1]["content"][0]["text"]
+
+        # 2. Calculate MAX_NEW_TOKENS (Assistant output only)
+        # Access the underlying text tokenizer inside the processor
+        assistant_tokens = len(
+            processor.tokenizer.encode(assistant_text, add_special_tokens=False)
+        )
+
+        # 3. Calculate max_length (Entire sequence: Image + Prompt + Formatting + Answer)
+        # Apply the chat template to the full multi-turn conversation
+        full_text = processor.apply_chat_template(
+            messages, add_generation_prompt=False, tokenize=False
+        )
+
+        # Pass the image and the formatted text using keyword arguments
+        inputs = processor(
+            text=full_text, images=image, add_special_tokens=False, return_tensors="pt"
+        )
+        total_tokens = inputs["input_ids"].shape[1]
+
+        stats.append(
+            {
+                "assistant_tokens": assistant_tokens,
+                "total_tokens": total_tokens,
+                "image_width": image.width,
+                "image_height": image.height,
+            }
+        )
+
+    return pd.DataFrame(stats)
+
+
+# %%
+# Run the analysis
+df_tokens = calculate_token_stats(dataset, tokenizer, max_samples=200)
+
+# Display statistics
+print("\n--- Token Length Statistics ---")
+display(
+    df_tokens[["assistant_tokens", "total_tokens"]].describe(
+        percentiles=[0.5, 0.75, 0.9, 0.95, 0.99]
+    )
+)
+
+# Plotting
+fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+df_tokens["assistant_tokens"].hist(
+    bins=30, ax=axes[0], color="salmon", edgecolor="black"
+)
+axes[0].set_title("Assistant Tokens (for MAX_NEW_TOKENS)")
+axes[0].set_xlabel("Token Count")
+
+df_tokens["total_tokens"].hist(bins=30, ax=axes[1], color="skyblue", edgecolor="black")
+axes[1].set_title("Total Sequence Tokens (for max_length)")
+axes[1].set_xlabel("Token Count")
+plt.show()
 
 # %% [markdown]
 # Let's first see before we do any finetuning what the model outputs for the first example!

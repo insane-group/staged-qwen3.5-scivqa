@@ -26,7 +26,7 @@ from tqdm.auto import tqdm
 from collections import defaultdict
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-7B"
+MODEL_ID = "unsloth/Qwen3.5-9B"
 
 MAX_NEW_TOKENS = 256
 NUM_TRAIN_EPOCHS = 5
