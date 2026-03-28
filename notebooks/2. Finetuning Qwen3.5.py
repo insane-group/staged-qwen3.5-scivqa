@@ -29,9 +29,9 @@ from transformers import TextStreamer
 from trl import SFTConfig, SFTTrainer
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-4B"
+MODEL_ID = "unsloth/Qwen3.5-7B"
 MAX_NEW_TOKENS = 256
-NUM_TRAIN_EPOCHS = 2
+NUM_TRAIN_EPOCHS = 5
 
 # https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
 ENABLE_THINKING = False
@@ -332,7 +332,7 @@ trainer = SFTTrainer(
     args=SFTConfig(
         per_device_train_batch_size=2,
         gradient_accumulation_steps=4,
-        warmup_steps=5,
+        warmup_ratio=0.05,
         # max_steps=30,
         num_train_epochs=NUM_TRAIN_EPOCHS,  # Set this instead of max_steps for full training runs
         learning_rate=2e-4,

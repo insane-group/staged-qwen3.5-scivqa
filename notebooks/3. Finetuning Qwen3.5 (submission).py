@@ -25,7 +25,7 @@ from tqdm.auto import tqdm
 from collections import defaultdict
 
 # %%
-LORA_CHECKPOINT = "Sci-ImageMiner-Qwen3.5-0.8B-LORA"
+MODEL_ID = "unsloth/Qwen3.5-7B"
 MAX_NEW_TOKENS = 256
 
 # https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
@@ -34,6 +34,8 @@ TEMPERATURE = 0.7
 MIN_P = 0.01
 TOP_P = 0.8
 TOP_K = 20
+
+LORA_CHECKPOINT = f"Sci-ImageMiner-{MODEL_ID.split('/')[1]}-LORA"
 
 BASE_DIR = Path.cwd().parent
 CATEGORY = "dev"

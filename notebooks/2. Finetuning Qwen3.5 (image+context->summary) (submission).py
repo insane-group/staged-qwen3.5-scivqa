@@ -26,10 +26,10 @@ from tqdm.auto import tqdm
 from collections import defaultdict
 
 # %%
-MODEL_ID = "unsloth/Qwen3.5-4B"
+MODEL_ID = "unsloth/Qwen3.5-7B"
 
 MAX_NEW_TOKENS = 256
-NUM_TRAIN_EPOCHS = 2
+NUM_TRAIN_EPOCHS = 5
 
 # https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
 ENABLE_THINKING = False
