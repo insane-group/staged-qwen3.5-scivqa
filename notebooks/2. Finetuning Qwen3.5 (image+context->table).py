@@ -47,10 +47,9 @@ TOP_K = 20
 LORA_CHECKPOINT = f"Sci-ImageMiner-{MODEL_ID.split('/')[1]}-LORA-EXTRACTION"
 
 BASE_DIR = Path.cwd().parent
-CATEGORY = "train"
+CATEGORIES = ["train", "dev"]
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
-CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
 
 DATA_DIR = BASE_DIR / "data"
 
@@ -331,7 +330,18 @@ def load_dataset(case_dir: Path) -> list[dict]:
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-dataset, valid_count, invalid_count = load_dataset(CASE_DIR)
+dataset = []
+valid_count = 0
+invalid_count = 0
+
+for category in CATEGORIES:
+    print(f"\nLoading category: {category}")
+    case_dir = COMPETITION_DATA_DIR / category
+    ds, vc, ic = load_dataset(case_dir)
+
+    dataset.extend(ds)
+    valid_count += vc
+    invalid_count += ic
 
 print("-" * 40)
 print("📋 TABLE EXTRACTION DATASET SUMMARY")
