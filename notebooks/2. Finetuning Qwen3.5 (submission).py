@@ -47,13 +47,6 @@ DATA_DIR = BASE_DIR / "data"
 STATE_FILE = BASE_DIR / f"submission_finetuning_{CATEGORY}_state.json"
 SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_{CATEGORY}.json"
 
-# %%
-model, tokenizer = FastVisionModel.from_pretrained(
-    MODEL_ID,
-    load_in_4bit=False,  # Use 4bit to reduce memory use. False for 16bit LoRA.
-    use_gradient_checkpointing="unsloth",  # True or "unsloth" for long context
-)
-
 # %% [markdown]
 # <a name="Data"></a>
 # ### 🧪 Data Preparation

@@ -50,13 +50,6 @@ DATA_DIR = BASE_DIR / "data"
 STATE_FILE = BASE_DIR / f"submission_finetuning_summary_{CATEGORY}_state.json"
 SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_summary_{CATEGORY}.json"
 
-# %%
-model, tokenizer = FastVisionModel.from_pretrained(
-    MODEL_ID,
-    load_in_4bit=False,  # Use 4bit to reduce memory use. False for 16bit LoRA.
-    use_gradient_checkpointing="unsloth",  # True or "unsloth" for long context
-)
-
 # %% [markdown]
 # <a name="Data"></a>
 # ### 🧪 Data Preparation
@@ -281,7 +274,6 @@ if STATE_FILE.exists():
     print(f"Loaded existing state from {STATE_FILE}. Resuming inference...")
 else:
     state = defaultdict(dict)
-
 
 # %%
 for sample in tqdm(dataset, desc="Running Inference"):

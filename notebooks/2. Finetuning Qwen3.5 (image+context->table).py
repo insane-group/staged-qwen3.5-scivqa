@@ -18,6 +18,7 @@ from unsloth import FastVisionModel
 from unsloth.trainer import UnslothVisionDataCollator
 # Force unsloth to be on top
 
+from IPython.display import display
 import re
 import json
 from pathlib import Path

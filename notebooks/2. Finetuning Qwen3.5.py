@@ -46,10 +46,9 @@ TOP_K = 20
 LORA_CHECKPOINT = f"Sci-ImageMiner-{MODEL_ID.split('/')[1]}-LORA"
 
 BASE_DIR = Path.cwd().parent
-CATEGORY = "train"
+CATEGORIES = ["train", "dev"]
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
-CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
 
 DATA_DIR = BASE_DIR / "data"
 
@@ -201,8 +200,11 @@ def clean_answer(raw_answer: str, expected_type: str) -> tuple[str, bool]:
         return cleaned_factoid, len(cleaned_factoid) > 0
 
     elif expected_type == "Paragraph":
+        # Strip accidental bullet points
+        cleaned_para = re.sub(r"^\s*[•\-\*]\s+", "", cleaned, flags=re.MULTILINE)
+
         # Replace multiple spaces/newlines with single spaces for a clean paragraph
-        cleaned_para = re.sub(r"\s+", " ", cleaned).strip()
+        cleaned_para = re.sub(r"\s+", " ", cleaned_para).strip()
         sentences = [s for s in re.split(r"[.!?]+", cleaned_para) if s.strip()]
         return cleaned_para, len(sentences) >= 1
 
@@ -306,7 +308,18 @@ def load_dataset(case_dir: Path) -> list[dict]:
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-dataset, valid_count, invalid_count = load_dataset(CASE_DIR)
+dataset = []
+valid_count = 0
+invalid_count = 0
+
+for category in CATEGORIES:
+    print(f"\nLoading category: {category}")
+    case_dir = COMPETITION_DATA_DIR / category
+    ds, vc, ic = load_dataset(case_dir)
+
+    dataset.extend(ds)
+    valid_count += vc
+    invalid_count += ic
 
 print("-" * 40)
 print("📋 DATASET CREATION SUMMARY")

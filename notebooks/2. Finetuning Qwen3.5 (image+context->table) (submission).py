@@ -41,7 +41,7 @@ TOP_K = 20
 LORA_CHECKPOINT = f"Sci-ImageMiner-{MODEL_ID.split('/')[1]}-LORA-EXTRACTION"
 
 BASE_DIR = Path.cwd().parent
-CATEGORY = "dev"
+CATEGORY = "test"
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
@@ -49,13 +49,6 @@ CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
 DATA_DIR = BASE_DIR / "data"
 STATE_FILE = BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}_state.json"
 SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}.json"
-
-# %%
-model, tokenizer = FastVisionModel.from_pretrained(
-    MODEL_ID,
-    load_in_4bit=False,  # Use 4bit to reduce memory use. False for 16bit LoRA.
-    use_gradient_checkpointing="unsloth",  # True or "unsloth" for long context
-)
 
 # %% [markdown]
 # <a name="Data"></a>
