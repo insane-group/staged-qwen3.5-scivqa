@@ -38,14 +38,19 @@ TOP_K = 20
 LORA_CHECKPOINT = f"Sci-ImageMiner-{MODEL_ID.split('/')[1]}-LORA"
 
 BASE_DIR = Path.cwd().parent
-CATEGORY = "dev"
+CATEGORY = "test"
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
 
-DATA_DIR = BASE_DIR / "data"
 STATE_FILE = BASE_DIR / f"submission_finetuning_{CATEGORY}_state.json"
 SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_{CATEGORY}.json"
+
+SUMMARY_CACHE_PATH = BASE_DIR / f"submission_finetuning_summary_{CATEGORY}_state.json"
+EXTRACTION_CACHE_PATH = (
+    BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}_state.json"
+)
+SMT_FILE = BASE_DIR / f"smt_{CATEGORY}.json"
 
 # %% [markdown]
 # <a name="Data"></a>
@@ -70,7 +75,22 @@ SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_{CATEGORY}.json"
 PROMPT_YES_NO = """
 <image>
 
-Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+[SUMMARY]
+{summary}
+
+[TABLE]
+{table}
+
+[CODE]
+{code}
+
+[SOLVER OUTPUT]
+{output}
+
+Additional context from the original paper:
+{context}
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure and the provided context.
 
 Question type: {question_type}
 Question: {question}
@@ -90,7 +110,22 @@ Yes
 PROMPT_FACTOID = """
 <image>
 
-Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+[SUMMARY]
+{summary}
+
+[TABLE]
+{table}
+
+[CODE]
+{code}
+
+[SOLVER OUTPUT]
+{output}
+
+Additional context from the original paper:
+{context}
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure and the provided context.
 
 Question type: {question_type}
 Question: {question}
@@ -110,7 +145,22 @@ The feature corresponds to an interband electronic transition or optical absorpt
 PROMPT_LIST = """
 <image>
 
-Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+[SUMMARY]
+{summary}
+
+[TABLE]
+{table}
+
+[CODE]
+{code}
+
+[SOLVER OUTPUT]
+{output}
+
+Additional context from the original paper:
+{context}
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure and the provided context.
 
 Question type: {question_type}
 Question: {question}
@@ -130,7 +180,22 @@ Absence of pits or voids, Smooth and continuous surface, Lack of corrosive attac
 PROMPT_PARAGRAPH = """
 <image>
 
-Answer the following scientific figure question by reasoning strictly over the information visible in the figure.
+[SUMMARY]
+{summary}
+
+[TABLE]
+{table}
+
+[CODE]
+{code}
+
+[SOLVER OUTPUT]
+{output}
+
+Additional context from the original paper:
+{context}
+
+Answer the following scientific figure question by reasoning strictly over the information visible in the figure and the provided context.
 
 Question type: {question_type}
 Question: {question}
@@ -157,14 +222,80 @@ PROMPTS = {
 
 
 # %%
-def load_test_dataset(case_dir: Path) -> list[dict]:
+def get_paper_context(json_file_path, window_size=2):
+    """
+    Finds the parent content.json, extracts the image caption, and
+    grabs a sliding window of text blocks (e.g., 2 before, 2 after)
+    surrounding the image for highly targeted context.
+    """
+    # Navigate up from .../16/images/fig_2.json to .../16/content.json
+    content_json_path = json_file_path.parent.parent / "content.json"
+
+    assert content_json_path.exists(), f"{content_json_path}"
+
+    # The image path as it appears in content.json (e.g., "images/fig_2.jpg")
+    target_img_path = f"images/{json_file_path.stem}.jpg"
+
+    with open(content_json_path, "r", encoding="utf-8") as f:
+        content_data = json.load(f)
+
+    img_index = -1
+    caption_text = ""
+
+    # Locate the image block in the flat JSON array
+    for idx, block in enumerate(content_data):
+        if block.get("type") == "image" and block.get("img_path") == target_img_path:
+            img_index = idx
+            if "img_caption" in block and block["img_caption"]:
+                caption_text = " ".join(block["img_caption"])
+            break
+
+    if img_index == -1:
+        return "Specific context not found for this image."
+
+    # Gather text blocks BEFORE the image
+    text_before = []
+    for i in range(img_index - 1, -1, -1):
+        block = content_data[i]
+        if block.get("type") == "text" and "text" in block:
+            text_before.insert(0, block["text"])  # Keep chronological order
+            if len(text_before) == window_size:
+                break
+
+    # Gather text blocks AFTER the image
+    text_after = []
+    for i in range(img_index + 1, len(content_data)):
+        block = content_data[i]
+        if block.get("type") == "text" and "text" in block:
+            text_after.append(block["text"])
+            if len(text_after) == window_size:
+                break
+
+    # Assemble the final context string
+    context_blocks = []
+    if caption_text:
+        context_blocks.append(f"Image Caption: {caption_text}")
+
+    context_blocks.extend(text_before)
+    context_blocks.extend(text_after)
+
+    return "\n\n".join(context_blocks)
+
+
+def load_test_dataset(
+    case_dir: Path, summary_cache: dict, extraction_cache: dict, smt: dict
+) -> list[dict]:
     samples = []
     json_files = list(case_dir.rglob("*.json"))
     pbar = tqdm(json_files, desc="Converting Test to Qwen Format")
 
     for json_file in pbar:
         fullpath = str(json_file)
-        if "images" not in fullpath or ".vscode" in fullpath:
+        if (
+            "content.json" in json_file.name
+            or "images" not in fullpath
+            or ".vscode" in fullpath
+        ):
             continue
 
         pbar.set_description(f"Processing {json_file.name}")
@@ -172,12 +303,14 @@ def load_test_dataset(case_dir: Path) -> list[dict]:
         with open(json_file, "r") as f:
             data = json.load(f)
 
+        sample_id = data["sample_id"]
         img_path = json_file.with_suffix(".jpg")
         if not img_path.exists():
             continue
 
         # 2. Open source image once per JSON file
         full_img = Image.open(img_path.absolute())
+        context = get_paper_context(json_file)
         bboxes = data.get("bbox", {})
 
         # 3. Iterate through subfigures (a, b, etc.)
@@ -195,14 +328,26 @@ def load_test_dataset(case_dir: Path) -> list[dict]:
 
             sub_image = full_img.crop((left, top, right, bottom))
 
+            summary = summary_cache[sample_id][sub_fig]
+            table = extraction_cache[sample_id][sub_fig]
+
             for q_obj in q_list:
                 question_text = q_obj.get("question") or q_obj.get("questions")
                 question_type = q_obj.get("question_type", "")
                 answer_type = q_obj.get("answer_type", "")
 
+                entry = smt[sample_id][sub_fig][question_text]
+                code = entry["code"]
+                output = entry["output"]
+
                 human_prompt = PROMPTS[answer_type].format(
                     question=question_text,
                     question_type=question_type,
+                    context=context,
+                    summary=summary,
+                    table=table,
+                    code=code if code is not None else "N/A",
+                    output=output if code is not None else "N/A",
                 )
 
                 # 5. Format for inference (User role only)
@@ -220,7 +365,7 @@ def load_test_dataset(case_dir: Path) -> list[dict]:
                     {
                         "messages": conversation,
                         "meta": {
-                            "sample_id": data["sample_id"],
+                            "sample_id": sample_id,
                             "sub_fig": sub_fig,
                             "question_type": question_type,
                             "answer_type": answer_type,
@@ -236,7 +381,19 @@ def load_test_dataset(case_dir: Path) -> list[dict]:
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-dataset = load_test_dataset(CASE_DIR)
+smt = None
+with open(SMT_FILE, "r") as f:
+    smt = json.load(f)
+
+summary_cache = None
+with open(SUMMARY_CACHE_PATH, "r") as f:
+    summary_cache = json.load(f)
+
+extraction_cache = None
+with open(EXTRACTION_CACHE_PATH, "r") as f:
+    extraction_cache = json.load(f)
+
+dataset = load_test_dataset(CASE_DIR, summary_cache, extraction_cache, smt)
 
 # %% [markdown]
 # We look at how the conversations are structured for the first example:

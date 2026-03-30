@@ -268,7 +268,11 @@ def load_dataset(case_dir: Path) -> list[dict]:
 
     for json_file in pbar:
         fullpath = str(json_file)
-        if "images" not in fullpath or ".vscode" in fullpath:
+        if (
+            "content.json" in json_file.name
+            or "images" not in fullpath
+            or ".vscode" in fullpath
+        ):
             continue
 
         pbar.set_description(f"Processing {json_file.name}")
