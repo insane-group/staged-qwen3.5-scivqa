@@ -43,12 +43,17 @@ PRESENCE_PENALTY = 1.5  # Changed from 0.0
 REPETITION_PENALTY = 1.0  # Changed from 1.1 to disable
 
 BASE_DIR = Path.cwd().parent
-CATEGORIES = ["train", "dev"]
+CATEGORY = "test"
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 
-STATE_FILE = BASE_DIR / f"smt_{'_'.join(CATEGORIES)}_state.json"
-SMT_FILE = BASE_DIR / f"smt_{'_'.join(CATEGORIES)}.json"
+STATE_FILE = BASE_DIR / f"smt_{CATEGORY}_state.json"
+SMT_FILE = BASE_DIR / f"smt_{CATEGORY}.json"
+
+SUMMARY_CACHE_PATH = BASE_DIR / f"submission_finetuning_summary_{CATEGORY}_state.json"
+EXTRACTION_CACHE_PATH = (
+    BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}_state.json"
+)
 
 CVC5_PATH = Path.home() / "cvc5-Linux-x86_64-shared" / "bin" / "cvc5"
 
@@ -1139,109 +1144,113 @@ else:
     print("Initialized empty state.")
 
 # %%
-for split in tqdm(CATEGORIES, desc="Categories", position=0):
-    if split not in state:
-        state[split] = {}
+summary_cache = None
+with open(SUMMARY_CACHE_PATH, "r") as f:
+    summary_cache = json.load(f)
 
-    split_dir = COMPETITION_DATA_DIR / split
-    assert split_dir.exists(), f"Directory for split '{split}' not found!"
+extraction_cache = None
+with open(EXTRACTION_CACHE_PATH, "r") as f:
+    extraction_cache = json.load(f)
 
-    json_files = list(split_dir.rglob("*.json"))
+split_dir = COMPETITION_DATA_DIR / CATEGORY
+assert split_dir.exists(), f"Directory for split '{CATEGORY}' not found!"
 
-    pbar = tqdm(json_files, desc=f"Processing {split} split", position=1, leave=False)
-    for json_file in pbar:
-        fullpath = str(json_file)
+json_files = list(split_dir.rglob("*.json"))
 
-        if (
-            "content.json" in json_file.name
-            or "images" not in fullpath
-            or ".vscode" in fullpath
-        ):
+pbar = tqdm(json_files, desc=f"Processing {CATEGORY} split", position=1, leave=False)
+for json_file in pbar:
+    fullpath = str(json_file)
+
+    if (
+        "content.json" in json_file.name
+        or "images" not in fullpath
+        or ".vscode" in fullpath
+    ):
+        continue
+
+    with open(json_file, "r") as f:
+        data = json.load(f)
+
+    sample_id = data.get("sample_id", None)
+    assert sample_id, f"sample_id missing in {json_file}"
+
+    # Initialize sample_id under the current split in state
+    if sample_id not in state:
+        state[sample_id] = {}
+
+    img_path = json_file.with_suffix(".jpg")
+    if not img_path.exists():
+        continue
+
+    full_img = None
+    bboxes = data.get("bbox", {})
+    vqa_data = data.get("vqa", {})
+    summarization = data.get("summarization", {})
+    data_extraction = data.get("data_extraction", {})
+
+    # 2. Iterate through subfigures
+    for sub_key, q_list in vqa_data.items():
+        if sub_key not in state[sample_id]:
+            state[sample_id][sub_key] = {}
+
+        # 3. CRITICAL: Check if a data table extract is available
+        table = extraction_cache[sample_id][sub_key]
+        if not table:
             continue
 
-        with open(json_file, "r") as f:
-            data = json.load(f)
-
-        sample_id = data.get("sample_id", None)
-        assert sample_id, f"sample_id missing in {json_file}"
-
-        # Initialize sample_id under the current split in state
-        if sample_id not in state[split]:
-            state[split][sample_id] = {}
-
-        img_path = json_file.with_suffix(".jpg")
-        if not img_path.exists():
+        if sub_key not in bboxes:
             continue
 
-        full_img = None
-        bboxes = data.get("bbox", {})
-        vqa_data = data.get("vqa", {})
-        summarization = data.get("summarization", {})
-        data_extraction = data.get("data_extraction", {})
+        # Open and crop the image only when we know we need it
+        if full_img is None:
+            full_img = Image.open(img_path.absolute())
 
-        # 2. Iterate through subfigures
-        for sub_key, q_list in vqa_data.items():
-            if sub_key not in state[split][sample_id]:
-                state[split][sample_id][sub_key] = {}
+        box = bboxes[sub_key]
+        left, top = box["x"], box["y"]
+        right, bottom = left + box["width"], top + box["height"]
+        crop = full_img.crop((left, top, right, bottom))
 
-            # 3. CRITICAL: Check if a data table extract is available
-            table = data_extraction.get(sub_key, None)
-            if not table:
+        summary = summary_cache[sample_id][sub_key]
+
+        # 4. Process each question
+        for q_obj in q_list:
+            question_text = q_obj.get("question") or q_obj.get("questions")
+            if not question_text:
                 continue
 
-            if sub_key not in bboxes:
+            # Skip if we already successfully populated this question
+            if question_text in state[sample_id][sub_key]:
                 continue
 
-            # Open and crop the image only when we know we need it
-            if full_img is None:
-                full_img = Image.open(img_path.absolute())
+            pbar.set_description(f"Reflecting: {sample_id} | Sub: {sub_key}")
 
-            box = bboxes[sub_key]
-            left, top = box["x"], box["y"]
-            right, bottom = left + box["width"], top + box["height"]
-            crop = full_img.crop((left, top, right, bottom))
+            # 5. Run the iterative reflection
+            smt_code, solver_output = reflect(
+                model=model,
+                q_obj=q_obj,
+                image=crop,
+                summary=summary,
+                table=table,
+                max_retries=3,
+                verbose=False,  # Set to True if you want to debug in the cell output
+                do_sample=True,
+                max_new_tokens=MAX_NEW_TOKENS,
+                temperature=TEMPERATURE,
+                min_p=MIN_P,
+                top_p=TOP_P,
+                top_k=TOP_K,
+                repetition_penalty=REPETITION_PENALTY,
+            )
 
-            summary = summarization.get(sub_key, "N/A")
+            # 6. Populate the dictionary under the specific split
+            state[sample_id][sub_key][question_text] = {
+                "code": smt_code,
+                "output": solver_output,
+            }
 
-            # 4. Process each question
-            for q_obj in q_list:
-                question_text = q_obj.get("question") or q_obj.get("questions")
-                if not question_text:
-                    continue
-
-                # Skip if we already successfully populated this question
-                if question_text in state[split][sample_id][sub_key]:
-                    continue
-
-                pbar.set_description(f"Reflecting: {sample_id} | Sub: {sub_key}")
-
-                # 5. Run the iterative reflection
-                smt_code, solver_output = reflect(
-                    model=model,
-                    q_obj=q_obj,
-                    image=crop,
-                    summary=summary,
-                    table=table,
-                    max_retries=3,
-                    verbose=False,  # Set to True if you want to debug in the cell output
-                    do_sample=True,
-                    max_new_tokens=MAX_NEW_TOKENS,
-                    temperature=TEMPERATURE,
-                    min_p=MIN_P,
-                    top_p=TOP_P,
-                    top_k=TOP_K,
-                    repetition_penalty=REPETITION_PENALTY,
-                )
-
-                # 6. Populate the dictionary under the specific split
-                state[split][sample_id][sub_key][question_text] = {
-                    "code": smt_code,
-                    "output": solver_output,
-                }
-
-                # 7. Checkpoint to disk instantly
-                with open(STATE_FILE, "w") as f:
-                    json.dump(state, f, indent=4)
+            # 7. Checkpoint to disk instantly
+            with open(STATE_FILE, "w") as f:
+                json.dump(state, f, indent=4)
 
 print("Pipeline execution complete! State fully synced.")
 
