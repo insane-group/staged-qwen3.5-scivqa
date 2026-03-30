@@ -28,7 +28,7 @@ from collections import defaultdict
 MODEL_ID = "unsloth/Qwen3.5-9B"
 MAX_NEW_TOKENS = 256
 
-# https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
+# https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
 TEMPERATURE = 0.7
 MIN_P = 0.01

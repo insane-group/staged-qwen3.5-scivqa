@@ -29,9 +29,8 @@ from collections import defaultdict
 MODEL_ID = "unsloth/Qwen3.5-9B"
 
 MAX_NEW_TOKENS = 256
-NUM_TRAIN_EPOCHS = 5
 
-# https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
+# https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
 TEMPERATURE = 0.7
 MIN_P = 0.01
@@ -41,7 +40,7 @@ TOP_K = 20
 LORA_CHECKPOINT = f"Sci-ImageMiner-{MODEL_ID.split('/')[1]}-LORA-SUMMARY"
 
 BASE_DIR = Path.cwd().parent
-CATEGORY = "dev"
+CATEGORY = "test"
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
