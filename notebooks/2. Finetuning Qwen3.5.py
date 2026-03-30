@@ -37,7 +37,7 @@ MODEL_ID = "unsloth/Qwen3.5-9B"
 MAX_NEW_TOKENS = 256
 NUM_TRAIN_EPOCHS = 5
 
-# https://unsloth.ai/docs/models/qwen3-how-to-run-and-fine-tune#official-recommended-settings
+# https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
 TEMPERATURE = 0.7
 MIN_P = 0.01
@@ -50,8 +50,6 @@ BASE_DIR = Path.cwd().parent
 CATEGORIES = ["train", "dev"]
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
-
-SMT_FILE = BASE_DIR / f"smt_{'_'.join(CATEGORIES)}.json"
 
 # %%
 model, tokenizer = FastVisionModel.from_pretrained(
@@ -89,12 +87,6 @@ PROMPT_YES_NO = """
 [TABLE]
 {table}
 
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
-
 Additional context from the original paper:
 {context}
 
@@ -123,12 +115,6 @@ PROMPT_FACTOID = """
 
 [TABLE]
 {table}
-
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
 
 Additional context from the original paper:
 {context}
@@ -159,12 +145,6 @@ PROMPT_LIST = """
 [TABLE]
 {table}
 
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
-
 Additional context from the original paper:
 {context}
 
@@ -193,12 +173,6 @@ PROMPT_PARAGRAPH = """
 
 [TABLE]
 {table}
-
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
 
 Additional context from the original paper:
 {context}
@@ -346,7 +320,7 @@ def get_paper_context(json_file_path, window_size=2):
     return "\n\n".join(context_blocks)
 
 
-def load_dataset(category: str, smt: dict) -> list[dict]:
+def load_dataset(category: str) -> list[dict]:
     case_dir = COMPETITION_DATA_DIR / category
 
     samples = []
@@ -371,7 +345,6 @@ def load_dataset(category: str, smt: dict) -> list[dict]:
         with open(json_file, "r") as f:
             data = json.load(f)
 
-        sample_id = data["sample_id"]
         img_path = json_file.with_suffix(".jpg")
         assert img_path.exists(), f"{json_file.name} does not exist"
 
@@ -408,19 +381,12 @@ def load_dataset(category: str, smt: dict) -> list[dict]:
                 question_type = q_obj.get("question_type", "")
                 answer_type = q_obj.get("answer_type", "")
 
-                code, output = None, None
-                if table is not None:
-                    entry = smt[category][sample_id][sub_key][question_text]
-                    code, output = entry["code"], entry["output"]
-
                 human_prompt = PROMPTS[answer_type].format(
                     question=question_text,
                     question_type=question_type,
                     context=context,
                     summary=summary if summary is not None else "N/A",
                     table=table if table is not None else "N/A",
-                    code=code if code is not None else "N/A",
-                    output=output if code is not None else "N/A",
                 )
 
                 raw_response = q_obj.get("answer", "")
@@ -450,17 +416,13 @@ def load_dataset(category: str, smt: dict) -> list[dict]:
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-smt = None
-with open(SMT_FILE, "r") as f:
-    smt = json.load(f)
-
 dataset = []
 valid_count = 0
 invalid_count = 0
 
 for category in CATEGORIES:
     print(f"\nLoading category: {category}")
-    ds, vc, ic = load_dataset(category, smt)
+    ds, vc, ic = load_dataset(category)
 
     dataset.extend(ds)
     valid_count += vc
