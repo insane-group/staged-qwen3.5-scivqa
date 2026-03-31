@@ -27,6 +27,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 import torch
 import outlines
 from tqdm.auto import tqdm
+import warnings
 
 # %%
 # MODEL_ID = "unsloth/Qwen3.5-35B-A3B"
@@ -952,7 +953,7 @@ def reflect(
             q_obj,
             image,
             summary,
-            max_retries=3,
+            max_retries=max_retries,
             verbose=False,
             **gen_kwargs,
         )
@@ -1157,10 +1158,20 @@ assert split_dir.exists(), f"Directory for split '{CATEGORY}' not found!"
 
 json_files = list(split_dir.rglob("*.json"))
 
-pbar = tqdm(json_files, desc=f"Processing {CATEGORY} split", position=1, leave=False)
-for json_file in pbar:
+processed_cnt = 0
+skipped_cnt = 0
+already_processed_cnt = 0
+
+# ---------------------------------------------------------
+# PASS 1: Scan and flatten the workload (takes just a moment)
+# ---------------------------------------------------------
+tasks = []
+print(f"Scanning {CATEGORY} files to calculate actual workload...")
+
+for json_file in json_files:
     fullpath = str(json_file)
 
+    # File-level skips
     if (
         "content.json" in json_file.name
         or "images" not in fullpath
@@ -1168,91 +1179,143 @@ for json_file in pbar:
     ):
         continue
 
+    img_path = json_file.with_suffix(".jpg")
+    if not img_path.exists():
+        warnings.warn(f"Skipping JSON file (missing image {img_path.name}): {fullpath}")
+        continue
+
     with open(json_file, "r") as f:
         data = json.load(f)
 
-    sample_id = data.get("sample_id", None)
-    assert sample_id, f"sample_id missing in {json_file}"
+    sample_id = data.get("sample_id")
+    if not sample_id:
+        warnings.warn(f"Skipping JSON file (missing 'sample_id'): {fullpath}")
+        continue
 
-    # Initialize sample_id under the current split in state
     if sample_id not in state:
         state[sample_id] = {}
 
-    img_path = json_file.with_suffix(".jpg")
-    if not img_path.exists():
-        continue
-
-    full_img = None
     bboxes = data.get("bbox", {})
     vqa_data = data.get("vqa", {})
-    summarization = data.get("summarization", {})
-    data_extraction = data.get("data_extraction", {})
 
-    # 2. Iterate through subfigures
+    # Gather valid questions
     for sub_key, q_list in vqa_data.items():
         if sub_key not in state[sample_id]:
             state[sample_id][sub_key] = {}
 
-        # 3. CRITICAL: Check if a data table extract is available
-        table = extraction_cache[sample_id][sub_key]
+        table = extraction_cache.get(sample_id, {}).get(sub_key, None)
+
+        # Subfigure-level skips
         if not table:
+            warnings.warn(
+                f"Skipping subfigure '{sub_key}' in {sample_id} (no table data)."
+            )
+            skipped_cnt += len(q_list) if isinstance(q_list, list) else 1
             continue
 
         if sub_key not in bboxes:
+            warnings.warn(
+                f"Skipping subfigure '{sub_key}' in {sample_id} (no bounding box)."
+            )
+            skipped_cnt += len(q_list) if isinstance(q_list, list) else 1
             continue
 
-        # Open and crop the image only when we know we need it
-        if full_img is None:
-            full_img = Image.open(img_path.absolute())
-
-        box = bboxes[sub_key]
-        left, top = box["x"], box["y"]
-        right, bottom = left + box["width"], top + box["height"]
-        crop = full_img.crop((left, top, right, bottom))
-
-        summary = summary_cache[sample_id][sub_key]
-
-        # 4. Process each question
         for q_obj in q_list:
             question_text = q_obj.get("question") or q_obj.get("questions")
+
+            # Question-level skips
             if not question_text:
+                warnings.warn(
+                    f"Skipping a question in {sample_id} subfigure '{sub_key}' (missing question text)."
+                )
+                skipped_cnt += 1
                 continue
 
-            # Skip if we already successfully populated this question
             if question_text in state[sample_id][sub_key]:
+                already_processed_cnt += 1
                 continue
 
-            pbar.set_description(f"Reflecting: {sample_id} | Sub: {sub_key}")
-
-            # 5. Run the iterative reflection
-            smt_code, solver_output = reflect(
-                model=model,
-                q_obj=q_obj,
-                image=crop,
-                summary=summary,
-                table=table,
-                max_retries=3,
-                verbose=False,  # Set to True if you want to debug in the cell output
-                do_sample=True,
-                max_new_tokens=MAX_NEW_TOKENS,
-                temperature=TEMPERATURE,
-                min_p=MIN_P,
-                top_p=TOP_P,
-                top_k=TOP_K,
-                repetition_penalty=REPETITION_PENALTY,
+            # If it passes all checks, it's a valid task!
+            tasks.append(
+                {
+                    "json_file": json_file,
+                    "img_path": img_path,
+                    "sample_id": sample_id,
+                    "sub_key": sub_key,
+                    "q_obj": q_obj,
+                    "question_text": question_text,
+                    "box": bboxes[sub_key],
+                    "summary": summary_cache.get(sample_id, {}).get(sub_key, ""),
+                    "table": table,
+                }
             )
 
-            # 6. Populate the dictionary under the specific split
-            state[sample_id][sub_key][question_text] = {
-                "code": smt_code,
-                "output": solver_output,
-            }
+# ---------------------------------------------------------
+# PASS 2: Process the flattened tasks with an accurate tqdm
+# ---------------------------------------------------------
+pbar = tqdm(tasks, desc=f"Processing {CATEGORY} split", position=1, leave=False)
 
-            # 7. Checkpoint to disk instantly
-            with open(STATE_FILE, "w") as f:
-                json.dump(state, f, indent=4)
+# Track the current image so we don't repeatedly load the same image from disk
+current_img_path = None
+full_img = None
 
-print("Pipeline execution complete! State fully synced.")
+for task in pbar:
+    sample_id = task["sample_id"]
+    sub_key = task["sub_key"]
+
+    pbar.set_description(f"Reflecting: {sample_id} | Sub: {sub_key}")
+
+    # Only open a new image if the file path has changed
+    if current_img_path != task["img_path"]:
+        current_img_path = task["img_path"]
+        full_img = Image.open(current_img_path.absolute())
+
+    # Crop image
+    box = task["box"]
+    left, top = box["x"], box["y"]
+    right, bottom = left + box["width"], top + box["height"]
+    crop = full_img.crop((left, top, right, bottom))
+
+    # Run reflection
+    smt_code, solver_output = reflect(
+        model=model,
+        q_obj=task["q_obj"],
+        image=crop,
+        summary=task["summary"],
+        table=task["table"],
+        max_retries=2,
+        verbose=False,
+        do_sample=True,
+        max_new_tokens=MAX_NEW_TOKENS,
+        temperature=TEMPERATURE,
+        min_p=MIN_P,
+        top_p=TOP_P,
+        top_k=TOP_K,
+        repetition_penalty=REPETITION_PENALTY,
+    )
+
+    # Save to state
+    state[sample_id][sub_key][task["question_text"]] = {
+        "code": smt_code,
+        "output": solver_output,
+    }
+
+    # Update counters
+    processed_cnt += 1
+
+    # Checkpoint every 5 tasks to save disk I/O time
+    if processed_cnt % 5 == 0:
+        with open(STATE_FILE, "w") as f:
+            json.dump(state, f, indent=4)
+
+    pbar.set_postfix(
+        processed=processed_cnt, skipped=skipped_cnt, already=already_processed_cnt
+    )
+
+print(
+    f"Pipeline execution complete! State fully synced.\n"
+    f"Summary -> Processed: {processed_cnt} | Already Processed: {already_processed_cnt} | Skipped: {skipped_cnt}"
+)
 
 # %%
 print(f"Saving final consolidated data to {SMT_FILE}...")
