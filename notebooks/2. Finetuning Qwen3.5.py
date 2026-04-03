@@ -233,15 +233,12 @@ def clean_answer(raw_answer: str, expected_type: str) -> tuple[str, bool]:
 
     elif expected_type == "Factoid":
         # Remove trailing punctuation often mistakenly added by LLMs to short terms
-        cleaned_factoid = cleaned.rstrip(".!? \n")
+        cleaned_factoid = cleaned.rstrip(" \n")
         return cleaned_factoid, len(cleaned_factoid) > 0
 
     elif expected_type == "Paragraph":
-        # Strip accidental bullet points
-        cleaned_para = re.sub(r"^\s*[•\-\*]\s+", "", cleaned, flags=re.MULTILINE)
-
         # Replace multiple spaces/newlines with single spaces for a clean paragraph
-        cleaned_para = re.sub(r"\s+", " ", cleaned_para).strip()
+        cleaned_para = re.sub(r"\s+", " ", cleaned).strip()
         sentences = [s for s in re.split(r"[.!?]+", cleaned_para) if s.strip()]
         return cleaned_para, len(sentences) >= 1
 
