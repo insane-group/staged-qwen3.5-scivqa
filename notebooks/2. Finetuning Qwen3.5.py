@@ -35,6 +35,7 @@ import matplotlib.pyplot as plt
 # %%
 MODEL_ID = "unsloth/Qwen3.5-9B"
 MAX_NEW_TOKENS = 256
+MAX_SEQUENCE_LENGTH = 4096
 NUM_TRAIN_EPOCHS = 5
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
@@ -55,6 +56,7 @@ COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-da
 model, tokenizer = FastVisionModel.from_pretrained(
     MODEL_ID,
     load_in_4bit=False,  # Use 4bit to reduce memory use. False for 16bit LoRA.
+    max_seq_length=MAX_SEQUENCE_LENGTH,  # Must match the max_length used during training
     use_gradient_checkpointing="unsloth",  # True or "unsloth" for long context
 )
 
@@ -445,13 +447,11 @@ dataset[0]["messages"]
 
 
 # %%
-def calculate_token_stats(dataset_samples, processor, max_samples=500):
+def calculate_token_stats(samples, processor, max_samples=None):
     stats = []
 
     # Limit samples for speed during exploration
-    samples_to_process = (
-        dataset_samples[:max_samples] if max_samples else dataset_samples
-    )
+    samples_to_process = samples[:max_samples] if max_samples else samples
 
     for sample in tqdm(samples_to_process, desc="Calculating token lengths"):
         messages = sample["messages"]
@@ -492,7 +492,7 @@ def calculate_token_stats(dataset_samples, processor, max_samples=500):
 
 # %%
 # Run the analysis
-df_tokens = calculate_token_stats(dataset, tokenizer, max_samples=200)
+df_tokens = calculate_token_stats(dataset, tokenizer)
 
 # Display statistics
 print("\n--- Token Length Statistics ---")
@@ -514,6 +514,41 @@ df_tokens["total_tokens"].hist(bins=30, ax=axes[1], color="skyblue", edgecolor="
 axes[1].set_title("Total Sequence Tokens (for max_length)")
 axes[1].set_xlabel("Token Count")
 plt.show()
+
+# %%
+# 1. Guard against silent truncation (e.g., if max_samples was used in stats)
+if len(dataset) != len(df_tokens):
+    raise ValueError(
+        f"❌ Length mismatch: Dataset has {len(dataset)} samples, but token stats "
+        f"have {len(df_tokens)} rows. Ensure you ran calculate_token_stats with max_samples=None."
+    )
+
+# 2. Guard against missing or corrupted data
+if "total_tokens" not in df_tokens.columns:
+    raise KeyError("❌ The DataFrame is missing the required 'total_tokens' column.")
+
+if df_tokens["total_tokens"].isna().any():
+    raise ValueError("❌ The 'total_tokens' column contains missing (NaN) values.")
+
+# 3. Perform the actual filtering
+original_size = len(dataset)
+
+dataset = [
+    sample
+    for sample, total_tokens in zip(dataset, df_tokens["total_tokens"])
+    if total_tokens <= MAX_SEQUENCE_LENGTH
+]
+
+filtered_size = len(dataset)
+dropped_count = original_size - filtered_size
+
+print("-" * 40)
+print("🧹 ROBUST TOKEN FILTERING SUMMARY")
+print(f"Original size: {original_size}")
+print(f"Max Length Allowed: {MAX_SEQUENCE_LENGTH}")
+print(f"Kept (Safe): {filtered_size}")
+print(f"Dropped (Outliers): {dropped_count}")
+print("-" * 40)
 
 # %% [markdown]
 # Let's first see before we do any finetuning what the model outputs for the first example!
@@ -584,7 +619,7 @@ trainer = SFTTrainer(
     model=model,
     tokenizer=tokenizer,
     data_collator=UnslothVisionDataCollator(
-        model, tokenizer, max_seq_length=4096, resize="max"
+        model, tokenizer, max_seq_length=MAX_SEQUENCE_LENGTH, resize="max"
     ),  # https://github.com/unslothai/unsloth/issues/2764
     train_dataset=dataset,
     args=SFTConfig(
@@ -605,7 +640,7 @@ trainer = SFTTrainer(
         remove_unused_columns=False,
         dataset_text_field="",
         dataset_kwargs={"skip_prepare_dataset": True},
-        max_length=4096,
+        max_length=MAX_SEQUENCE_LENGTH,
     ),
 )
 
@@ -696,6 +731,7 @@ tokenizer.save_pretrained(LORA_CHECKPOINT)
 model, tokenizer = FastVisionModel.from_pretrained(
     model_name=LORA_CHECKPOINT,
     load_in_4bit=True,  # Set to False for 16bit LoRA
+    max_seq_length=MAX_SEQUENCE_LENGTH,  # Must match the max_length used during training
 )
 FastVisionModel.for_inference(model)  # Enable for inference!
 

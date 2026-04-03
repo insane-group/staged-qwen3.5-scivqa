@@ -27,6 +27,7 @@ from collections import defaultdict
 # %%
 MODEL_ID = "unsloth/Qwen3.5-9B"
 MAX_NEW_TOKENS = 256
+MAX_SEQUENCE_LENGTH = 4096
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
@@ -50,7 +51,6 @@ SUMMARY_CACHE_PATH = BASE_DIR / f"submission_finetuning_summary_{CATEGORY}_state
 EXTRACTION_CACHE_PATH = (
     BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}_state.json"
 )
-SMT_FILE = BASE_DIR / f"smt_{CATEGORY}.json"
 
 # %% [markdown]
 # <a name="Data"></a>
@@ -81,12 +81,6 @@ PROMPT_YES_NO = """
 [TABLE]
 {table}
 
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
-
 Additional context from the original paper:
 {context}
 
@@ -115,12 +109,6 @@ PROMPT_FACTOID = """
 
 [TABLE]
 {table}
-
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
 
 Additional context from the original paper:
 {context}
@@ -151,12 +139,6 @@ PROMPT_LIST = """
 [TABLE]
 {table}
 
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
-
 Additional context from the original paper:
 {context}
 
@@ -185,12 +167,6 @@ PROMPT_PARAGRAPH = """
 
 [TABLE]
 {table}
-
-[CODE]
-{code}
-
-[SOLVER OUTPUT]
-{output}
 
 Additional context from the original paper:
 {context}
@@ -283,7 +259,7 @@ def get_paper_context(json_file_path, window_size=2):
 
 
 def load_test_dataset(
-    case_dir: Path, summary_cache: dict, extraction_cache: dict, smt: dict
+    case_dir: Path, summary_cache: dict, extraction_cache: dict
 ) -> list[dict]:
     samples = []
     json_files = list(case_dir.rglob("*.json"))
@@ -328,26 +304,24 @@ def load_test_dataset(
 
             sub_image = full_img.crop((left, top, right, bottom))
 
-            summary = summary_cache[sample_id][sub_fig]
-            table = extraction_cache[sample_id][sub_fig]
+            summary = summary_cache.get(sample_id, {}).get(sub_fig)
+            table = extraction_cache.get(sample_id, {}).get(sub_fig)
 
             for q_obj in q_list:
                 question_text = q_obj.get("question") or q_obj.get("questions")
                 question_type = q_obj.get("question_type", "")
                 answer_type = q_obj.get("answer_type", "")
 
-                entry = smt[sample_id][sub_fig][question_text]
-                code = entry["code"]
-                output = entry["output"]
-
                 human_prompt = PROMPTS[answer_type].format(
                     question=question_text,
                     question_type=question_type,
                     context=context,
-                    summary=summary,
-                    table=table,
-                    code=code if code is not None else "N/A",
-                    output=output if code is not None else "N/A",
+                    summary=summary
+                    if summary is not None
+                    else "N/A",  # Aligned with training code fallback
+                    table=table
+                    if table is not None
+                    else "N/A",  # Aligned with training code fallback
                 )
 
                 # 5. Format for inference (User role only)
@@ -381,10 +355,6 @@ def load_test_dataset(
 # Let's convert the dataset into the "correct" format for finetuning:
 
 # %%
-smt = None
-with open(SMT_FILE, "r") as f:
-    smt = json.load(f)
-
 summary_cache = None
 with open(SUMMARY_CACHE_PATH, "r") as f:
     summary_cache = json.load(f)
@@ -393,7 +363,7 @@ extraction_cache = None
 with open(EXTRACTION_CACHE_PATH, "r") as f:
     extraction_cache = json.load(f)
 
-dataset = load_test_dataset(CASE_DIR, summary_cache, extraction_cache, smt)
+dataset = load_test_dataset(CASE_DIR, summary_cache, extraction_cache)
 
 # %% [markdown]
 # We look at how the conversations are structured for the first example:
@@ -414,6 +384,7 @@ dataset[0]
 model, tokenizer = FastVisionModel.from_pretrained(
     model_name=LORA_CHECKPOINT,
     load_in_4bit=True,  # Set to False for 16bit LoRA
+    max_seq_length=MAX_SEQUENCE_LENGTH,  # Must match the max_length used during training
 )
 FastVisionModel.for_inference(model)  # Enable for inference!
 

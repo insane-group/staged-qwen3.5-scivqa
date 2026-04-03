@@ -29,7 +29,7 @@ from collections import defaultdict
 MODEL_ID = "unsloth/Qwen3.5-9B"
 
 MAX_NEW_TOKENS = 256
-NUM_TRAIN_EPOCHS = 5
+MAX_SEQUENCE_LENGTH = 4096
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
@@ -46,7 +46,6 @@ CATEGORY = "test"
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
 
-DATA_DIR = BASE_DIR / "data"
 STATE_FILE = BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}_state.json"
 SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_extraction_{CATEGORY}.json"
 
@@ -267,6 +266,7 @@ dataset[0]["messages"]
 model, tokenizer = FastVisionModel.from_pretrained(
     model_name=LORA_CHECKPOINT,
     load_in_4bit=True,  # Set to False for 16bit LoRA
+    max_seq_length=MAX_SEQUENCE_LENGTH,  # Must match the max_length used during training
 )
 FastVisionModel.for_inference(model)  # Enable for inference!
 

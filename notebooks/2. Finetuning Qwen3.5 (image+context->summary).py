@@ -35,6 +35,7 @@ import matplotlib.pyplot as plt
 MODEL_ID = "unsloth/Qwen3.5-9B"
 
 MAX_NEW_TOKENS = 256
+MAX_SEQUENCE_LENGTH = 4096
 NUM_TRAIN_EPOCHS = 5
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
@@ -51,12 +52,11 @@ CATEGORIES = ["train", "dev"]
 
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 
-DATA_DIR = BASE_DIR / "data"
-
 # %%
 model, tokenizer = FastVisionModel.from_pretrained(
     MODEL_ID,
     load_in_4bit=False,  # Use 4bit to reduce memory use. False for 16bit LoRA.
+    max_seq_length=MAX_SEQUENCE_LENGTH,  # Must match the max_length used during training
     use_gradient_checkpointing="unsloth",  # True or "unsloth" for long context
 )
 
@@ -218,11 +218,7 @@ def load_dataset(case_dir: Path) -> list[dict]:
 
     for json_file in pbar:
         fullpath = str(json_file)
-        if (
-            "content.json" in json_file.name
-            or "images" not in fullpath
-            or ".vscode" in fullpath
-        ):
+        if "images" not in fullpath or ".vscode" in fullpath:
             continue
 
         pbar.set_description(f"Processing {json_file.name}")
@@ -315,13 +311,11 @@ dataset[0]["messages"]
 
 
 # %%
-def calculate_token_stats(dataset_samples, processor, max_samples=500):
+def calculate_token_stats(samples, processor, max_samples=None):
     stats = []
 
     # Limit samples for speed during exploration
-    samples_to_process = (
-        dataset_samples[:max_samples] if max_samples else dataset_samples
-    )
+    samples_to_process = samples[:max_samples] if max_samples else samples
 
     for sample in tqdm(samples_to_process, desc="Calculating token lengths"):
         messages = sample["messages"]
@@ -362,7 +356,7 @@ def calculate_token_stats(dataset_samples, processor, max_samples=500):
 
 # %%
 # Run the analysis
-df_tokens = calculate_token_stats(dataset, tokenizer, max_samples=200)
+df_tokens = calculate_token_stats(dataset, tokenizer)
 
 # Display statistics
 print("\n--- Token Length Statistics ---")
@@ -384,6 +378,41 @@ df_tokens["total_tokens"].hist(bins=30, ax=axes[1], color="skyblue", edgecolor="
 axes[1].set_title("Total Sequence Tokens (for max_length)")
 axes[1].set_xlabel("Token Count")
 plt.show()
+
+# %%
+# 1. Guard against silent truncation (e.g., if max_samples was used in stats)
+if len(dataset) != len(df_tokens):
+    raise ValueError(
+        f"❌ Length mismatch: Dataset has {len(dataset)} samples, but token stats "
+        f"have {len(df_tokens)} rows. Ensure you ran calculate_token_stats with max_samples=None."
+    )
+
+# 2. Guard against missing or corrupted data
+if "total_tokens" not in df_tokens.columns:
+    raise KeyError("❌ The DataFrame is missing the required 'total_tokens' column.")
+
+if df_tokens["total_tokens"].isna().any():
+    raise ValueError("❌ The 'total_tokens' column contains missing (NaN) values.")
+
+# 3. Perform the actual filtering
+original_size = len(dataset)
+
+dataset = [
+    sample
+    for sample, total_tokens in zip(dataset, df_tokens["total_tokens"])
+    if total_tokens <= MAX_SEQUENCE_LENGTH
+]
+
+filtered_size = len(dataset)
+dropped_count = original_size - filtered_size
+
+print("-" * 40)
+print("🧹 ROBUST TOKEN FILTERING SUMMARY")
+print(f"Original size: {original_size}")
+print(f"Max Length Allowed: {MAX_SEQUENCE_LENGTH}")
+print(f"Kept (Safe): {filtered_size}")
+print(f"Dropped (Outliers): {dropped_count}")
+print("-" * 40)
 
 # %% [markdown]
 # Let's first see before we do any finetuning what the model outputs for the first example!
@@ -454,7 +483,7 @@ trainer = SFTTrainer(
     model=model,
     tokenizer=tokenizer,
     data_collator=UnslothVisionDataCollator(
-        model, tokenizer, max_seq_length=4096, resize="max"
+        model, tokenizer, max_seq_length=MAX_SEQUENCE_LENGTH, resize="max"
     ),  # https://github.com/unslothai/unsloth/issues/2764
     train_dataset=dataset,
     args=SFTConfig(
@@ -475,7 +504,7 @@ trainer = SFTTrainer(
         remove_unused_columns=False,
         dataset_text_field="",
         dataset_kwargs={"skip_prepare_dataset": True},
-        max_length=4096,
+        max_length=MAX_SEQUENCE_LENGTH,
     ),
 )
 
@@ -504,48 +533,6 @@ print(f"Peak reserved memory % of max memory = {used_percentage} %.")
 print(f"Peak reserved memory for training % of max memory = {lora_percentage} %.")
 
 # %% [markdown]
-# <a name="Inference"></a>
-# ### 🍴 Inference
-#
-# Let's run the model! You can change the instruction and input - leave the output blank!
-#
-# We use `min_p = 0.1` and `temperature = 1.5`. Read this [Tweet](https://x.com/menhguin/status/1826132708508213629) for more information on why.
-
-# %%
-FastVisionModel.for_inference(model)  # Enable for inference!
-
-image = dataset[0]["messages"][0]["content"][1]["image"]
-instruction = dataset[0]["messages"][0]["content"][0]["text"]
-
-messages = [
-    {
-        "role": "user",
-        "content": [{"type": "image"}, {"type": "text", "text": instruction}],
-    }
-]
-input_text = tokenizer.apply_chat_template(
-    messages, add_generation_prompt=True, enable_thinking=ENABLE_THINKING
-)
-inputs = tokenizer(
-    image,
-    input_text,
-    add_special_tokens=False,
-    return_tensors="pt",
-).to("cuda")
-
-text_streamer = TextStreamer(tokenizer, skip_prompt=True)
-_ = model.generate(
-    **inputs,
-    streamer=text_streamer,
-    max_new_tokens=MAX_NEW_TOKENS,
-    use_cache=True,
-    temperature=TEMPERATURE,
-    min_p=MIN_P,
-    top_p=TOP_P,
-    top_k=TOP_K,
-)
-
-# %% [markdown]
 # <a name="Saving"></a>
 # ### 💾 Saving, loading finetuned models
 #
@@ -558,42 +545,3 @@ model.save_pretrained(LORA_CHECKPOINT)  # Local saving
 tokenizer.save_pretrained(LORA_CHECKPOINT)
 # model.push_to_hub(f"billsioros/{LORA_CHECKPOINT}", token = "YOUR_HF_TOKEN") # Online saving
 # tokenizer.push_to_hub(f"billsioros/{LORA_CHECKPOINT}", token = "YOUR_HF_TOKEN") # Online saving
-
-# %% [markdown]
-# Let's now load the LoRA adapters we just saved for inference!
-
-# %%
-model, tokenizer = FastVisionModel.from_pretrained(
-    model_name=LORA_CHECKPOINT,
-    load_in_4bit=True,  # Set to False for 16bit LoRA
-)
-FastVisionModel.for_inference(model)  # Enable for inference!
-
-image = dataset[0]["messages"][0]["content"][1]["image"]
-instruction = dataset[0]["messages"][0]["content"][0]["text"]
-
-messages = [
-    {
-        "role": "user",
-        "content": [{"type": "image"}, {"type": "text", "text": instruction}],
-    }
-]
-input_text = tokenizer.apply_chat_template(messages, add_generation_prompt=True)
-inputs = tokenizer(
-    image,
-    input_text,
-    add_special_tokens=False,
-    return_tensors="pt",
-).to("cuda")
-
-text_streamer = TextStreamer(tokenizer, skip_prompt=True)
-_ = model.generate(
-    **inputs,
-    streamer=text_streamer,
-    max_new_tokens=MAX_NEW_TOKENS,
-    use_cache=True,
-    temperature=TEMPERATURE,
-    min_p=MIN_P,
-    top_p=TOP_P,
-    top_k=TOP_K,
-)
