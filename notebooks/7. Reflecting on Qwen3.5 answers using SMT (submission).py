@@ -31,8 +31,8 @@ MAX_SEQUENCE_LENGTH = 4096  # SMT code can be up to 2048 tokens, so we need to e
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
-TEMPERATURE = 1.0
-TOP_P = 0.95
+TEMPERATURE = 0.2
+TOP_P = 0.1
 TOP_K = 20
 MIN_P = 0.0
 PRESENCE_PENALTY = 1.5
@@ -86,17 +86,17 @@ Answer Type: {answer_type}
 {output}
 
 Evaluate the initial answer against the solver output.
-- If the solver output contradicts the initial answer or provides a more mathematically/logically precise result, rewrite the answer to reflect the solver's findings.
-- If the solver output confirms the initial answer or is irrelevant/failed, output the initial answer exactly as it is.
+- If the solver output contradicts the initial answer, rewrite the answer using the solver's mathematically/logically precise result.
+- If the solver output confirms the initial answer (or is irrelevant/failed), rewrite the initial answer ONLY to ensure it perfectly aligns with the Strict Requirements below.
 
 Strict Requirements:
 1. Output plain text only, with no JSON, no code fences, and no surrounding explanatory text for the final answer.
 2. Do NOT include any of the following in your final answer: the initial answer, the SMT-LIB code, the solver output, or any commentary on them. Your final answer should be a standalone response to the question.
 3. You MUST adhere strictly to the format expected for a '{answer_type}' question. Apply the exact formatting rule corresponding to the question type below:
-   - Yes/No: Output STRICTLY as "Yes" or "No" (title case).
-   - Factoid: Stay concise and factual.
-   - List: Output STRICTLY as comma-separated values (order-insensitive, no bullet points, no numbered lists).
-   - Paragraph: Output STRICTLY as a paragraph containing at least 3 sentences providing an explanatory answer (no bullet points, no numbered lists).
+   - Yes/No: Output STRICTLY as "Yes" or "No" (title case). No punctuation.
+   - Factoid: Output ONLY the exact entity, number, or phrase. Do not write full sentences, and do not use introductory filler (e.g., write "5" instead of "The answer is 5").
+   - List: Output STRICTLY as an exhaustive, comma-separated list. Do not include bullet points, numbered lists, or introductory text.
+   - Paragraph: Output STRICTLY as a single paragraph containing at least 3 sentences. Ensure the explanation is semantically cohesive, grammatically correct, and logically explains the solver's findings.
 4. You MUST enclose your final answer within <ANSWER>...</ANSWER> tags to clearly indicate the answer portion of your response.
 """
 
@@ -229,9 +229,9 @@ for sample_id, sub_figs in tqdm(initial_state.items(), desc="Running Code Reflec
                 # 2. Logic Checks
                 is_empty = len(parsed_answer) == 0
                 is_rambling = len(parsed_answer) > (2 * len(initial_answer))
-                is_too_short = len(initial_answer) > 15 and len(parsed_answer) < (
-                    0.4 * len(initial_answer)
-                )
+                is_too_short = answer_type not in {"Factoid", "Yes/No"} and len(
+                    parsed_answer
+                ) < (0.4 * len(initial_answer))
 
                 # 3. Decision Tree - Trigger fallback if ANY of our defensive checks fail
                 if is_empty or hit_max_tokens or is_rambling or is_too_short:
@@ -272,3 +272,5 @@ final_submission = [{"sample_id": k, "vqa": v} for k, v in reflected_state.items
 
 with FINAL_SUBMISSION_PATH.open("w") as f:
     json.dump(final_submission, f, indent=2)
+
+print(f"✅ Final submission saved to {FINAL_SUBMISSION_PATH}.")

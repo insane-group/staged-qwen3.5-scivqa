@@ -233,7 +233,7 @@ def clean_answer(raw_answer: str, expected_type: str) -> tuple[str, bool]:
 
     elif expected_type == "Factoid":
         # Remove trailing punctuation often mistakenly added by LLMs to short terms
-        cleaned_factoid = cleaned.rstrip(" \n")
+        cleaned_factoid = cleaned.strip()
         return cleaned_factoid, len(cleaned_factoid) > 0
 
     elif expected_type == "Paragraph":
