@@ -1283,7 +1283,7 @@ for task in pbar:
         image=crop,
         summary=task["summary"],
         table=task["table"],
-        max_retries=2,
+        max_retries=1,
         verbose=False,
         do_sample=True,
         max_new_tokens=MAX_NEW_TOKENS,
