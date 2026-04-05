@@ -116,7 +116,7 @@
           "question_type": "Application/Performance",
           "question": "Is Xe an effective ion for deep implantation applications based on this figure?Np",
           "answer_type": "Yes/No",
-          "answer": "Yes"
+          "answer": "No"
         }
       ],
       "c": [
@@ -1110,7 +1110,7 @@
           "question_type": "Application/Performance",
           "question": "Does this figure confirm that BF\u2083 and BF(OH)\u2082 are the dominant volatile products during steady-state thermal ALE of B\u2082O\u2083 using only HF at 150 \u00b0C?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -1366,7 +1366,7 @@
           "question_type": "Structure-Property",
           "question": "Does the heatmap show a strong dependence on HF flow rate?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Application/Performance",
@@ -1428,7 +1428,7 @@
           "question_type": "Process-Oriented",
           "question": "Does the heatmap show a strong dependence on TMA flow rate?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Application/Performance",
@@ -1682,7 +1682,7 @@
           "question_type": "Structure-Property",
           "question": "Are there measurements present beyond +2\u03c3?",
           "answer_type": "Yes/No",
-          "answer": "Yes"
+          "answer": "No"
         },
         {
           "question_type": "Application/Performance",
@@ -1713,7 +1713,7 @@
           "question_type": "Structure-Property",
           "question": "Are there measurements present in the +3\u03c3 bin?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Application/Performance",
@@ -1744,7 +1744,7 @@
           "question_type": "Structure-Property",
           "question": "Is there a distinct region of maximum values in the heatmap?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Application/Performance",
@@ -2047,7 +2047,7 @@
           "question_type": "Application/Performance",
           "question": "Does this charge-density analysis support spontaneous HF dissociation on the alumina surface without plasma activation?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -3924,7 +3924,7 @@
           "question_type": "Comparative/Trend",
           "question": "Are methyl-groups being accumulated on the surface upon cycling?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Process-Oriented",
@@ -4040,7 +4040,7 @@
           "question_type": "Comparative/Trend",
           "question": "Does the evolution of the Al\u2013O difference signal in panel (a) show evidence of etch saturation by cycle 6?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Comparative/Trend",
@@ -4378,7 +4378,7 @@
           "question_type": "Structure-Property",
           "question": "Does EPC depend strongly on pump times?",
           "answer_type": "Yes/No",
-          "answer": "No\nimage>\n\nStrict requirements:\n1. Identify the main variables shown (axes, units, and any legend information).\n2. Ignore decorative graphics, schematics, arrows, and background elements.\n3. Use the provided caption/context only to support interpretation when necessary.\n4. Do not speculate or infer beyond what is visually supported.\n5. Output plain text only, with no JSON, no code fences, and no surrounding explanatory text.\n6. Output your answer STRICTLY as \"Yes\" or \"No\" (title case)."
+          "answer": "No"
         },
         {
           "question_type": "Structure-Property",
@@ -4404,7 +4404,7 @@
           "question_type": "Application/Performance",
           "question": "Is a long pump step after the TMA dose necessary to maintain consistent etch per cycle?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Structure-Property",
@@ -5079,7 +5079,7 @@
           "question_type": "Process-Oriented",
           "question": "Does extending CF\u2084 plasma exposure time always increase the measured fluorine content?",
           "answer_type": "Yes/No",
-          "answer": "No\nimage>\n\n[SUMMARY]\nThe line chart shows fluorine atomic percentage increasing rapidly during early CF\u2084 plasma exposure and then plateauing, indicating saturation after ~60 seconds.\n\nAdditional context from the original paper:\nThe fluorination process was studied by XPS measurements and the F1s peak at 689.6 eV (Ref. 34) was used to evaluate the degree of fluorination, as shown in Fig. 4(a). The fluorination was higher at higher RF powers, as shown in Fig. 4(b). Additionally, the degree of fluorination was higher for longer  $\\mathrm{CF_4}$  plasma exposure times, as shown in Fig. 4(c). A saturation in the fluorine content was observed after  $60~\\mathrm{s}$  at an RF power of  $25~\\mathrm{W}$ . The fluorination was lower at lower RF powers because the  $\\mathrm{CF_4}$  plasma produced fewer radicals at lower RF powers.\n\nThe fluorination and etching mechanisms are described by the following equations:\n\nAnswer the following scientific figure question by reasoning strictly over the information visible in the figure and the provided context."
+          "answer": "Yes"
         }
       ],
       "b": [
@@ -5248,7 +5248,7 @@
           "question_type": "Application/Performance",
           "question": "Is the BCl3 exposure self-limiting?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -5785,7 +5785,7 @@
           "question_type": "Process-Oriented",
           "question": "Does in vacuo transportation prevent native oxide formation?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Process-Oriented",
@@ -5847,7 +5847,7 @@
           "question_type": "Process-Oriented",
           "question": "Is MoCl3 generation possible ?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Process-Oriented",
@@ -6014,7 +6014,7 @@
           "question_type": "Process-Oriented",
           "question": "Is there a temperature window when etching takes place?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -7112,7 +7112,7 @@
           "question_type": "Process-Oriented",
           "question": "Does the dissociative chemisorption of H\u2082 on the TiN (001) surface involve breaking the H\u2013H bond before adsorption?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -7133,7 +7133,7 @@
           "question_type": "Process-Oriented",
           "question": "Does the dissociative chemisorption of H\u2082 on Ti-terminated TiN (111) involve H\u2013H bond breaking before adsorption?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -11067,7 +11067,7 @@
           "question_type": "Process-Oriented",
           "question": "Do both plasma and thermal ALD films exhibit linearity?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ],
       "b": [
@@ -11131,7 +11131,7 @@
           "question_type": "Process-Oriented",
           "question": "Does plasma ALD form  LiOH/Li2O at 250 \u00b0C",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Process-Oriented",
@@ -11156,7 +11156,7 @@
           "question_type": "Process-Oriented",
           "question": "Was depth profiling by sputtering procedure used to investigate the composition?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Structure-Property",
@@ -11209,7 +11209,7 @@
           "question_type": "Process-Oriented",
           "question": "All the plasma process before this graph used a standard plasma exposure time of 3s",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -11465,7 +11465,7 @@
           "question_type": "Application/Performance",
           "question": "Can operating at 5000 mTorr and high plasma potential reach the crystalline film regime according to the figure",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -11496,7 +11496,7 @@
           "question_type": "Application/Performance",
           "question": "Does increasing power beyond 500 W significantly enhance ion flux?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }
@@ -11552,7 +11552,7 @@
           "question_type": "Process-Oriented",
           "question": "Does increasing O\u2082 flow always increase ion flux?",
           "answer_type": "Yes/No",
-          "answer": "No\nimage>\n\nAdditional context from the original paper:\nOf the variables investigated in this work, the pressure during the plasma half-step and the coupling mode of the plasma had the greatest impacts on the structural properties of the deposited thin films. Specifically, an increase in pressure results in a decrease in the crystallinity of the deposited films. However, highly crystalline films could be produced at  $5000\\mathrm{mTorr}$  when the plasma is operated in a capacitively coupled mode. Changes in neither power or relative gas flows, within the ranges explored in this work, resulted in such structural differences. Plasma characteristics measured by a Langmuir probe (ion flux and plasma potential) and OES (atomic O density) across changes in pressure, power, and relative gas flow showed comparable variations, thus complicating the understanding of why significant changes in crystallinity were not observed for all variables. To better understand this, we consider the work of Boris et al., which argues that the energy flux density delivered to the surface of a growing film can be used to drive crystallinity. Figure 9 follows their description, where the energy flux density delivered by ions impacting the surface is the product of the flux of ions and their kinetic energy. Here"
+          "answer": "No"
         },
         {
           "question_type": "Application/Performance",
@@ -11802,7 +11802,7 @@
           "question_type": "Process-Oriented",
           "question": "Does increasing the O\u2082 flow fraction always lead to higher atomic oxygen density?",
           "answer_type": "Yes/No",
-          "answer": "No\nimage>\n\nAdditional context from the original paper:\nOf the variables investigated in this work, the pressure during the plasma half-step and the coupling mode of the plasma had the greatest impacts on the structural properties of the deposited thin films. Specifically, an increase in pressure results in a decrease in the crystallinity of the deposited films. However, highly crystalline films could be produced at  $5000\\mathrm{mTorr}$  when the plasma is operated in a capacitively coupled mode. Changes in neither power or relative gas flows, within the ranges explored in this work, resulted in such structural differences. Plasma characteristics measured by a Langmuir probe (ion flux and plasma potential) and OES (atomic O density) across changes in pressure, power, and relative gas flow showed comparable variations, thus complicating the understanding of why significant changes in crystallinity were not observed for all variables. To better understand this, we consider the work of Boris et al., which argues that the energy flux density delivered to the surface of a growing film can be used to drive crystallinity. Figure 9 follows their description, where the energy flux density delivered by ions impacting the surface is the product of the flux of ions and their kinetic energy. Here"
+          "answer": "No"
         },
         {
           "question_type": "Application/Performance",
@@ -11858,7 +11858,7 @@
           "question_type": "Comparative/Trend",
           "question": "Does the GPC vary significantly with changes in O\u2082:Ar flow ratio?",
           "answer_type": "Yes/No",
-          "answer": "Yes"
+          "answer": "No"
         },
         {
           "question_type": "Structure-Property",
@@ -11897,7 +11897,7 @@
           "question_type": "Structure-Property",
           "question": "Does increased pressure lead to higher ion energy",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ],
       "c": [
@@ -12023,7 +12023,7 @@
           "question_type": "Structure-Property",
           "question": "Does increasing the pulse length beyond 2 seconds further improve the growth rate?",
           "answer_type": "Yes/No",
-          "answer": "No\nimage>\n\nQuestion type: Process-Oriented\nQuestion: What does the plateau in growth rate indicate about the surface saturation?\n\nStrict requirements:\n1. Identify the main variables shown (axes, units, and any legend information).\n2. Ignore decorative graphics, schematics, arrows, and background elements.\n3. Use the provided caption/context only to support interpretation when necessary.\n4. Do not speculate or infer beyond what is visually supported.\n5. Output plain text only, with no JSON, no code fences, and no surrounding explanatory text.\n6. Output your answer STRICTLY as \"Yes\" or \"No\" (title case).\n\nExample:\nYes\nimage>\nYes"
+          "answer": "No"
         }
       ],
       "d": [
@@ -12151,7 +12151,7 @@
           "question_type": "Structure-Property",
           "question": "Does the growth rate consistently decrease with longer purge durations in both plots?",
           "answer_type": "Yes/No",
-          "answer": "No\nimage>\n\nAdditional context from the original paper:\nImage Caption: FIG. 5.  $\\mathrm{SnO_x}$  growth rate at  $30^{\\circ}\\mathrm{C}$  determined by VASE as a function of nitrogen purge time following (a) TDMASn pulse length and (b)  $\\mathrm{H}_2\\mathrm{O}$  pulse length for timing sequences of  $1:1:2:1\\mathrm{t}_4\\mathrm{s}$ . The substrate was Si(100).\n\nThe effect of varying the purge times following the TDMASn and  $\\mathrm{H}_2\\mathrm{O}$  pulses on the  $\\mathrm{SnO_x}$  ALD growth rate at  $30^{\\circ}\\mathrm{C}$  is shown in Fig. 5. Data are presented for 1 and  $2\\mathrm{s}$  TDMASn pulses with 1, 5, 20, and  $60\\mathrm{s}$  purge times before the  $1\\mathrm{s}$  pulse of  $\\mathrm{H}_2\\mathrm{O}$ . A"
+          "answer": "No"
         },
         {
           "question_type": "Application/Performance",
@@ -12360,7 +12360,7 @@
           "question_type": "Comparative/Trend",
           "question": "Does the lithium concentration depend on the number of  Lithium tert-butoxide linearly?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         },
         {
           "question_type": "Comparative/Trend",
@@ -12471,7 +12471,7 @@
           "question_type": "Comparative/Trend",
           "question": "Is there any detectable nitrogen in the 400\u00b0C film?",
           "answer_type": "Yes/No",
-          "answer": "No"
+          "answer": "Yes"
         }
       ]
     }

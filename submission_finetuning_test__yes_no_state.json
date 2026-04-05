@@ -1,0 +1,954 @@
+{
+    "atomic-layer-etching/simulation-usecase/14/fig_1": {
+        "a": {
+            "Does the surface depth change differ between samples with and without HFC treatment?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/14/fig_2": {
+        "b": {
+            "Does the depth removal differ between ALE and physical sputtering for each ion species?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/14/fig_3": {
+        "a": {
+            "Would would Argon be best suited for deep etching applications over multiple cycles?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/14/fig_4": {
+        "a": {
+            "Is Xe an effective ion for deep implantation applications based on this figure?Np": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/3861bcc5c373a41a69c8ba165bd7d244d783d2e0c9e4bf86e23d0c9570f54628": {
+        "c": {
+            "Does the etch reaction shown in this panel occur under the same temperature conditions as the preceding self-limiting reaction stage?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/9d78597edd0c414a5065483cb2847f22761f74c1aeac4ac61cc7b0f77e965fd0": {
+        "c": {
+            "Does the purely etching process result in a final state that's above the zero-energy line?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/figure_9": {
+        "d": {
+            "Does the configuration shown in this subfigure represent a higher HF coverage than the one shown in subfigure (b)?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/figure_3": {
+        "a": {
+            "Does the preferred self-limiting process shown in this panel completely eliminate the possibility of spontaneous etching?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/figure_4": {
+        "a": {
+            "Does the reaction energy \u0394E depend on temperature in this figure?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/figure_10": {
+        "a": {
+            "Does the caption indicate that any of the HF molecules remained in an undissociated state?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_1": {
+        "a": {
+            "Does the fluorinated surface represent a chemically distinct state compared to the bare surface?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_10": {
+        "a": {
+            "Does this spectrum correspond to a steady-state etching condition?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_2": {
+        "a": {
+            "Do the spectra suggest continuous B2O3 film growth up to 15 ALD cycles?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_3": {
+        "a": {
+            "Does the figure show that precursor sequence affects surface reactions during B2O3 ALD?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_13": {
+        "c": {
+            "Do the contour maps indicate a temperature window where etching is thermodynamically favored?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_7": {
+        "a": {
+            "Does the infrared data suggest that two HF exposures are sufficient to nearly remove the B2O3 ALD film?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_4": {
+        "a": {
+            "Do the infrared spectra suggest efficient removal of the B2O3 film at 150 \u00b0C?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_14": {
+        "d": {
+            "Does increasing product pressure suppress etching according to the contour maps?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_6": {
+        "a": {
+            "Does repeated HF exposure significantly alter the chemical structure of the B2O3 ALD film?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig_5": {
+        "a": {
+            "Do the infrared spectra indicate increasing surface modification after multiple HF cycles?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig8": {
+        "b": {
+            "Does this figure confirm that BF\u2083 and BF(OH)\u2082 are the dominant volatile products during steady-state thermal ALE of B\u2082O\u2083 using only HF at 150 \u00b0C?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/21/figure_3": {
+        "a": {
+            "Does the map suggest that high-E\u2080 materials generally require combined chemical modification and directional activation for effective ALE?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/21/figure_1": {
+        "c": {
+            "Is collision-driven removal expected to dominate under conditions of energetic particle bombardment?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/dbf6d7327e6a2ccf2fdd7a2ca92f53c15d845586892393b10ca6af8bd9f89d0c": {
+        "a": {
+            "Does the heatmap show a strong dependence on HF flow rate?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/c96a5d146b2cea20f9cb7e1ccc44d625f87d3773c5b838f7e98fbe8484a40041": {
+        "a": {
+            "Does the heatmap show a strong dependence on HF flow rate?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_10": {
+        "a": {
+            "Does the heatmap show a strong dependence on HF flow rate?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/ac99266dacf1d4e2931e93ab68af6c1b11c0246b57fa839c8e6387242bd3ec29": {
+        "a": {
+            "Does the heatmap show a strong dependence on TMA flow rate?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_12": {
+        "d": {
+            "Do all control variables converge toward their target values by the final batches?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/e099de4567b39ebac66fe519c6808b2a1c75e4240d4c9af1e27e018ab582608f": {
+        "a": {
+            "Can this scale be used to evaluate anisotropy in ALE?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_8": {
+        "a": {
+            "Is the high-value region spread broadly across the heatmap?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_13": {
+        "a": {
+            "Does ANN converge to the target faster than EWMA across the variables?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_7": {
+        "a": {
+            "Does the heatmap show a strong dependence on HF flow rate?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/914be4f0e9d4d0d3dfebb73a8c50064cefab93d602eebb6d6353417eb27afa8c": {
+        "a": {
+            "Does the heatmap show a strong dependence on TMA flow rate?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/def461cf6c04a724419ce5334587e87c371ce72c124ef5a8a95568f9fcda168c": {
+        "a": {
+            "Does the heatmap show a strong dependence on TMA flow rate?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/2d6ab73da07b7b6bbf9a4fc1ae8384de54332a287fa24f422745afeb7863d9c9": {
+        "b": {
+            "Are there measurements present beyond +2\u03c3?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_11": {
+        "c": {
+            "Are there measurements present in the +3\u03c3 bin?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/c591785cc8731d91e2e3099dcdbb4c8894fab2f514bc5881d0060ecb78b0e9a1": {
+        "a": {
+            "Is there a distinct region of maximum values in the heatmap?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/04961dd67c8a719f41a4bdbc44ee1c49b3357525fdfa15b93e9df870f3b868cc": {
+        "a": {
+            "Are there any measurements in the +3\u03c3 bin?": "No"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_15": {
+        "d": {
+            "Does the ANN method keep the process variables closer to the target than EWMA?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_2": {
+        "b": {
+            "Is this DFT-optimized \u03b8-Al\u2082O\u2083 surface slab suitable for mechanistic ALE studies?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_3": {
+        "a": {
+            "Do the binding energies shown suggest that HF prefers dissociative adsorption over molecular adsorption on \u03b8-Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/b01c668bb4cbed53b46e7d3ca622f0663986e1d068c2dfc6f6d9d56e5415f07b": {
+        "a": {
+            "Is this DFT-proposed HF/H\u2082O thermal process suitable for conformal atomic-layer etching of Al\u2082O\u2083 in high-aspect-ratio 3D nanostructures?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_8": {
+        "a": {
+            "Does equal HF and Al\u2013F coverage occur for most of the adsorption configurations shown?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_1": {
+        "b": {
+            "Does the proposed HF \u2192 Sn(acac)\u2083 cycle enable plasma-free, conformal atomic layer etching of Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_6": {
+        "c": {
+            "Does this charge-density analysis support spontaneous HF dissociation on the alumina surface without plasma activation?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_10": {
+        "a": {
+            "Does this figure indicate that H\u2082O desorption is an energetically demanding step in thermal ALE of Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/7/fig_4": {
+        "a": {
+            "Does the Gibbs free energy become less negative (more positive) as temperature increases for all species shown?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/7/fig_6": {
+        "a": {
+            "Does propene adsorption remain favorable (\u0394G < 0) across the entire temperature range?": "Yes"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/18/fig7": {
+        "c": {
+            "Has the saturation of binding energy been reached for Hf-F?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/25/figure_14": {
+        "a": {
+            "Is the shown trend linear?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/25/figure_9": {
+        "a": {
+            "is there a linear trend in increase in EPC with increasing temperature?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/25/figure_5": {
+        "a": {
+            "If the exposure of HF is increased, can there be more etching per exposure?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/21/fig_4": {
+        "a": {
+            "Does the figure show the self-limiting behavior of the process?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_1": {
+        "b": {
+            "Do the reference spectra differ depending on whether TMA or SF\u2086 plasma is used as the reference?": "Yes",
+            "Are methyl-groups being accumulated on the surface upon cycling?": "Yes",
+            "Does the negative difference spectrum observed after the SF\u2086 plasma half-cycle in subfigure (b) indicate the removal of surface methyl groups?": "Yes"
+        },
+        "a": {
+            "Does the evolution of the Al\u2013O difference signal in panel (a) show evidence of etch saturation by cycle 6?": "Yes",
+            "Does a decrease in absorption corresponds to the removal of species?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_3": {
+        "a": {
+            "Does either half-cycle alone produce measurable film thinning?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig2": {
+        "c": {
+            "Does EPC depend strongly on pump times?": "No",
+            "Can the standard ALE cycle defined in Figure 2 (5 s SF6 plasma, 0.5 s TMA dose, 10 s pump) achieve controlled etching without parasitic reactions?": "Yes"
+        },
+        "d": {
+            "Is a long pump step after the TMA dose necessary to maintain consistent etch per cycle?": "Yes",
+            "Based on the data presented in subfigures (b) and (d), is the etched surface prone to desorption or parasitic chemical vapor etching during the purge steps?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_4": {
+        "a": {
+            "Does this work present the highest thermal (non-ion-enhanced) etch rate for Al\u2082O\u2083 atomic layer etching reported in the literature?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_5": {
+        "b": {
+            "Is the etching thickness homogenous across the entire structure?": "Yes",
+            "Does this ALE process maintain atomic-layer precision in complex 3D structures?": "Yes"
+        },
+        "a": {
+            "Does the figure show significantly more etching on the horizontal bottom surface compared to the vertical sidewalls, as would be expected in a directional ion-bombardment process?": "No",
+            "Does the cross-section involve 3D trench structures?": "Yes",
+            "Is ALE effective in achieving nanometer-scale precision in etching?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/41/fig_1": {
+        "a": {
+            "Is the reactor shown in subfigure (a) an inductively coupled plasma (ICP) reactor?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/41/fig_3": {
+        "c": {
+            "Does extending CF\u2084 plasma exposure time always increase the measured fluorine content?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/41/fig_7": {
+        "a": {
+            "Does this three-step ALE sequence successfully restore a TiN-like surface composition after one cycle?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/41/fig_4": {
+        "c": {
+            "Is fluorine effectively removed at temperatures above 150 \u00b0C according to the data?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/20/figure_9": {
+        "a": {
+            "Is the BCl3 exposure self-limiting?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/3/3867828aabdcebeb2d14ad2a2fb95a1a072eb6ee61ceaf985a0a438c2fdc01d5": {
+        "c": {
+            "Are the peak ratios for all measurements equal?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/1/4a058218120a769b3ad915dc1273c5d615aa9628e0975eb1b8445f403f7d782c": {
+        "a": {
+            "Does the right panel suggest that all samples behave identically?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_a": {
+        "a": {
+            "Does in vacuo transportation prevent native oxide formation?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_c": {
+        "a": {
+            "Is MoCl3 generation possible ?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG13_a": {
+        "a": {
+            "Does a significant amount of Nb remain on the surface?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG13_b": {
+        "a": {
+            "Is there a significant chlorine content present?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG5_a": {
+        "a": {
+            "Is there a temperature window when etching takes place?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_b": {
+        "a": {
+            "Does Mo intensities remain the same for as-deposited and after heated samples?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG6": {
+        "a": {
+            "Does the trend of the EPC vs ALE cycles demonstrate the linearity of ALE?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_f": {
+        "a": {
+            "Does repeated O2 cycles create non-volatile compounds?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG2": {
+        "a": {
+            "Is etching assumed to occur through deoxychlorination?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG10": {
+        "a": {
+            "Is resistivity dependent on the film thickness?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG5_b": {
+        "a": {
+            "Does oxidation achieve saturation in any of the temperatures?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_e": {
+        "a": {
+            "Non volatile chloride layers are formed with further NbCl5 and O2 steps.": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG7": {
+        "a": {
+            "Does  X-ray diffraction pattern show that the films are cubic molybdenum?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG8_a": {
+        "a": {
+            "Does roughness increase slightly with number of cycles?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG1": {
+        "a": {
+            "Can H2O oxidize Mo to MoO3?": "No"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/18/fig_7": {
+        "a": {
+            "Does the figure only represent a hypothetical simplified integration flow for a RERAM memory?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/18/fig_4": {
+        "b": {
+            "Does a  successful modification step work by adding reactive sites to which the reactants can easily bond to in the removal step?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_2": {
+        "a": {
+            "Based on the figure, is the ALE process selective enough to etch HfO\u2082 without significantly removing Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_3": {
+        "a": {
+            "Does the addition of O radicals improve the selectivity and etch efficiency for HfO\u2082 over ZrO\u2082 and Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_4": {
+        "a": {
+            "Does the ALE process reduce carbon and fluorine contamination from the surface?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_6": {
+        "a": {
+            "Does using Hhfac plasma instead of Hhfac gas enhance etch performance at 100\u202f\u00b0C?": "Yes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_5": {
+        "c": {
+            "Does the use of radicals increase the partial pressure of volatile byproducts durig ALE processes?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/51/fig_1": {
+        "a": {
+            "Does the dissociative chemisorption of H\u2082 on the TiN (001) surface involve breaking the H\u2013H bond before adsorption?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/51/fig_2": {
+        "a": {
+            "Does the dissociative chemisorption of H\u2082 on Ti-terminated TiN (111) involve H\u2013H bond breaking before adsorption?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/51/fig_3": {
+        "a": {
+            "Does H\u2082 dissociate on the N-terminated TiN (111) surface during chemisorption?": "No"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/37/fig_3": {
+        "a": {
+            "Does the figure represent a surface formed after dissociative adsorption of H\u2082O on \u03b1-Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/37/fig_6": {
+        "a": {
+            "Does incomplete H-transfer during ALD reduce the growth rate of alumina?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/37/fig_5": {
+        "a": {
+            "Does reducing CH\u2083 coverage to half of the optimum level affect the growth rate of alumina during ALD?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/21/fig_1": {
+        "a": {
+            "Were the molecular structures of the Si and C precursors optimized using first-principles DFT calculations before evaluating their suitability for ALD of SiC?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/46/fig_2": {
+        "a": {
+            "Does the figure show that adsorption of silicon precursors on the OH-terminated Si(001) surface occurs without an energy barrier?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/46/fig_3": {
+        "a": {
+            "Does the figure show a kinetically accessible surface reaction for BDMAS on the OH-terminated Si(001) surface?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/46/fig_4": {
+        "a": {
+            "Does the figure integrate both thermodynamic adsorption behavior and kinetic reaction barriers to evaluate precursor suitability?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/46/fig1": {
+        "a": {
+            "Does the figure depict a surface model that allows atomic relaxation to simulate realistic surface reactions?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/41/fig_5": {
+        "d": {
+            "Is Cu(acac)2 fully decomposed to Cu and acac on Cu(110) by 18.5 ps in these RMD snapshots?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_9": {
+        "a": {
+            "Does Figure show the transfer of an amide group from the densified HfX\u2082 precursor to an under-coordinated hafnium atom during the MD simulation?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_12": {
+        "a": {
+            "Does Figure 12 illustrate the dissociation of HX during the water pulse step in the PEALD mechanism?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_7": {
+        "a": {
+            "Does the coordination number of the Hf atom increase during the densification process shown in Figure?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_2": {
+        "a": {
+            "Does the figure depict a rotational process of the protonated ligand around the hafnium center on the HfO\u2082 surface?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_8": {
+        "a": {
+            "Does the figure show the optimized adsorption geometry of a Hf precursor attached to surface oxygen atoms?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_1": {
+        "a": {
+            "Does Figure 2 show the optimized adsorption geometries of an HfX\u2084 precursor on different oxygen sites of the HfO\u2082 surface?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_6": {
+        "a": {
+            "Does the Hf precursor change its position relative to the surface during the optimization steps shown?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/e6eb42b61a9a425fd89fcaed18cf0d52d43111bb10eeb9c946ace0365ef01ef9": {
+        "a": {
+            "Does the surface \u2212TiI2 intermediate undergo two consecutive hydroxylation reactions via similar mechanisms?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_9": {
+        "a": {
+            "Does the TiI\u2084 molecule adsorb more stably on the bridge site of adjacent hydroxyl groups compared to the top site?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_5": {
+        "a": {
+            "Does quantum tunneling significantly influence the rate constant of the (SiH3O)3Si-OH* + TiI4 reaction at low temperatures?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_7": {
+        "a": {
+            "Does Figure 7 show a stepwise reaction pathway that includes reactant complexes, transition states, and product complexes for each hydroxylation step?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_2": {
+        "a": {
+            "Does the ONIOM model separate atoms into high-level and low-level regions for computational efficiency?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_3": {
+        "a": {
+            "Does the figure show adsorption energies of TiCl\u2084 calculated using both single-level and ONIOM hybrid model chemistries?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_13": {
+        "a": {
+            "Does the reaction of H\u2082O with the surface iodine species proceed via a metastable intermediate before forming the final product?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_1": {
+        "a": {
+            "Are different surface functional groups on SiO\u2082 considered separately in the ALD simulations to account for varied reaction kinetics?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_6": {
+        "a": {
+            "Does the adsorption of H\u2082O onto the -TiI\u2083 group proceed via a transition state where the Ti\u2013I bond breaks?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_4": {
+        "a": {
+            "Does the TiI\u2084 molecule attack the surface \u2013OH group to form HI and a surface \u2013TiI\u2083 group in the transition state?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_10": {
+        "a": {
+            "Does the reaction E involve the formation of a transition state with partial Ti\u2212I bond breaking?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_1": {
+        "a": {
+            "Does the close-proximity SALD injector enable spatially separated delivery of precursors to the substrate surface?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_2": {
+        "a": {
+            "Does the figure demonstrate that ZnO growth in spatial ALD is governed by surface-saturation kinetics rather than continuous precursor supply?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_3": {
+        "a": {
+            "Does increasing DEZ precursor exposure in spatial ALD modify the crystalline orientation of ZnO films?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_7": {
+        "a": {
+            "Does changing the substrate velocity during SALD deposition affect the growth conditions of ZnO films?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig4": {
+        "a": {
+            "Does substrate velocity influence the DEZ precursor distribution at the substrate surface in spatial ALD?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_6": {
+        "a": {
+            "Does the SALD process efficiency depend on the time required to complete 100 ALD cycles?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_5": {
+        "a": {
+            "Does increasing substrate velocity reduce the effective precursor exposure during SALD?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/51/fig_10": {
+        "a": {
+            "Do the 2 second O2 and Ar plasma, and the 2 second O2 plasma samples have significantly different performances?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_1": {
+        "b": {
+            "Are different lithium precursors used for thermal and plasma ALD?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_2": {
+        "b": {
+            "Do both process achieve self-limiting growth?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_8": {
+        "b": {
+            "Do the SEM images show thermal ALD films?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_3": {
+        "a": {
+            "Do both plasma and thermal ALD films exhibit linearity?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_7": {
+        "a": {
+            "Is Gonio XRD technique more sensitive to 50 nm thick films?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig4": {
+        "a": {
+            "Does plasma ALD form  LiOH/Li2O at 250 \u00b0C": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_6": {
+        "a": {
+            "Was depth profiling by sputtering procedure used to investigate the composition?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig_5": {
+        "a": {
+            "All the plasma process before this graph used a standard plasma exposure time of 3s": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/48/fig_3": {
+        "a": {
+            "Are films deposited at low temperatures ( < 300 \u00b0C) more amorphous compared to others, based on the figure?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_c": {
+        "c": {
+            "Do the observed XPS spectra suggest that pressure infleunces the surface oxidation state of vanadium?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG8_b": {
+        "b": {
+            "Does ion flux increase or decrease as pressure increases from 500 to 5000 mTorr?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_d": {
+        "d": {
+            "Does the transition from inductively to capacitively coupled plasma correspond with a noticeable increase in surface contamination?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG9": {
+        "a": {
+            "Can operating at 5000 mTorr and high plasma potential reach the crystalline film regime according to the figure": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG4_b": {
+        "b": {
+            "Does increasing power beyond 500 W significantly enhance ion flux?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG5_a": {
+        "a": {
+            "Do the Raman spectra suggest that higher O\u2082 flow leads to a structural phase change in the material?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG6_b": {
+        "b": {
+            "Does increasing O\u2082 flow always increase ion flux?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_b": {
+        "b": {
+            "Does increasing the plasma exposure time enhance the visibility of Al\u2082O\u2083-related vibrational peaks?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_a": {
+        "a": {
+            "How do in-situ and ex-situ measurements compare for tje same field strength?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_d": {
+        "d": {
+            "Do the Raman spectra suggest that higher O\u2082 flow leads to a structural phase change in the material?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG11": {
+        "a": {
+            "Can high oxygen flow fractions promote cyrtalline material formation?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG3_a": {
+        "a": {
+            "Does increasing ICP power significanlty shift the position of the Raman peaks?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_b": {
+        "b": {
+            "Does the type of plasma coupling affect the Rman intensity profile?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG3_b": {
+        "b": {
+            "Do the V 2p and O 1s peak intensities change significantly with increasing plasma power?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG6_a": {
+        "a": {
+            "Does increasing the O\u2082 flow fraction always lead to higher atomic oxygen density?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_a": {
+        "a": {
+            "Do the observed peaks suggest the presence of crystalline Al\u2082O\u2083?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG5_b": {
+        "b": {
+            "Does the GPC vary significantly with changes in O\u2082:Ar flow ratio?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG12": {
+        "a": {
+            "Does increased pressure lead to higher ion energy": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_c": {
+        "c": {
+            "Do longer exposure times result in lower Raman intensities?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG8_a": {
+        "a": {
+            "Does the chart provide direct information about the plasma generation mechanism?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_3": {
+        "a": {
+            "Does the figure suggest that the SnO\u2082 film grows at a constant rate throughout the process?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig2": {
+        "a": {
+            "Does increasing the pulse length beyond 2 seconds further improve the growth rate?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_7": {
+        "a": {
+            "Does annealing at 600\u202f\u00b0C increase the crystallinity of the film?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_4": {
+        "a": {
+            "Does the figure suggest that higher deposition temperatures reduce film growth rate?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_6": {
+        "a": {
+            "Can this spectrum be used to verify the presence of SnO\u2082 on a sample surface?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_5": {
+        "a": {
+            "Does the growth rate consistently decrease with longer purge durations in both plots?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_9": {
+        "c": {
+            "Does increasing the deposition temperature reduce the film\u2019s bandgap?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/20/fig_4": {
+        "a": {
+            "Does the lithium concentration depend on the number of  Lithium tert-butoxide linearly?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/20/fig_5": {
+        "a": {
+            "Is the process self-limiting, based on the plot?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/3/figure_9": {
+        "a": {
+            "Is there any detectable nitrogen in the 400\u00b0C film?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/3/figure_2": {
+        "a": {
+            "Is there evidence for impurities in the sample, based on this spectrum?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/3/figure_3": {
+        "a": {
+            "Does the plot show Kiessig fringes?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/15/fig_1": {
+        "a": {
+            "Do the BST films show single phase crystallinity?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/15/fig_2": {
+        "a": {
+            "Does the tunability of MgO increase with increased bias voltage, does it achieve values comparable to Ta2O5/Si and TiO2/Si substrates?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_16": {
+        "a": {
+            "Do ALD films demonstrate higher thermal stability than PVD films?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_2": {
+        "a": {
+            "Does the chart indicate an increasing research focus on plasma-assisted ALD over time?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_12": {
+        "a": {
+            "Does Plasma ALD produce faster film growth than Thermal ALD?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_8": {
+        "a": {
+            "Does pressure affect growth per cycle in these ALD processes?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_13": {
+        "a": {
+            "Does a higher aspect ratio require a higher dose to achieve saturation?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_4": {
+        "a": {
+            "Is the ion energy distribution dependent on plasma type?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_11": {
+        "a": {
+            "Does increasing H\u2082 plasma exposure time enhance the film\u2019s conductivity": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_14": {
+        "b": {
+            "Does increasing O\u2082 plasma power accelerate the loss of carrier lifetime?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_6": {
+        "b": {
+            "Does the figure indicate that different gases produce distinct emission spectra?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_5": {
+        "a": {
+            "Does this chart suggest ALD is less damaging to substrates than implantation or etching?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_15": {
+        "a": {
+            "Does this figure indicate uniform film growth across cycles?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_9": {
+        "a": {
+            "Do plasma ALD processes exhibit greater temperature stability than thermal ALD processes?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_19": {
+        "a": {
+            "Does increasing deposition temperature always reduce WVTR?": "No"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/1/figure_12": {
+        "a": {
+            "Does increasing the growth temperature above 300\u00b0C seem to improve optical density?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/1/figure_8": {
+        "a": {
+            "Are distinct interference fringes being observed for each temperature?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_2": {
+        "a": {
+            "Does the NH\u2083 plasma produce more nitrogen-containing ions than the H\u2082/N\u2082 plasma?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_3": {
+        "a": {
+            "Does the ion current for both m/z = 16 and 17 decrease when the H\u2082 ratio exceeds 0.6?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_6": {
+        "a": {
+            "Does increasing ion current at m/z = 17 result in lower resistivity of the deposited cobalt film?": "Yes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_4": {
+        "a": {
+            "Does the presence of CoCp\u2082 precursor affect the ion current profiles for all three processes?": "Yes"
+        }
+    }
+}
