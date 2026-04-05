@@ -532,8 +532,10 @@ original_size = len(dataset)
 
 dataset = [
     sample
-    for sample, total_tokens in zip(dataset, df_tokens["total_tokens"])
-    if total_tokens <= MAX_SEQUENCE_LENGTH
+    for sample, total_tokens, assistant_tokens in zip(
+        dataset, df_tokens["total_tokens"], df_tokens["assistant_tokens"]
+    )
+    if total_tokens <= MAX_SEQUENCE_LENGTH and assistant_tokens <= MAX_NEW_TOKENS
 ]
 
 filtered_size = len(dataset)
