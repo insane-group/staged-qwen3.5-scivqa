@@ -304,124 +304,32 @@ else:
     print("No original state found. Starting fresh inference...")
 
 # %%
-# 2. Load Progress Tracking State
 completed_tasks = set()
+paragraph_state = defaultdict(lambda: defaultdict(dict))
+
 if STATE_FILE.exists():
     with open(STATE_FILE, "r") as f:
-        completed_tasks = set(json.load(f))
+        saved_paragraph_state = json.load(f)
+
+    # Reconstruct completed_tasks and paragraph_state
+    for s_id, sub_figs in saved_paragraph_state.items():
+        for s_fig, questions in sub_figs.items():
+            # Handle migration if the old file still has lists
+            if isinstance(questions, list):
+                for q_obj in questions:
+                    q_text = q_obj["question"]
+                    task_id = f"{s_id}::{s_fig}::{q_text}"
+                    completed_tasks.add(task_id)
+                    paragraph_state[s_id][s_fig][q_text] = q_obj["answer"]
+            else:
+                # Handle the new dictionary format
+                for q_text, ans_text in questions.items():
+                    task_id = f"{s_id}::{s_fig}::{q_text}"
+                    completed_tasks.add(task_id)
+                    paragraph_state[s_id][s_fig][q_text] = ans_text
+
     print(f"Loaded tracking state from {STATE_FILE}.")
     print(f"Found {len(completed_tasks)} previously completed paragraph tasks.")
-
-# %%
-# ---------------------------------------------------------
-# PASS 1: Scan and flatten the workload
-# ---------------------------------------------------------
-tasks = []
-already_processed_cnt = 0
-skipped_cnt = 0
-processed_cnt = 0
-
-print(f"Scanning {CATEGORY} files to calculate actual workload...")
-
-json_files = list(CASE_DIR.rglob("*.json"))
-
-# ---------------------------------------------------------
-# PASS 1: Scan and flatten the workload
-# ---------------------------------------------------------
-for json_file in json_files:
-    fullpath = str(json_file)
-
-    # File-level skips
-    if (
-        "content.json" in json_file.name
-        or "images" not in fullpath
-        or ".vscode" in fullpath
-    ):
-        continue
-
-    img_path = json_file.with_suffix(".jpg")
-    if not img_path.exists():
-        warnings.warn(f"Skipping JSON file (missing image {img_path.name}): {fullpath}")
-        continue
-
-    with open(json_file, "r") as f:
-        data = json.load(f)
-
-    sample_id = data.get("sample_id")
-    if not sample_id:
-        warnings.warn(f"Skipping JSON file (missing 'sample_id'): {fullpath}")
-        continue
-
-    bboxes = data.get("bbox", {})
-    vqa_data = data.get("vqa", {})
-
-    context_loaded = False
-    context = ""
-
-    # Gather valid questions
-    for sub_fig, q_list in vqa_data.items():
-        if sub_fig not in bboxes:
-            warnings.warn(
-                f"Skipping subfigure '{sub_fig}' in {sample_id} (no bounding box)."
-            )
-            skipped_cnt += len(q_list) if isinstance(q_list, list) else 1
-            continue
-
-        summary = summary_cache.get(sample_id, {}).get(sub_fig)
-        table = extraction_cache.get(sample_id, {}).get(sub_fig)
-
-        for q_obj in q_list:
-            question_text = q_obj.get("question") or q_obj.get("questions")
-            question_type = q_obj.get("question_type", "")
-            answer_type = q_obj.get("answer_type", "")
-
-            # We ONLY want to update Paragraph answers
-            if answer_type != "Paragraph":
-                continue
-
-            if not question_text:
-                warnings.warn(
-                    f"Skipping a question in {sample_id} subfigure '{sub_fig}' (missing question text)."
-                )
-                skipped_cnt += 1
-                continue
-
-            # Check if we already processed this exact question in a previous run
-            task_id = f"{sample_id}::{sub_fig}::{question_text}"
-            if task_id in completed_tasks:
-                already_processed_cnt += 1
-                continue
-
-            # Lazily load context only if there's a valid task in this file
-            if not context_loaded:
-                context = get_paper_context(json_file)
-                context_loaded = True
-
-            # If it passes all checks, it's a valid task!
-            tasks.append(
-                {
-                    "task_id": task_id,
-                    "sample_id": sample_id,
-                    "sub_fig": sub_fig,
-                    "img_path": img_path,
-                    "box": bboxes[sub_fig],
-                    "question_text": question_text,
-                    "question_type": question_type,
-                    "answer_type": answer_type,
-                    "summary": summary if summary is not None else "N/A",
-                    "table": table if table is not None else "N/A",
-                    "context": context,
-                }
-            )
-
-print("\n--- TASK SUMMARY ---")
-print(f"Total 'Paragraph' tasks found to overwrite: {len(tasks)}")
-if tasks:
-    print("Previewing first 3 tasks:")
-    for i, t in enumerate(tasks[:3]):
-        print(f"  [{i + 1}] Sample: {t['sample_id']} | Subfigure: {t['sub_fig']}")
-        print(f"      Question: {t['question_text']}")
-print("--------------------\n")
 
 # %%
 model, tokenizer = FastVisionModel.from_pretrained(
@@ -432,46 +340,32 @@ model, tokenizer = FastVisionModel.from_pretrained(
 FastVisionModel.for_inference(model)  # Enable for inference!
 
 # %%
-pbar = tqdm(tasks, desc=f"Processing {CATEGORY} split", position=1, leave=False)
+pbar = tqdm(dataset, desc=f"Processing {CATEGORY} split", position=1, leave=False)
+processed_cnt = 0
+already_processed_cnt = 0
 
-# Track the current image so we don't repeatedly load the same image from disk
-current_img_path = None
-full_img = None
+for data_item in pbar:
+    meta = data_item["meta"]
+    sample_id = meta["sample_id"]
+    sub_fig = meta["sub_fig"]
+    question_text = meta["question"]
+    question_type = meta["question_type"]
 
-for task in pbar:
-    sample_id = task["sample_id"]
-    sub_fig = task["sub_fig"]
-    task_id = task["task_id"]
+    task_id = f"{sample_id}::{sub_fig}::{question_text}"
+
+    # Check if already processed in a previous interrupted run
+    if task_id in completed_tasks:
+        already_processed_cnt += 1
+        pbar.set_postfix(processed=processed_cnt, already=already_processed_cnt)
+        continue
 
     pbar.set_description(f"Generating: {sample_id} | Sub: {sub_fig}")
 
-    # Only open a new image if the file path has changed
-    if current_img_path != task["img_path"]:
-        current_img_path = task["img_path"]
-        full_img = Image.open(current_img_path.absolute())
+    # Extract messages and image directly from the pre-built dataset item
+    messages = data_item["messages"]
+    image = messages[0]["content"][1]["image"]
 
-    # Crop image
-    box = task["box"]
-    left, top = box["x"], box["y"]
-    right, bottom = left + box["width"], top + box["height"]
-    image = full_img.crop((left, top, right, bottom))
-
-    # Format human prompt
-    human_prompt = PROMPT_PARAGRAPH.format(
-        question=task["question_text"],
-        question_type=task["question_type"],
-        context=task["context"],
-        summary=task["summary"],
-        table=task["table"],
-    )
-
-    messages = [
-        {
-            "role": "user",
-            "content": [{"type": "image"}, {"type": "text", "text": human_prompt}],
-        }
-    ]
-
+    # Tokenize and format
     input_text = tokenizer.apply_chat_template(
         messages, add_generation_prompt=True, enable_thinking=ENABLE_THINKING
     )
@@ -498,47 +392,50 @@ for task in pbar:
         skip_special_tokens=True,
     ).strip()
 
-    # Find the existing answer in the state to overwrite
+    # 1. Update the Paragraph-Specific Tracking State
+    paragraph_state[sample_id][sub_fig][question_text] = generated
+
+    # 2. Update the Main Original State
     existing_answers = state[sample_id][sub_fig]
+
+    # Look up strictly by question text to bypass previous answer_type mismatches
     target_ans = next(
         (
             ans
             for ans in existing_answers
-            if ans.get("question") == task["question_text"]
+            if ans.get("question") == question_text
+            and ans.get("answer_type") == "Paragraph"
         ),
         None,
     )
 
-    assert target_ans is not None, (
-        f"Expected to find an existing answer to overwrite for task {task_id}, but none was found."
-    )
+    if target_ans is not None:
+        target_ans["answer"] = generated
+    else:
+        warnings.warn(
+            f"No existing entry found for question '{question_text}' in sample '{sample_id}' subfigure '{sub_fig}'. This should not happen if the dataset is consistent. Adding a new entry."
+        )
+        continue
 
-    target_ans["answer"] = generated
-
-    # Mark as completed
     completed_tasks.add(task_id)
     processed_cnt += 1
+    pbar.set_postfix(processed=processed_cnt, already=already_processed_cnt)
 
-    # Checkpoint every 5 tasks to save disk I/O time
+    # 3. Persist State Every X Iterations (e.g., 5)
     if processed_cnt % 5 == 0:
         with open(ORIGINAL_STATE_FILE, "w") as f:
             json.dump(state, f, indent=4)
-
         with open(STATE_FILE, "w") as f:
-            json.dump(list(completed_tasks), f, indent=4)
+            json.dump(paragraph_state, f, indent=4)
 
-    pbar.set_postfix(processed=processed_cnt, already=already_processed_cnt)
-
-# Run one final state save to catch the remainder
 with open(ORIGINAL_STATE_FILE, "w") as f:
     json.dump(state, f, indent=4)
-
 with open(STATE_FILE, "w") as f:
-    json.dump(list(completed_tasks), f, indent=4)
+    json.dump(paragraph_state, f, indent=4)
 
 print(
     f"Pipeline execution complete! State fully synced.\n"
-    f"Summary -> Processed (Overwritten): {processed_cnt} | Already Completed: {already_processed_cnt} | Skipped: {skipped_cnt}"
+    f"Summary -> Processed (Overwritten): {processed_cnt} | Already Completed: {already_processed_cnt}"
 )
 
 # %%
