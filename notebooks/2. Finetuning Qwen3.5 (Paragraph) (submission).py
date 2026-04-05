@@ -44,9 +44,7 @@ CATEGORY = "test"
 COMPETITION_DATA_DIR = BASE_DIR / "ALD-E-ImageMiner" / "icdar2026-competition-data"
 CASE_DIR = COMPETITION_DATA_DIR / CATEGORY
 
-ORIGINAL_STATE_FILE = BASE_DIR / f"submission_finetuning_{CATEGORY}_state.json"
 STATE_FILE = BASE_DIR / f"submission_finetuning_{CATEGORY}__paragraph_state.json"
-SUBMISSION_PATH = BASE_DIR / f"submission_finetuning_{CATEGORY}.json"
 
 SUMMARY_CACHE_PATH = BASE_DIR / f"submission_finetuning_summary_{CATEGORY}_state.json"
 EXTRACTION_CACHE_PATH = (
@@ -290,21 +288,6 @@ dataset[0]
 # Let's now update our submission! First, we must load the LoRA adapters we saved for inference!
 
 # %%
-if ORIGINAL_STATE_FILE.exists():
-    with open(ORIGINAL_STATE_FILE, "r") as f:
-        saved_state = json.load(f)
-
-    state = defaultdict(
-        lambda: defaultdict(list),
-        {k: defaultdict(list, v) for k, v in saved_state.items()},
-    )
-    print(f"Loaded original state from {ORIGINAL_STATE_FILE}. Resuming inference...")
-else:
-    state = defaultdict(lambda: defaultdict(list))
-    print("No original state found. Starting fresh inference...")
-
-# %%
-completed_tasks = set()
 paragraph_state = defaultdict(lambda: defaultdict(dict))
 
 if STATE_FILE.exists():
@@ -314,22 +297,12 @@ if STATE_FILE.exists():
     # Reconstruct completed_tasks and paragraph_state
     for s_id, sub_figs in saved_paragraph_state.items():
         for s_fig, questions in sub_figs.items():
-            # Handle migration if the old file still has lists
-            if isinstance(questions, list):
-                for q_obj in questions:
-                    q_text = q_obj["question"]
-                    task_id = f"{s_id}::{s_fig}::{q_text}"
-                    completed_tasks.add(task_id)
-                    paragraph_state[s_id][s_fig][q_text] = q_obj["answer"]
-            else:
-                # Handle the new dictionary format
-                for q_text, ans_text in questions.items():
-                    task_id = f"{s_id}::{s_fig}::{q_text}"
-                    completed_tasks.add(task_id)
-                    paragraph_state[s_id][s_fig][q_text] = ans_text
+            # Handle the new dictionary format
+            for q_text, ans_text in questions.items():
+                task_id = f"{s_id}::{s_fig}::{q_text}"
+                paragraph_state[s_id][s_fig][q_text] = ans_text
 
     print(f"Loaded tracking state from {STATE_FILE}.")
-    print(f"Found {len(completed_tasks)} previously completed paragraph tasks.")
 
 # %%
 model, tokenizer = FastVisionModel.from_pretrained(
@@ -354,7 +327,7 @@ for data_item in pbar:
     task_id = f"{sample_id}::{sub_fig}::{question_text}"
 
     # Check if already processed in a previous interrupted run
-    if task_id in completed_tasks:
+    if paragraph_state.get(sample_id, {}).get(sub_fig, {}).get(question_text):
         already_processed_cnt += 1
         pbar.set_postfix(processed=processed_cnt, already=already_processed_cnt)
         continue
@@ -395,41 +368,14 @@ for data_item in pbar:
     # 1. Update the Paragraph-Specific Tracking State
     paragraph_state[sample_id][sub_fig][question_text] = generated
 
-    # 2. Update the Main Original State
-    existing_answers = state[sample_id][sub_fig]
-
-    # Look up strictly by question text to bypass previous answer_type mismatches
-    target_ans = next(
-        (
-            ans
-            for ans in existing_answers
-            if ans.get("question") == question_text
-            and ans.get("answer_type") == "Paragraph"
-        ),
-        None,
-    )
-
-    if target_ans is not None:
-        target_ans["answer"] = generated
-    else:
-        warnings.warn(
-            f"No existing entry found for question '{question_text}' in sample '{sample_id}' subfigure '{sub_fig}'. This should not happen if the dataset is consistent. Adding a new entry."
-        )
-        continue
-
-    completed_tasks.add(task_id)
     processed_cnt += 1
     pbar.set_postfix(processed=processed_cnt, already=already_processed_cnt)
 
     # 3. Persist State Every X Iterations (e.g., 5)
     if processed_cnt % 5 == 0:
-        with open(ORIGINAL_STATE_FILE, "w") as f:
-            json.dump(state, f, indent=4)
         with open(STATE_FILE, "w") as f:
             json.dump(paragraph_state, f, indent=4)
 
-with open(ORIGINAL_STATE_FILE, "w") as f:
-    json.dump(state, f, indent=4)
 with open(STATE_FILE, "w") as f:
     json.dump(paragraph_state, f, indent=4)
 
@@ -437,17 +383,3 @@ print(
     f"Pipeline execution complete! State fully synced.\n"
     f"Summary -> Processed (Overwritten): {processed_cnt} | Already Completed: {already_processed_cnt}"
 )
-
-# %%
-submission = []
-for sample_id, sub_figs in state.items():
-    submission.append(
-        {
-            "sample_id": sample_id,
-            "vqa": {sub_fig: q_list for sub_fig, q_list in sub_figs.items()},
-        }
-    )
-
-with SUBMISSION_PATH.open("w") as f:
-    json.dump(submission, f, indent=2)
-print(f"Saved {len(submission)} samples to {SUBMISSION_PATH}")
