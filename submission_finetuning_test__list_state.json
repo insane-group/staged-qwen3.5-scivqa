@@ -1,0 +1,636 @@
+{
+    "atomic-layer-etching/simulation-usecase/14/fig_1": {
+        "a": {
+            "Why is it important to compare etch depth with and without HFC?": "It shows the true thickness removed, It distinguishes chemical etching from physical sputtering, It validates the HFC-assisted process efficiency"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/14/fig_2": {
+        "a": {
+            "Which ion species appears to provide the highest ALE etch depth over five cycles?": "Ar\u207a, Kr\u207a, Xe\u207a"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/14/fig_3": {
+        "a": {
+            "Which noble gas results in the highest etch depth across the cycles, and how do the others compare?": "Ar\u207a shows the highest etch depth, Kr\u207a is lower than Ar\u207a, Xe\u207a is the lowest"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/14/fig_4": {
+        "a": {
+            "How do the atomic density profiles of Ar, Kr, and Xe differ with respect to penetration depth?": "Xe has the shallowest penetration depth, Kr has an intermediate penetration depth, Ar has the deepest penetration depth"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/25/3861bcc5c373a41a69c8ba165bd7d244d783d2e0c9e4bf86e23d0c9570f54628": {
+        "a": {
+            "What four types of atoms are identified in the legend for this reaction schematic?": "Hf/Zr, O, F, H"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig11": {
+        "a": {
+            "List the mass-to-charge (m/z) ratios used to identify the Boron Difluoride cation and the Boron Fluoro-Hydroxide cation in this experiment.": "49 amu, 47 amu"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/28/fig12": {
+        "a": {
+            "List the three specific reaction mechanisms whose Gibbs free energy profiles are compared in this figure.": "CVE1, CVE2, SL"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/dbf6d7327e6a2ccf2fdd7a2ca92f53c15d845586892393b10ca6af8bd9f89d0c": {
+        "a": {
+            "At which substrate velocity range do minor variations appear?": "20\u201330 mm/s"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/c96a5d146b2cea20f9cb7e1ccc44d625f87d3773c5b838f7e98fbe8484a40041": {
+        "a": {
+            "At which substrate velocity range are the highest values observed?": "20\u201330 mm/s"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_12": {
+        "a": {
+            "Which variables are controlled across the four panels?": "HF flow rate, TMA flow rate, EPC (etch per cycle), Time"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/e099de4567b39ebac66fe519c6808b2a1c75e4240d4c9af1e27e018ab582608f": {
+        "a": {
+            "What are some potential causes of variation in etching per cycle across a surface?": "Local variations in precursor concentration, Surface roughness or topography effects, Non-uniform plasma or beam exposure, Differences in surface adsorption or reaction rates, Edge or boundary effects in the reactor"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_8": {
+        "a": {
+            "At which parameter combination are the highest values observed?": "HF = 20 sccm, TMA = 20 sccm"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_13": {
+        "c": {
+            "Which variables are controlled in the four panels?": "Precursor flow rate, Velocity, Temperature, EPC"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/2d6ab73da07b7b6bbf9a4fc1ae8384de54332a287fa24f422745afeb7863d9c9": {
+        "b": {
+            "Which bins contain the highest frequencies?": "0.77, 0.76, 0.75"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_11": {
+        "c": {
+            "Which bins contain the highest frequencies?": "\u03bc, +\u03c3, -\u03c3"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/c591785cc8731d91e2e3099dcdbb4c8894fab2f514bc5881d0060ecb78b0e9a1": {
+        "a": {
+            "List two parameter combinations associated with high values.": "HF flow rate = 20 sccm, Substrate velocity = 20 mm/s, HF flow rate = 20 sccm, Substrate velocity = 30 mm/s"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/04961dd67c8a719f41a4bdbc44ee1c49b3357525fdfa15b93e9df870f3b868cc": {
+        "a": {
+            "Which bins contain the highest frequencies?": "\u2212\u03c3, \u03bc, +\u03c3"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/34/fig_15": {
+        "d": {
+            "Which process variables are shown across the four panels?": "Precursor flow rate, Velocity, Pressure, EPC"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_3": {
+        "a": {
+            "What is the energetic ordering of the adsorption states from weakest to strongest binding?": "M\u2070 (0 eV), M\u00b9_A (-0.44 eV), M\u00b9_C (-1.31 eV), M\u00b9_B (-1.74 eV), M\u00b9_D (-2.11 eV)"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/12/figure_6": {
+        "c": {
+            "Which regions show electron accumulation and electron depletion in the difference plot?": "Yellow regions indicate electron accumulation, Cyan regions indicate electron depletion"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/7/fig_4": {
+        "a": {
+            "Which precursors show \u0394G values more negative than \u22125 eV/Co at 500 K?": "Propene-a, Silane-a, TMS-a, Propene-s, Silane-s, TMS-s"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/7/fig_6": {
+        "a": {
+            "Which surface reactions shown become less favourable with increasing temperature?": "Propene adsorption, CO adsorption, Overall ALE cycle"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/11/9583e752bfcd62ec9f2a41b96837cb7c6d0f1ac31bdfb420e1487bf6954cbf86": {
+        "a": {
+            "What do the different colored atoms represent in these molecular structures?": "Gray: Aluminum (Al), Red: Oxygen (O), Green: Fluorine (F), Light blue: Carbon (C), White: Hydrogen (H)"
+        }
+    },
+    "atomic-layer-etching/simulation-usecase/11/fig_6": {
+        "a": {
+            "What do the three axes in this plot represent?": "Temperature (K), Pressure (Pa), Time (s)"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_1": {
+        "b": {
+            "How does the SF6 plasma treatment affect the AlCH3 peaks?": "SF6 plasma removes AlCH3 species, AlCH3 absorbance decreases after SF6 plasma exposure, SF6 plasma leads to negative absorbance change at AlCH3 peaks, AlCH3 peaks are restored in the next TMA cycle"
+        },
+        "a": {
+            "Based on the increasing absorbance in the Al-O region (800-1100 cm\u207b\u00b9) over cycles 1-6 in Fig. a, describe the sequence of the surface's chemical state change during the ALE process.": "Initial Al\u2082O\u2083 surface formation,Fluorination of Al\u2082O\u2083 to AlF\u2083 layer,TMA adsorption on AlF\u2083 surface,Formation of volatile AlF(CH\u2083)\u2082 byproducts,Regeneration of fresh Al\u2082O\u2083 surface,Repetition of the cycle with increased coverage",
+            "Which spectral regions show notable changes in these absorbance spectra?": "800\u2013900 cm\u207b\u00b9, 950\u20131000 cm\u207b\u00b9, 2900\u20133000 cm\u207b\u00b9"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_3": {
+        "a": {
+            "List the specific operating conditions for the three distinct processing regimes (a, b, and c) depicted in the line chart.": "Half-cycle A: SF\u2086 plasma only, Half-cycle B: TMA dose only, Full ALE cycle: Alternating SF\u2086 plasma and TMA doses",
+            "Which process conditions lead to controlled film thinning?": "SF\u2086 plasma exposure, TMA dose, Alternating SF\u2086 plasma and TMA doses",
+            "What mechanistic insight can be inferred from the thickness changes observed in Figures a and b?": "SF\u2086 plasma causes a thin AlF\u2083 surface layer, TMA removes the AlF\u2083 layer, The net etch results from the balance of these two half-cycles"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig2": {
+        "b": {
+            "Which process parameters control the etching per cycle?": "SF6 plasma exposure time, TMA dose time, hold step duration, plasma pump step duration",
+            "What trends are observed in the EPC when varying the plasma exposure time and TMA dosing time in Figure 2": "EPC increases with plasma exposure time up to ~10 s, EPC increases with TMA dosing time up to ~0.5 s, Higher plasma exposure or TMA dose does not increase EPC further, indicating saturation, These trends indicate self-limiting behavior typical of ALE processes"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_4": {
+        "a": {
+            "List the two distinct chemical reactant combinations being compared in this study for atomic layer etching (ALE).": "SF\u2086 plasma followed by TMA, HF followed by TMA",
+            "At 300 \u00b0C, which studies report an etch per cycle (EPC), and how do their etch rates rank from highest to lowest?": "This work (SF\u2086/TMA), Cano (HF/TMA), Hennessey (HF/TMA), Zywotko (HF/TMA), Lee (HF/TMA)",
+            "What advantages are demonstrated by the plasma-based ALE process?": "Higher etch rates at lower temperatures, Improved selectivity over thermal ALE, More effective fluorine supply for surface modification",
+            "Why is the plasma-assisted ALE process advantageous for etching in 3D structures?": "It maintains a high etch rate even at lower temperatures, It avoids damage to the underlying material, It enables uniform removal from complex geometries"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/12/fig_5": {
+        "b": {
+            "How does the film thickness before and after ALE cycles compare across the trench regions?": "Initial thicknesses are similar across regions (11.4\u201312.2 nm), After ALE, thicknesses remain comparable (11.2\u201311.9 nm), indicating uniform etching, Slight variations exist but overall etch depth is consistent"
+        },
+        "a": {
+            "What property does the reduction in sidewall thickness indicate?": "Reduced thickness on vertical surfaces, Reduced thickness on horizontal surfaces, Reduced thickness on bottom surface"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/1/4a058218120a769b3ad915dc1273c5d615aa9628e0975eb1b8445f403f7d782c": {
+        "a": {
+            "List two types of information that can likely be derived from these charts": "Etch depth as a function of time, Effect of temperature on etch rate, Material-specific etching behavior"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_d": {
+        "a": {
+            "What are the different Mo states in the spectra?": "Mo\u2076\u207a, Mo\u2075\u207a, Mo\u2074\u207a, Mo\u2070"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG13_a": {
+        "a": {
+            "What are the two spectra present?": "Nb 3d, Mo 3d, O 1s"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG13_b": {
+        "a": {
+            "What are the different spectra present in the image?": "Cl 1s spectra, Nb 3d spectra, O 1s spectra"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG12_f": {
+        "a": {
+            "Which Mo peaks correspond to which peaks?": "Mo6+ at 232.7 eV, Mo5+ at 231.6 eV, Mo4+ at 230.5 eV, Mo0 at 227.9 eV"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/47/FIG7": {
+        "a": {
+            "What are the peaks identified in the diffractogram?": "(110), (200), (211), (220), (310), (222), (321)"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/18/fig_6": {
+        "a": {
+            "What are other ways the ALE process can be classified by?": "Isotropic modification and removal, Directional modification and removal, Isotropic removal with directional modification, Directional removal with isotropic modification"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/35/fig_2": {
+        "c": {
+            "Which thermodynamic features most strongly determine whether a precursor combination will support efficient ALE?": "Volatility of etch products, Favorable Gibbs free energy, Suppression of solid by-product formation, Temperature-dependent phase stability"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/35/fig_8": {
+        "c": {
+            "Which surface residues observed by AES explain poor etching performance for WF\u2086/SOCl\u2082?": "Sulfur (S), Zirconium (Zr)"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/35/fig_3": {
+        "c": {
+            "Which material and precursor combinations show the strongest temperature dependence in thickness change?": "WF\u2086 + BCl\u2083 at 240 \u00b0C, WF\u2086 + SOCl\u2082 at 240 \u00b0C, WF\u2086 + BCl\u2083 at 220 \u00b0C, WF\u2086 + SOCl\u2082 at 220 \u00b0C"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/35/fig_7": {
+        "c": {
+            "Which surface species observed by AES indicate residue formation from incomplete ligand exchange?": "Cl, B, W"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/35/fig_4": {
+        "c": {
+            "Which reaction-system properties determine whether a fluorinated oxide can be effectively etched by a chlorinating agent?": "Thermodynamic stability of the fluoride layer, Volatility of the chloride product, Temperature-dependent phase changes, Formation of gaseous byproducts"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/35/fig_5": {
+        "c": {
+            "Which chemical properties influence the differences in etch rate saturation across the co-reactants?": "Volatility of reaction products, Reactivity of co-reactants with intermediates, Formation of gaseous byproducts"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_2": {
+        "a": {
+            "What are the four parameters varied to optimize the ALE process in this figure?": "Hhfac dose time, O radical dose time, RF bias power, Temperature"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_3": {
+        "b": {
+            "What are the sequence steps involved in the ALE process used?": "Hhfac exposure, O radical pre-clean, Co-deposition of Hf and O, Hhfac exposure, O radical pre-clean"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_4": {
+        "a": {
+            "What are the treatment steps used to evaluate the surface composition across panels (a\u2013e)?": "As-deposited, Hhfac exposure at 100\u00b0C, Hhfac exposure at 300\u00b0C, O radical treatment at 300\u00b0C, 30 cycles of ALE at 300\u00b0C"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_6": {
+        "a": {
+            "What are the two conditions compared in this figure for etching HfO\u2082?": "Hhfac gas + O\u2082 plasma, Hhfac plasma + O\u2082 plasma"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/31/fig_5": {
+        "a": {
+            "Which mass-to-charge (m/z) ratio corresponds to the CF\u2083 fragment in the mass spectra?": "14, 31, 41, 47, 50, 69"
+        }
+    },
+    "atomic-layer-etching/experimental-usecase/44/fig_5": {
+        "a": {
+            "List the step added to the standard thermal ALE cycle sequence to create the H\u2082 plasma-enhanced process shown in this image a": "H\u2082 plasma exposure after Sn(acac)\u2082 exposure, Purge step after H\u2082 plasma exposure"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/14/fig_3": {
+        "a": {
+            "At ALD cycle 9, how do the three cases rank by coverage from highest to lowest?": "With densification, Experimental, Without densification"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/21/fig_1": {
+        "c": {
+            "Which categories of precursor molecules are represented among the optimized structures in Figure 1?": "Hydrocarbons, Alkyl chlorides, Silanes, Chlorosilanes, Silacyclobutane derivatives, Silicates, Silanes with amine ligands, Alkoxides"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/34/figure_2": {
+        "a": {
+            "What samples were analysed with XPS?": "Pristine graphene, Graphene after H2 plasma treatment, Graphene after O2 plasma treatment"
+        },
+        "c": {
+            "What function groups are likely formed after exposure to O2 plasma?": "C-O, C=O"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/41/fig_4": {
+        "d": {
+            "What are the two elementary dissociation steps shown by the sequence of states and transition states?": "Adsorption of Cu(acac)\u2082 on the Cu(110) surface, Diffusion to a hollow site, Loss of one acac ligand to form Cu(acac), Loss of the second acac ligand to form Cu"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/41/fig_6": {
+        "a": {
+            "In this plot, what do the three marker styles represent?": "Cu(110) surface, Cu\u2082O(111) surface, CuO(111) surface"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/22/figure_5": {
+        "c": {
+            "What structural changes in aniline fragments after hydrogenolysis influence the gap-size distribution?": "Hydrogenolysis converts adsorbed aniline into benzene and ammonia, Benzene remains adsorbed on the surface, creating larger effective gaps, Ammonia desorbs, clearing surface sites and modifying the gap distribution"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/22/figure_2": {
+        "c": {
+            "Which molecular or surface features most strongly influence adsorption strength (\u0394E_ads)?": "Horizontal adsorption mode (ring\u2013metal interaction), Vertical adsorption mode (amine\u2013metal interaction), Surface metal type (Ru vs Co), Degree of \u03c0\u2013metal coordination, Availability of surface metal atoms for bonding"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/22/figure_3": {
+        "d": {
+            "How does weakened TDMAT adsorption on aniline-functionalized surfaces support area-selective ALD?": "Lower adsorption energy of TDMAT on aniline, Reduced precursor adsorption on non-growth areas, Higher selectivity between growth and non-growth areas, Improved control over ALD deposition"
+        },
+        "c": {
+            "Which structural factors influence the adsorption strength of TDMAT on the metal surfaces?": "Direct bonding between Ti and the metal surface, Availability of surface functional groups (e.g., aniline), Surface coordination and lattice arrangement, Presence of adsorbate-surface interactions (e.g., \u03c0-interactions for aniline)"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/22/figure_1": {
+        "c": {
+            "What structural feature of the aniline molecule determines the total exclusion area used in the RSA simulations?": "Benzene ring geometry, Nitrogen position and bonding, Hydrogen positions on the ring"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/22/figure_4": {
+        "c": {
+            "What structural or configurational factors influence the effective gap sizes remaining after aniline adsorption?": "Coverage density of aniline, Arrangement of adsorbed molecules, Presence of large or small unoccupied regions, Hydrogenolysis products (benzene vs. aniline), Surface curvature or crystallographic orientation"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/20/fig_2": {
+        "a": {
+            "What is the sequence of gas zones from left to right in this in-line spatial ALD reactor configuration?": "Water dosing zone, Exhaust zone, Nitrogen purge zone, Exhaust zone, TMA dosing zone"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/33/figure_3": {
+        "a": {
+            "What labeled layers can you identify in the image, from top to bottom?": "Au, Al\u2082O\u2083, Graphene, SiO\u2082"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_9": {
+        "c": {
+            "What structural changes occur in the precursor\u2013surface system during the amide transfer?": "The amide group of the precursor binds to an under-coordinated hafnium site, The Hf\u2013N bond lengthens and weakens, The amide group migrates from the precursor to the surface, The remaining precursor fragment becomes more weakly bound and may desorb"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_7": {
+        "c": {
+            "List the key structural changes occurring in the Hf precursor as coordination increases.": "c.n. = 3: Hf bonded to three X ligands, c.n. = 4: Hf bonded to four X ligands, c.n. = 5: Hf bonded to five X ligands, c.n. = 6: Hf bonded to six X ligands"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_2": {
+        "c": {
+            "What structural changes occur during the ligand rotation shown in panels (a), (b), and (c)?": "Initial state: Protonated ligand with H pointing down toward the surface, Transition state: Saddle-point geometry with the ligand tilted, Final state: Protonated ligand rotated so H points up away from the surface"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_3": {
+        "c": {
+            "Which structural changes occur as the proton migrates between nitrogen atoms in Figure 3?": "Initial state: Proton located on one nitrogen atom, Middle state: Proton at the transition point between two nitrogen atoms, Final state: Proton fully transferred to the second nitrogen atom"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_6": {
+        "c": {
+            "What structural features evolve as the precursor transitions from (a) to (d)?": "Hf coordination number increases from 5 to 6, Hf migrates downward into the surface, Hf\u2013O bonds increase from 2 to 4, Hf\u2013N bonds decrease from 3 to 0, Hf\u2013H bonds decrease from 3 to 0, Hf\u2013X bonds decrease from 3 to 0, Hf\u2013F bonds increase from 0 to 4, Hf\u2013Cl bonds increase from 0 to 2"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/7/figure_11": {
+        "c": {
+            "List the structural changes occurring during the water pulse as shown across panels (a)\u2013(c).": "(a) Initial state with HfX\u2084 cluster on the surface, (b) H\u2082O adsorption and dissociation leading to OH and H species, (c) Formation of Hf\u2013OH and release of HX as gaseous by-product"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_14": {
+        "c": {
+            "List the key structural changes observed in the transition state of the iodine release reaction.": "Ti\u2013I bond elongation, I\u2013I bond formation, Loss of coordination of I atoms to Ti, Increased distance of I atoms from the TiO\u2082 surface"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_9": {
+        "c": {
+            "List the key bond distance changes observed in the transition states for reactions C and D.": "Ti\u2013I distance increases from ~2.45 \u00c5 to 3.85 \u00c5, Ti\u2013O distance decreases from ~2.05 \u00c5 to 1.95 \u00c5, H\u2013O distance increases from ~0.97 \u00c5 to 1.38 \u00c5, H\u2013I distance decreases from ~2.5 \u00c5 to 1.94 \u00c5"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_13": {
+        "c": {
+            "List the key bond distances shown in panels (b)\u2013(d) of the figure and their significance.": "Ti\u2013O1 = 2.26 \u00c5, H\u2013O2 = 1.90 \u00c5, Si\u2013O = 1.85 \u00c5, Ti\u2013I = 2.90 \u00c5, H\u2013I = 2.30 \u00c5"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/1/figure_1": {
+        "c": {
+            "What characteristics distinguish the three surface functional groups modeled on SiO\u2082 clusters?": "Isolated OH groups, Hydrogen-bonded OH groups, Oxygen bridges"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/18/fig_6": {
+        "a": {
+            "Sequence the dominant physical control mechanisms as the reactor cools from 1300 K (1000/T \u2248 0.77) to 700 K (1000/T \u2248 1.4). Explain the transition observed at 1000/T \u2248 1.1.": "High T: Desorption-limited regime (surface cleaning dominates), Intermediate T: Reaction-limited regime (surface reaction becomes rate-limiting), Low T: Diffusion-limited regime (reactant transport to surface dominates), Transition at 1000/T \u2248 1.1: Peak in growth rate indicates the crossover from reaction-limited to diffusion-limited behavior"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig_1": {
+        "c": {
+            "Which structural features of the injector govern gas flow and precursor confinement?": "Precursor outlet geometry, Exhaust channel spacing, Gap between injector and substrate, N\u2082 flow distribution"
+        }
+    },
+    "atomic-layer-deposition/simulation-usecase/40/fig4": {
+        "c": {
+            "Which system parameters control the shape of the DEZ concentration profile at the substrate surface?": "Substrate velocity, Gap between injection head and substrate, Substrate temperature"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/19/fig2": {
+        "a": {
+            "For the experiment generating these saturation curves, what is the fixed sequence and timing of steps in one ALD cycle?": "Zr precursor pulse, purge, Ozone pulse, purge"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/21/fig4": {
+        "a": {
+            "What lithium phase/compounds are formed at different temperatures?": "250 \u00b0C \u2192 Li\u2082CO\u2083, 275 \u00b0C \u2192 Li\u2082O, 300 \u00b0C \u2192 LiOH + Li\u2082O"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/48/fig_4": {
+        "a": {
+            "How do the films rank from most to least amorphous?": "400 \u00b0C, 350 \u00b0C, 300 \u00b0C, 200 \u00b0C"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_c": {
+        "c": {
+            "What sequence of changes in the electronic structure of the surface species is inferred from thr XPS spectra at increasing pressure?": "At 850 mTorr, the V 2p peak is dominant and the O 1s peak is absent, indicating a vanadium-rich surface,At 1600 mTorr, the O 1s peak begins to appear, signaling oxygen adsorption,At 2500 mTorr, the O 1s peak increases further, showing stronger oxygen surface interaction,At 3700 mTorr, the O 1s peak is fully developed, indicating saturation of oxygen adsorption,At 5000 mTorr (capacitively coupled), the O 1s peak is strongest, confirming enhanced oxygen incorporation"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG8_b": {
+        "b": {
+            "What are the implications of decreasing plasma potential on surface processing in high-pressure plasma environments?": "Lower electron temperatures, Reduced surface damage, Improved selectivity in etching processes, More favorable conditions for thin-film deposition"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_d": {
+        "d": {
+            "What practical implications can be drawn from the relationship between pressure and surface contamination in this plasma system?": "Higher pressures increase surface contamination, Lower pressures reduce surface contamination, Contamination levels are higher for capacitively coupled plasmas at high pressure, Controlling pressure can help minimize surface contamination"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG9": {
+        "a": {
+            "What are the possible film growth outcomes indicated on this figure and what conditon governs the transition between them?": "Crystalline films, Amorphous films, Mixed amorphous and crystalline films, The transition is governed by the plasma potential"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG4_b": {
+        "b": {
+            "What key variables are plotted in this figure to assess plasma behaviour?": "Ion flux, Plasma potential, Power"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG5_a": {
+        "a": {
+            "What experimental parameter was varied to generate the Rman spectra in the figure?": "O\u2082 flow fraction through the inductively coupled plasma (ICP)"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG6_b": {
+        "b": {
+            "Why is it important to monitor both plasma potential and ion flux during plasma-assisted processes?": "It reflects the balance between physical sputtering and chemical etching, It helps optimize etch selectivity and surface damage, It enables control over the etch rate and surface quality"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_b": {
+        "b": {
+            "What are the time durations used in the experiment to monitor Raman spectra changes?": "5 s, 9 s, 15 s, 20 s, 30 s, 45 s, 60 s, 80 s"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_a": {
+        "a": {
+            "What implication does GPC stabilisation after 50 s have for process design?": "Allows shorter plasma pulses to be used, Reduces cycle time while maintaining precision, Improves throughput in plasma-based etching or deposition processes"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_d": {
+        "d": {
+            "What experimental parameter was varied to generate the Raman spectra in the figure?": "Plasma pulse duration"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG11": {
+        "a": {
+            "What process variables are manipulated in the figure to control energy flux density?": "Pressure, Ion energy"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG3_a": {
+        "a": {
+            "What experimental parameter is varied across the different Raman spectra?": "50 W, 200 W, 400 W, 600 W, 950 W"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_b": {
+        "b": {
+            "What potential material characteristics can be inferred from the Raman spectra of the capactively coupled condition?": "Crystalline V\u2082O\u2085, Mixed phase (V\u2082O\u2085 + Ag), Reduced interaction with Al\u2082O\u2083 substrate"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG3_b": {
+        "b": {
+            "Why is XPS used to evaluate the effect of plasma power in this context?": "It identifies the oxidation state of vanadium in the deposited film, It confirms the formation of the desired VO\u2082 phase, It verifies the stoichiometry of the material, It helps distinguish between crystalline and non-crystalline phases"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG6_a": {
+        "a": {
+            "Why is identifying an optimal O\u2082 flow fraction important for plasma-based processes?": "It directly affects the concentration of reactive oxygen species, It influences the stoichiometry of the deposited film, It helps optimize the balance between oxidation and other plasma reactions"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG7_a": {
+        "a": {
+            "Why is Raman spectroscopy useful for analysing pressure effects on thin films?": "It identifies vibrational modes that distinguish crystalline phases, It tracks phase changes with pressure, It complements XRD for phase identification, It is non-destructive and surface-sensitive"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG5_b": {
+        "b": {
+            "What are the benefits of achieving consistent GPC across different O\u2082:Ar flow ratios?": "Improved process flexibility, Better control over film properties, Enhanced reproducibility in deposition, Compatibility with varying gas flow conditions"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG12": {
+        "c": {
+            "Why is it important to control ion energy and plasma potential in thin film deposition or etching?": "It influences the degree of crystallinity in deposited films, It affects surface damage or modification during etching, It helps distinguish between desired and unwanted surface interactions, It can be tuned to optimize film quality or etch selectivity"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG2_c": {
+        "c": {
+            "What is the significance of tracking Raman intensity over time during plasma treatment?": "Monitors surface changes during treatment, Detects formation of new surface species, Helps optimize plasma exposure time, Confirms removal of surface contaminants"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/67/FIG8_a": {
+        "a": {
+            "What plasma operating conditions are varied in the figure to infleunce oxygen density?": "Pressure, Inductive or capacitive coupling"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_3": {
+        "a": {
+            "How does film thickness change at specific ALD cycle intervals?": "At 0 cycles, thickness is 0 \u00c5, At 50 cycles, thickness is ~20 \u00c5, At 100 cycles, thickness is ~60 \u00c5, At 200 cycles, thickness is ~140 \u00c5, At 300 cycles, thickness is ~200 \u00c5, At 400 cycles, thickness is ~280 \u00c5, At 500 cycles, thickness is ~380 \u00c5, At 600 cycles, thickness is ~440 \u00c5, At 700 cycles, thickness is ~480 \u00c5"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig2": {
+        "a": {
+            "What are the key differences in growth rate behaviour ?": "At low pulse times, the growth rate increases rapidly, then the growth rate plateaus, indicating saturation, At higher temperatures, saturation is achieved at shorter pulse times"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_7": {
+        "a": {
+            "What are the benefits of annealing based on the XRD data presented?": "Improved crystallinity, Phase change from amorphous to crystalline, Formation of SnO\u2082 phase, Reduced SnO content"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_4": {
+        "a": {
+            "What deposition temperature ranges are suitable for achieving high growth rates (>1.5\u202f\u00c5/cycle)?": "25\u201350 \u00b0C"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_6": {
+        "a": {
+            "Which peaks are observed in the XPS spectrum, and what do they correspond to?": "Sn3s, Sn3p1, Sn3p3, O1s, Sn3d5, Sn3d3, Sn4s, Sn4d"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_5": {
+        "b": {
+            "How does the growth rate change across different purge durations ?": "At 0 s N\u2082 purge, growth rate is highest (~3.6 \u00c5/cycle), At 30 s N\u2082 purge, growth rate decreases (~2.2 \u00c5/cycle), At 60 s N\u2082 purge, growth rate further decreases (~1.9 \u00c5/cycle), At 180 s N\u2082 purge, growth rate stabilizes (~1.7 \u00c5/cycle), At 360 s N\u2082 purge, growth rate remains similar (~1.7 \u00c5/cycle)"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/6/fig_9": {
+        "a": {
+            "What optical properties of the films are improved by increasing substrate temperature?": "Refractive index, Extinction coefficient, Bandgap"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/20/fig_6": {
+        "a": {
+            "How do the isotopes rank from highest to lowest measured signal intensity?": "48Ti, 6Li, 138La"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/62/fig_2": {
+        "e": {
+            "What are species formed in the ammonia plasma, based on the spectrum?": "NH, H, N2, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_16": {
+        "a": {
+            "Which deposition methods and materials were compared in this figure?": "PE-ALD TaN, PVD TaN, PE-ALD Ta, PVD Ta"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_2": {
+        "a": {
+            "Each bar represents the total number of publications per year that include plasma-assisted ALD and related keywords.": "1991\u20131995: 0 publications per year, 1996\u20132000: 0 publications per year, 2001\u20132005: 0\u201310 publications per year, 2006\u20132010: 10\u201340 publications per year, 2011: ~24 publications"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_12": {
+        "a": {
+            "Which ALD methods are compared in this plot?": "Plasma ALD Pt, Thermal ALD Pt, Plasma ALD PtO\u2082"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_8": {
+        "a": {
+            "What experimental conditions are compared in this figure?": "O\u2082 plasma deposition at 15 mTorr, O\u2082 plasma deposition at 170 mTorr, Thermal H\u2082O deposition at 15 mTorr, Thermal H\u2082O deposition at 170 mTorr"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_13": {
+        "b": {
+            "What process parameters influence the dose necessary for saturation ?": "Surface recombination probability, Aspect ratio of the trench"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_4": {
+        "a": {
+            "What can be inferred about plasma behavior from the ion energy distributions?": "Higher ion energies in H\u2082 and N\u2082 plasmas, Lower ion energies in O\u2082 plasma, Differences in plasma excitation mechanisms"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_11": {
+        "a": {
+            "Which techniques were used to measure resistivity?": "Spectroscopic ellipsometry, 4-point probe"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_14": {
+        "a": {
+            "What experimental conditions were varied in the measurements?": "O\u2082 plasma exposure time, O\u2082 pressure (7.5 mTorr vs. 75 mTorr), plasma power (100 W vs. 500 W)"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_6": {
+        "a": {
+            "What plasma systems and transitions are identified in the spectra?": "O\u2082 plasma, H\u2082 plasma, N\u2082 plasma, O\u2082\u207a (1st neg. system), O\u2082\u207a (2nd neg. system), O (2D), O (4S), O\u2082 (0,0,0)"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_5": {
+        "a": {
+            "What physical effects are associated with different ion energies?": "10 eV: Desorption, 100 eV: Displacement of lattice atoms, 1000 eV: Sputtering, 10000 eV: Implantation"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_15": {
+        "a": {
+            "What does the linear relationship suggest about the ALD process?": "Consistent growth per cycle, Stable and controllable process, Ideal behavior for uniform film deposition"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_9": {
+        "a": {
+            "Which titanium precurors are induced in the plot?": "Ti(O^iPr)_4, Ti(Cp^Me)(O^iPr)_3, Ti(Cp^*)OMe)_3, Ti(Cp^Me)(NMe_2)_3"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/10/fig_19": {
+        "b": {
+            "What does the inset demonstrate about Al\u2082O\u2083 film performance?": "Lower WVTR at higher thicknesses, Improved barrier performance with increased film thickness, Inset shows thickness-dependent WVTR behavior"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/39/fig_9": {
+        "a": {
+            "Which optical emission wavelengths are monitored and to which species do they correspond?": "777 nm - O*, 656 nm - H*, 519 nm - CO*"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_2": {
+        "a": {
+            "Which species dominate the ion current signals in NH\u2083 plasma that could influence surface chemistry?": "H\u2082 (m/z = 2), N\u2082 (m/z = 14), NH\u2083 (m/z = 15, 16, 17)"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_3": {
+        "a": {
+            "What insights can be drawn from the behavior of m/z = 16 and 17 with increasing H\u2082 ratio in plasma?": "Increased H\u2082 leads to higher NH\u2082\u207a and NH\u2083\u207a signals, NH\u2083 production peaks at intermediate H\u2082/N\u2082 ratios, High H\u2082 favors dissociation into lighter fragments (NH\u2082\u207a), Excess H\u2082 reduces NH\u2083 signal, indicating over-dissociation"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_6": {
+        "a": {
+            "What performance-related insights can be drawn from the increasing Co content with ion current?": "Higher ion current correlates with increased Co incorporation, Improved film purity with increasing ion current, Potential optimization of plasma conditions to enhance Co content"
+        }
+    },
+    "atomic-layer-deposition/experimental-usecase/61/figure_4": {
+        "a": {
+            "What trends are observed in ion intensities for m/z = 27 (C\u2082H\u2083\u207a/HCN\u207a) across the different processes?": "m/z = 27: Highest intensity for AB-H2/N2, followed by AB-NH3, then AB-Cp2-N2-H2, then AB without CoCp2"
+        }
+    }
+}

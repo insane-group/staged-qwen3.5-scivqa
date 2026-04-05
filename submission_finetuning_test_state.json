@@ -23,7 +23,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is it important to compare etch depth with and without HFC?",
                 "answer_type": "List",
-                "answer": "It shows the effectiveness of HFC in enabling chemical reactions that make etching possible, Physical sputtering alone does not etch SiN, but with HFC, etching occurs, HFC enables selective etching of SiN while leaving other materials intact"
+                "answer": "It shows the true thickness removed, It distinguishes chemical etching from physical sputtering, It validates the HFC-assisted process efficiency"
             }
         ]
     },
@@ -71,7 +71,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "Which noble gas results in the highest etch depth across the cycles, and how do the others compare?",
                 "answer_type": "List",
-                "answer": "Ar\u207a, Kr\u207a, Xe\u207a"
+                "answer": "Ar\u207a shows the highest etch depth, Kr\u207a is lower than Ar\u207a, Xe\u207a is the lowest"
             },
             {
                 "question_type": "Structure-Property",
@@ -99,7 +99,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "How do the atomic density profiles of Ar, Kr, and Xe differ with respect to penetration depth?",
                 "answer_type": "List",
-                "answer": "Xe shows the deepest penetration, Kr shows moderate penetration, and Ar shows the shallowest penetration"
+                "answer": "Xe has the shallowest penetration depth, Kr has an intermediate penetration depth, Ar has the deepest penetration depth"
             },
             {
                 "question_type": "Application/Performance",
@@ -123,7 +123,7 @@
                 "question_type": "Structure-Property",
                 "question": "What four types of atoms are identified in the legend for this reaction schematic?",
                 "answer_type": "List",
-                "answer": "Hf or Zr (red), O (gray), F (light pink), H (white)"
+                "answer": "Hf/Zr, O, F, H"
             },
             {
                 "question_type": "Process-Oriented",
@@ -759,7 +759,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the mass-to-charge (m/z) ratios used to identify the Boron Difluoride cation and the Boron Fluoro-Hydroxide cation in this experiment.",
                 "answer_type": "List",
-                "answer": "49, 47"
+                "answer": "49 amu, 47 amu"
             },
             {
                 "question_type": "Application/Performance",
@@ -973,7 +973,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the three specific reaction mechanisms whose Gibbs free energy profiles are compared in this figure.",
                 "answer_type": "List",
-                "answer": "CVE1 (Continuous Vapor Etch), CVE2 (Continuous Vapor Etch), SL (Self-Limiting)"
+                "answer": "CVE1, CVE2, SL"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -1219,7 +1219,7 @@
                 "question_type": "Application/Performance",
                 "question": "At which substrate velocity range do minor variations appear?",
                 "answer_type": "List",
-                "answer": "At 20 mm/s"
+                "answer": "20\u201330 mm/s"
             }
         ]
     },
@@ -1247,7 +1247,7 @@
                 "question_type": "Application/Performance",
                 "question": "At which substrate velocity range are the highest values observed?",
                 "answer_type": "List",
-                "answer": "1. 20 mm/s, 2. 40 mm/s, 3. 60 mm/s"
+                "answer": "20\u201330 mm/s"
             }
         ]
     },
@@ -1319,7 +1319,7 @@
                 "question_type": "Process-Oriented",
                 "question": "Which variables are controlled across the four panels?",
                 "answer_type": "List",
-                "answer": "1.\tConstant lambda value, 2.\tConstant lambda value, 3.\tConstant lambda value, 4.\tConstant lambda value"
+                "answer": "HF flow rate, TMA flow rate, EPC (etch per cycle), Time"
             }
         ],
         "d": [
@@ -1351,7 +1351,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "What are some potential causes of variation in etching per cycle across a surface?",
                 "answer_type": "List",
-                "answer": "Non-uniform precursor delivery, Local surface chemistry differences, Surface topography effects, Reactant depletion zones"
+                "answer": "Local variations in precursor concentration, Surface roughness or topography effects, Non-uniform plasma or beam exposure, Differences in surface adsorption or reaction rates, Edge or boundary effects in the reactor"
             },
             {
                 "question_type": "Structure-Property",
@@ -1391,7 +1391,7 @@
                 "question_type": "Application/Performance",
                 "question": "At which parameter combination are the highest values observed?",
                 "answer_type": "List",
-                "answer": "b\tThe highest values are observed at 100 sccm HF flow rate and 20 sccm TMA flow rate"
+                "answer": "HF = 20 sccm, TMA = 20 sccm"
             }
         ]
     },
@@ -1421,7 +1421,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which variables are controlled in the four panels?",
                 "answer_type": "List",
-                "answer": "Velocity, Exposure time, Gap distance, EPC"
+                "answer": "Precursor flow rate, Velocity, Temperature, EPC"
             }
         ]
     },
@@ -1533,7 +1533,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which bins contain the highest frequencies?",
                 "answer_type": "List",
-                "answer": "0.76, 0.77"
+                "answer": "0.77, 0.76, 0.75"
             }
         ]
     },
@@ -1561,7 +1561,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which bins contain the highest frequencies?",
                 "answer_type": "List",
-                "answer": "0.345 - 0.350, 0.350 - 0.355, 0.360 - 0.365\nuser\nDoes the figure show the frequency distribution of etching per cycle values?\nassistant\n<think>\n\n</think>\n\nYes"
+                "answer": "\u03bc, +\u03c3, -\u03c3"
             }
         ]
     },
@@ -1589,7 +1589,7 @@
                 "question_type": "Application/Performance",
                 "question": "List two parameter combinations associated with high values.",
                 "answer_type": "List",
-                "answer": "Low substrate velocity, Low HF flow rate"
+                "answer": "HF flow rate = 20 sccm, Substrate velocity = 20 mm/s, HF flow rate = 20 sccm, Substrate velocity = 30 mm/s"
             }
         ]
     },
@@ -1617,7 +1617,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which bins contain the highest frequencies?",
                 "answer_type": "List",
-                "answer": "1. -\u03c3, 2. \u03bc, 3. +\u03c3"
+                "answer": "\u2212\u03c3, \u03bc, +\u03c3"
             }
         ]
     },
@@ -1641,7 +1641,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which process variables are shown across the four panels?",
                 "answer_type": "List",
-                "answer": "Precursor flow rate, substrate velocity, gap distance, EPC"
+                "answer": "Precursor flow rate, Velocity, Pressure, EPC"
             },
             {
                 "question_type": "Structure-Property",
@@ -1729,7 +1729,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What is the energetic ordering of the adsorption states from weakest to strongest binding?",
                 "answer_type": "List",
-                "answer": "M^I (~0 eV), M^I_A (~-0.44 eV), M^I_C (~-1.31 eV), M^I_B (~-1.74 eV), M^I_D (~-2.11 eV)"
+                "answer": "M\u2070 (0 eV), M\u00b9_A (-0.44 eV), M\u00b9_C (-1.31 eV), M\u00b9_B (-1.74 eV), M\u00b9_D (-2.11 eV)"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -1847,7 +1847,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which regions show electron accumulation and electron depletion in the difference plot?",
                 "answer_type": "List",
-                "answer": "Electron accumulation (yellow): Al\u2013F bonding region, Electron depletion (cyan): O\u2013H bonding region"
+                "answer": "Yellow regions indicate electron accumulation, Cyan regions indicate electron depletion"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -1915,7 +1915,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which precursors show \u0394G values more negative than \u22125 eV/Co at 500 K?",
                 "answer_type": "List",
-                "answer": "Propene-a, Silane-a, TMS-a"
+                "answer": "Propene-a, Silane-a, TMS-a, Propene-s, Silane-s, TMS-s"
             }
         ]
     },
@@ -1943,7 +1943,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which surface reactions shown become less favourable with increasing temperature?",
                 "answer_type": "List",
-                "answer": "Propene adsorption, CO adsorption, H dissociation"
+                "answer": "Propene adsorption, CO adsorption, Overall ALE cycle"
             }
         ]
     },
@@ -2363,7 +2363,7 @@
                 "question_type": "Structure-Property",
                 "question": "What do the different colored atoms represent in these molecular structures?",
                 "answer_type": "List",
-                "answer": "Green: Aluminum (Al), Red: Oxygen (O), Blue: Nitrogen (N), Grey: Silicon (Si), White: Hydrogen (H)"
+                "answer": "Gray: Aluminum (Al), Red: Oxygen (O), Green: Fluorine (F), Light blue: Carbon (C), White: Hydrogen (H)"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -3631,7 +3631,7 @@
                 "question_type": "Structure-Property",
                 "question": "How does the SF6 plasma treatment affect the AlCH3 peaks?",
                 "answer_type": "List",
-                "answer": "The AlCH3 peaks at 2900 and 2950 cm^-1 are removed after SF6 plasma treatment."
+                "answer": "SF6 plasma removes AlCH3 species, AlCH3 absorbance decreases after SF6 plasma exposure, SF6 plasma leads to negative absorbance change at AlCH3 peaks, AlCH3 peaks are restored in the next TMA cycle"
             }
         ],
         "a": [
@@ -3687,7 +3687,7 @@
                 "question_type": "Process-Oriented",
                 "question": "Based on the increasing absorbance in the Al-O region (800-1100 cm\u207b\u00b9) over cycles 1-6 in Fig. a, describe the sequence of the surface's chemical state change during the ALE process.",
                 "answer_type": "List",
-                "answer": "Stable, Al\u2082O\u2083 surface. Fluorinated surface (Al-F)."
+                "answer": "Initial Al\u2082O\u2083 surface formation,Fluorination of Al\u2082O\u2083 to AlF\u2083 layer,TMA adsorption on AlF\u2083 surface,Formation of volatile AlF(CH\u2083)\u2082 byproducts,Regeneration of fresh Al\u2082O\u2083 surface,Repetition of the cycle with increased coverage"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -3759,7 +3759,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which spectral regions show notable changes in these absorbance spectra?",
                 "answer_type": "List",
-                "answer": "Absorbance decreases between 800 and 1100 cm\u207b\u00b9, Absorbance increases at 2900 and 2950 cm\u207b\u00b9"
+                "answer": "800\u2013900 cm\u207b\u00b9, 950\u20131000 cm\u207b\u00b9, 2900\u20133000 cm\u207b\u00b9"
             }
         ]
     },
@@ -3835,7 +3835,7 @@
                 "question_type": "Process-Oriented",
                 "question": "List the specific operating conditions for the three distinct processing regimes (a, b, and c) depicted in the line chart.",
                 "answer_type": "List",
-                "answer": "SF\u2086 plasma without TMA dose, TMA and SF\u2086 gas dosing without plasma, Full ALE cycles with alternating SF\u2086 plasma and TMA doses."
+                "answer": "Half-cycle A: SF\u2086 plasma only, Half-cycle B: TMA dose only, Full ALE cycle: Alternating SF\u2086 plasma and TMA doses"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -3907,7 +3907,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which process conditions lead to controlled film thinning?",
                 "answer_type": "List",
-                "answer": "SF\u2086 plasma, TMA dose, SF\u2086 plasma + TMA dose"
+                "answer": "SF\u2086 plasma exposure, TMA dose, Alternating SF\u2086 plasma and TMA doses"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -3931,7 +3931,7 @@
                 "question_type": "Structure-Property",
                 "question": "What mechanistic insight can be inferred from the thickness changes observed in Figures a and b?",
                 "answer_type": "List",
-                "answer": "Fluorination of the surface by SF\u2086 plasma, Removal of fluorinated layer by TMA"
+                "answer": "SF\u2086 plasma causes a thin AlF\u2083 surface layer, TMA removes the AlF\u2083 layer, The net etch results from the balance of these two half-cycles"
             },
             {
                 "question_type": "Application/Performance",
@@ -4181,13 +4181,13 @@
                 "question_type": "Application/Performance",
                 "question": "Which process parameters control the etching per cycle?",
                 "answer_type": "List",
-                "answer": "1. SF6 plasma exposure time, 2. TMA dose time, 3. Pump time"
+                "answer": "SF6 plasma exposure time, TMA dose time, hold step duration, plasma pump step duration"
             },
             {
                 "question_type": "Comparative/Trend",
                 "question": "What trends are observed in the EPC when varying the plasma exposure time and TMA dosing time in Figure 2",
                 "answer_type": "List",
-                "answer": "1. EPC increases with SF\u2086 plasma exposure time, 2. EPC increases with TMA dosing time, 3. Saturation behavior is observed for both SF\u2086 plasma exposure and TMA dosing."
+                "answer": "EPC increases with plasma exposure time up to ~10 s, EPC increases with TMA dosing time up to ~0.5 s, Higher plasma exposure or TMA dose does not increase EPC further, indicating saturation, These trends indicate self-limiting behavior typical of ALE processes"
             }
         ]
     },
@@ -4293,7 +4293,7 @@
                 "question_type": "Process-Oriented",
                 "question": "List the two distinct chemical reactant combinations being compared in this study for atomic layer etching (ALE).",
                 "answer_type": "List",
-                "answer": "Thermal ALE using HF and trimethylaluminum (TMA), Plasma-enhanced ALE using SF\u2086 plasma and trimethylaluminum (TMA)"
+                "answer": "SF\u2086 plasma followed by TMA, HF followed by TMA"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -4383,7 +4383,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "At 300 \u00b0C, which studies report an etch per cycle (EPC), and how do their etch rates rank from highest to lowest?",
                 "answer_type": "List",
-                "answer": "SF\u2086 plasma/TMA (~3.4 \u00c5/cycle), HF/TMA (~2.5 \u00c5/cycle), HF/DMAC (~1.0 \u00c5/cycle)"
+                "answer": "This work (SF\u2086/TMA), Cano (HF/TMA), Hennessey (HF/TMA), Zywotko (HF/TMA), Lee (HF/TMA)"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -4407,7 +4407,7 @@
                 "question_type": "Application/Performance",
                 "question": "What advantages are demonstrated by the plasma-based ALE process?",
                 "answer_type": "List",
-                "answer": "Higher etch rates at lower temperatures, Etching at temperatures where thermal ALE does not proceed, Potential for processing temperature-sensitive materials"
+                "answer": "Higher etch rates at lower temperatures, Improved selectivity over thermal ALE, More effective fluorine supply for surface modification"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -4425,7 +4425,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is the plasma-assisted ALE process advantageous for etching in 3D structures?",
                 "answer_type": "List",
-                "answer": "Lower thermal budget, Higher etch per cycle, Wider temperature window"
+                "answer": "It maintains a high etch rate even at lower temperatures, It avoids damage to the underlying material, It enables uniform removal from complex geometries"
             },
             {
                 "question_type": "Process-Oriented",
@@ -4525,7 +4525,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "How does the film thickness before and after ALE cycles compare across the trench regions?",
                 "answer_type": "List",
-                "answer": "Before ALE: 210 nm, 210 nm, 210 nm, 210 nm, After ALE: 11.4 nm, 11.9 nm, 12.2 nm, 11.2 nm"
+                "answer": "Initial thicknesses are similar across regions (11.4\u201312.2 nm), After ALE, thicknesses remain comparable (11.2\u201311.9 nm), indicating uniform etching, Slight variations exist but overall etch depth is consistent"
             },
             {
                 "question_type": "Structure-Property",
@@ -4593,7 +4593,7 @@
                 "question_type": "Structure-Property",
                 "question": "What property does the reduction in sidewall thickness indicate?",
                 "answer_type": "List",
-                "answer": "Etching of the sidewall material, Loss of material from the vertical surfaces"
+                "answer": "Reduced thickness on vertical surfaces, Reduced thickness on horizontal surfaces, Reduced thickness on bottom surface"
             },
             {
                 "question_type": "Application/Performance",
@@ -5317,7 +5317,7 @@
                 "question_type": "Application/Performance",
                 "question": "List two types of information that can likely be derived from these charts",
                 "answer_type": "List",
-                "answer": "1. The etch rate for each material. 2. The relative etch resistance of the different materials.\nuser\nThe figure shows the mass change during atomic layer etching (ALE) of five different materials (TiN, SiO\u2082, Al\u2082O\u2083, HfO\u2082, and Si\u2083N\u2084) at two temperatures, 250 \u00b0C and 350 \u00b0C. The x-axis represents the etch time, and the y-axis represents the mass change in ng/cm\u00b2. The data points form linear trends, indicating a constant etch rate over time.\nassistant\n<think>\n\n</think>\n\n1. Etch rate for each material. 2. Effect of temperature on etch rate."
+                "answer": "Etch depth as a function of time, Effect of temperature on etch rate, Material-specific etching behavior"
             }
         ]
     },
@@ -5355,7 +5355,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the different Mo states in the spectra?",
                 "answer_type": "List",
-                "answer": "Mo6+, Mo5+, Mo4+, Mo3+, Mo0"
+                "answer": "Mo\u2076\u207a, Mo\u2075\u207a, Mo\u2074\u207a, Mo\u2070"
             },
             {
                 "question_type": "Process-Oriented",
@@ -5411,7 +5411,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the two spectra present?",
                 "answer_type": "List",
-                "answer": "1. Nb 3d, 2. Mo 3d, 3. O 1s"
+                "answer": "Nb 3d, Mo 3d, O 1s"
             },
             {
                 "question_type": "Structure-Property",
@@ -5485,7 +5485,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the different spectra present in the image?",
                 "answer_type": "List",
-                "answer": "1. O2 plasma treatment, 2. NbCl5 treatment, 3. O2 plasma treatment, 4. NbCl5 treatment"
+                "answer": "Cl 1s spectra, Nb 3d spectra, O 1s spectra"
             }
         ]
     },
@@ -5635,7 +5635,7 @@
                 "question_type": "Process-Oriented",
                 "question": "Which Mo peaks correspond to which peaks?",
                 "answer_type": "List",
-                "answer": "Mo6+, Mo5+, Mo4+, Mo3+, Mo0"
+                "answer": "Mo6+ at 232.7 eV, Mo5+ at 231.6 eV, Mo4+ at 230.5 eV, Mo0 at 227.9 eV"
             },
             {
                 "question_type": "Process-Oriented",
@@ -5815,7 +5815,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the peaks identified in the diffractogram?",
                 "answer_type": "List",
-                "answer": "1. MoO3 (011), 2. MoO3 (002), 3. MoO3 (110), 4. MoO3 (021), 5. MoO3 (104), 6. MoO3 (022), 7. MoO3 (112), 8. MoO3 (200), 9. MoO3 (031), 10. MoO3 (210), 11. MoO3 (105), 12. MoO3 (032), 13. MoO3 (220), 14. MoO3 (114), 15. MoO3 (212), 16. MoO3 (106), 17. MoO3 (040), 18. MoO3 (230), 19. MoO3 (301), 20. MoO3 (213), 21. MoO3 (107), 22. MoO3 (041), 2"
+                "answer": "(110), (200), (211), (220), (310), (222), (321)"
             },
             {
                 "question_type": "Process-Oriented",
@@ -5945,7 +5945,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are other ways the ALE process can be classified by?",
                 "answer_type": "List",
-                "answer": "1. By directionality, 2. By the specific reaction mechanisms, 3. By the type of material"
+                "answer": "Isotropic modification and removal, Directional modification and removal, Isotropic removal with directional modification, Directional removal with isotropic modification"
             },
             {
                 "question_type": "Process-Oriented",
@@ -5999,7 +5999,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which thermodynamic features most strongly determine whether a precursor combination will support efficient ALE?",
                 "answer_type": "List",
-                "answer": "Thermodynamically favored solid formation, Low volatility of reaction products, Limited gas-phase transport of fluorinated or oxygenated species, Suppression of spontaneous etching by strong adsorbate binding"
+                "answer": "Volatility of etch products, Favorable Gibbs free energy, Suppression of solid by-product formation, Temperature-dependent phase stability"
             }
         ],
         "b": [
@@ -6033,7 +6033,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which surface residues observed by AES explain poor etching performance for WF\u2086/SOCl\u2082?",
                 "answer_type": "List",
-                "answer": "Sulfur, Carbon"
+                "answer": "Sulfur (S), Zirconium (Zr)"
             }
         ],
         "b": [
@@ -6067,7 +6067,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which material and precursor combinations show the strongest temperature dependence in thickness change?",
                 "answer_type": "List",
-                "answer": "1. ZrO\u2082 with SO\u2082Cl\u2082, 2. HfO\u2082 with SO\u2082Cl\u2082, 3. TiO\u2082 with WF\u2086"
+                "answer": "WF\u2086 + BCl\u2083 at 240 \u00b0C, WF\u2086 + SOCl\u2082 at 240 \u00b0C, WF\u2086 + BCl\u2083 at 220 \u00b0C, WF\u2086 + SOCl\u2082 at 220 \u00b0C"
             }
         ],
         "b": [
@@ -6101,7 +6101,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which surface species observed by AES indicate residue formation from incomplete ligand exchange?",
                 "answer_type": "List",
-                "answer": "Tungsten (W), Boron (B), Sulfur (S), and Chlorine (Cl)"
+                "answer": "Cl, B, W"
             }
         ],
         "b": [
@@ -6135,7 +6135,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which reaction-system properties determine whether a fluorinated oxide can be effectively etched by a chlorinating agent?",
                 "answer_type": "List",
-                "answer": "Thermodynamic favorability, volatility of products, and temperature-dependent phase behavior"
+                "answer": "Thermodynamic stability of the fluoride layer, Volatility of the chloride product, Temperature-dependent phase changes, Formation of gaseous byproducts"
             }
         ],
         "b": [
@@ -6187,7 +6187,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which chemical properties influence the differences in etch rate saturation across the co-reactants?",
                 "answer_type": "List",
-                "answer": "BCl\u2083, TiCl\u2084, SOCl\u2082"
+                "answer": "Volatility of reaction products, Reactivity of co-reactants with intermediates, Formation of gaseous byproducts"
             }
         ],
         "b": [
@@ -6227,7 +6227,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the four parameters varied to optimize the ALE process in this figure?",
                 "answer_type": "List",
-                "answer": "HfO\u2082: 1. Hhfac pulse time, 2. O\u2082 gas time, 3. O radical time, 4. Bias power."
+                "answer": "Hhfac dose time, O radical dose time, RF bias power, Temperature"
             },
             {
                 "question_type": "Application/Performance",
@@ -6243,7 +6243,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the sequence steps involved in the ALE process used?",
                 "answer_type": "List",
-                "answer": "1. Oxygen radical pre-cleaning, 2. Exposure to Hhfac, 3. Purge with N2"
+                "answer": "Hhfac exposure, O radical pre-clean, Co-deposition of Hf and O, Hhfac exposure, O radical pre-clean"
             }
         ],
         "a": [
@@ -6287,7 +6287,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the treatment steps used to evaluate the surface composition across panels (a\u2013e)?",
                 "answer_type": "List",
-                "answer": "As-deposited, Oxygen radical treatment, Hhfac exposure at 100\u00b0C, Hhfac exposure at 300\u00b0C, XPS analysis"
+                "answer": "As-deposited, Hhfac exposure at 100\u00b0C, Hhfac exposure at 300\u00b0C, O radical treatment at 300\u00b0C, 30 cycles of ALE at 300\u00b0C"
             },
             {
                 "question_type": "Application/Performance",
@@ -6467,7 +6467,7 @@
                 "question_type": "Process-Oriented",
                 "question": "List the step added to the standard thermal ALE cycle sequence to create the H\u2082 plasma-enhanced process shown in this image a",
                 "answer_type": "List",
-                "answer": "Introduce an H\u2082 plasma exposure step after the Sn(acac)\u2082 exposure."
+                "answer": "H\u2082 plasma exposure after Sn(acac)\u2082 exposure, Purge step after H\u2082 plasma exposure"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -6495,7 +6495,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "At ALD cycle 9, how do the three cases rank by coverage from highest to lowest?",
                 "answer_type": "List",
-                "answer": "Experimental (~92%), With densification (~47%), Without densification (~48%)"
+                "answer": "With densification, Experimental, Without densification"
             },
             {
                 "question_type": "Application/Performance",
@@ -6735,7 +6735,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which categories of precursor molecules are represented among the optimized structures in Figure 1?",
                 "answer_type": "List",
-                "answer": "Hydrocarbons, Silanes, Chlorinated silicon compounds, Mixed organic\u2013inorganic silicon compounds, Fluorinated silicon compounds, Alkoxy silanes, Aminosilanes"
+                "answer": "Hydrocarbons, Alkyl chlorides, Silanes, Chlorosilanes, Silacyclobutane derivatives, Silicates, Silanes with amine ligands, Alkoxides"
             }
         ],
         "b": [
@@ -6781,7 +6781,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What samples were analysed with XPS?",
                 "answer_type": "List",
-                "answer": "1. Graphene on 90 nm SiO2 on Si, 2. Graphene after 5 min H2 plasma treatment, 3. Graphene after 5 min O2 plasma treatment."
+                "answer": "Pristine graphene, Graphene after H2 plasma treatment, Graphene after O2 plasma treatment"
             },
             {
                 "question_type": "Process-Oriented",
@@ -6803,7 +6803,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What function groups are likely formed after exposure to O2 plasma?",
                 "answer_type": "List",
-                "answer": "a\tCarbon-oxygen double bond, b\tCarbon-oxygen single bond"
+                "answer": "C-O, C=O"
             }
         ]
     },
@@ -7135,7 +7135,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the two elementary dissociation steps shown by the sequence of states and transition states?",
                 "answer_type": "List",
-                "answer": "1. Dissociation of Cu(acac)\u2082 into Cu(acac) + acac\u207b, 2. Dissociation of Cu(acac) into Cu + acac\u207b"
+                "answer": "Adsorption of Cu(acac)\u2082 on the Cu(110) surface, Diffusion to a hollow site, Loss of one acac ligand to form Cu(acac), Loss of the second acac ligand to form Cu"
             }
         ]
     },
@@ -7205,7 +7205,7 @@
                 "question_type": "Structure-Property",
                 "question": "In this plot, what do the three marker styles represent?",
                 "answer_type": "List",
-                "answer": "Cu(110) (squares), Cu\u2082O(111) (circles), CuO(111) (triangles"
+                "answer": "Cu(110) surface, Cu\u2082O(111) surface, CuO(111) surface"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -7315,7 +7315,7 @@
                 "question_type": "Structure-Property",
                 "question": "What structural changes in aniline fragments after hydrogenolysis influence the gap-size distribution?",
                 "answer_type": "List",
-                "answer": "Formation of larger aromatic fragments, Reduction in small gap population, Increased steric hindrance from bulky fragments"
+                "answer": "Hydrogenolysis converts adsorbed aniline into benzene and ammonia, Benzene remains adsorbed on the surface, creating larger effective gaps, Ammonia desorbs, clearing surface sites and modifying the gap distribution"
             }
         ]
     },
@@ -7341,7 +7341,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which molecular or surface features most strongly influence adsorption strength (\u0394E_ads)?",
                 "answer_type": "List",
-                "answer": "Aromatic ring planarity, Amine group availability, Surface metal type (Ru vs. Co vs. SiO\u2082), Number of adsorption sites engaged"
+                "answer": "Horizontal adsorption mode (ring\u2013metal interaction), Vertical adsorption mode (amine\u2013metal interaction), Surface metal type (Ru vs Co), Degree of \u03c0\u2013metal coordination, Availability of surface metal atoms for bonding"
             }
         ]
     },
@@ -7351,7 +7351,7 @@
                 "question_type": "Structure-Property",
                 "question": "How does weakened TDMAT adsorption on aniline-functionalized surfaces support area-selective ALD?",
                 "answer_type": "List",
-                "answer": "Reduced adsorption energy, Weaker precursor-surface interaction, Lower likelihood of unwanted chemisorption"
+                "answer": "Lower adsorption energy of TDMAT on aniline, Reduced precursor adsorption on non-growth areas, Higher selectivity between growth and non-growth areas, Improved control over ALD deposition"
             }
         ],
         "b": [
@@ -7375,7 +7375,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which structural factors influence the adsorption strength of TDMAT on the metal surfaces?",
                 "answer_type": "List",
-                "answer": "Surface metal type (Ru vs. Co), Surface functionalization (bare vs. aniline), Adsorption site geometry (top vs. side view), Surface curvature and lattice arrangement"
+                "answer": "Direct bonding between Ti and the metal surface, Availability of surface functional groups (e.g., aniline), Surface coordination and lattice arrangement, Presence of adsorbate-surface interactions (e.g., \u03c0-interactions for aniline)"
             }
         ]
     },
@@ -7409,7 +7409,7 @@
                 "question_type": "Structure-Property",
                 "question": "What structural feature of the aniline molecule determines the total exclusion area used in the RSA simulations?",
                 "answer_type": "List",
-                "answer": "The combined van der Waals volumes of all atoms in the aniline molecule, The spatial extent of hydrogen atoms around the ring and substituents, The planar geometry of the benzene ring"
+                "answer": "Benzene ring geometry, Nitrogen position and bonding, Hydrogen positions on the ring"
             }
         ]
     },
@@ -7443,7 +7443,7 @@
                 "question_type": "Structure-Property",
                 "question": "What structural or configurational factors influence the effective gap sizes remaining after aniline adsorption?",
                 "answer_type": "List",
-                "answer": "Packing density of adsorbed aniline molecules, Surface-specific adsorption behavior, Availability of unoccupied surface sites, Local steric hindrance from adsorbed species"
+                "answer": "Coverage density of aniline, Arrangement of adsorbed molecules, Presence of large or small unoccupied regions, Hydrogenolysis products (benzene vs. aniline), Surface curvature or crystallographic orientation"
             }
         ]
     },
@@ -7521,7 +7521,7 @@
                 "question_type": "Application/Performance",
                 "question": "What is the sequence of gas zones from left to right in this in-line spatial ALD reactor configuration?",
                 "answer_type": "List",
-                "answer": "Precursor A, Precursor B, Separating gas, Precursor C, Separating gas, Precursor D"
+                "answer": "Water dosing zone, Exhaust zone, Nitrogen purge zone, Exhaust zone, TMA dosing zone"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -8249,7 +8249,7 @@
                 "question_type": "Structure-Property",
                 "question": "What structural changes occur in the precursor\u2013surface system during the amide transfer?",
                 "answer_type": "List",
-                "answer": "Amide transfer from precursor to surface, Formation of Hf\u2013O bonds, Reduction in Hf coordination number, Generation of under-coordinated Hf sites"
+                "answer": "The amide group of the precursor binds to an under-coordinated hafnium site, The Hf\u2013N bond lengthens and weakens, The amide group migrates from the precursor to the surface, The remaining precursor fragment becomes more weakly bound and may desorb"
             }
         ]
     },
@@ -8311,7 +8311,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the key structural changes occurring in the Hf precursor as coordination increases.",
                 "answer_type": "List",
-                "answer": "Increased coordination number of Hf, Formation of Hf\u2013O bonds, Reduction of available X ligands, Higher local density around Hf"
+                "answer": "c.n. = 3: Hf bonded to three X ligands, c.n. = 4: Hf bonded to four X ligands, c.n. = 5: Hf bonded to five X ligands, c.n. = 6: Hf bonded to six X ligands"
             }
         ]
     },
@@ -8337,7 +8337,7 @@
                 "question_type": "Structure-Property",
                 "question": "What structural changes occur during the ligand rotation shown in panels (a), (b), and (c)?",
                 "answer_type": "List",
-                "answer": "The Hf\u2013O bond lengthens, The Hf\u2013X bond shortens, The proton rotates from the \"dn\" to the \"up\" orientation"
+                "answer": "Initial state: Protonated ligand with H pointing down toward the surface, Transition state: Saddle-point geometry with the ligand tilted, Final state: Protonated ligand rotated so H points up away from the surface"
             }
         ]
     },
@@ -8363,7 +8363,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which structural changes occur as the proton migrates between nitrogen atoms in Figure 3?",
                 "answer_type": "List",
-                "answer": "Proton transfer from one nitrogen to another, Localized positive charge movement, Bond length adjustments around the proton, Reduced charge localization on the final nitrogen"
+                "answer": "Initial state: Proton located on one nitrogen atom, Middle state: Proton at the transition point between two nitrogen atoms, Final state: Proton fully transferred to the second nitrogen atom"
             }
         ]
     },
@@ -8417,7 +8417,7 @@
                 "question_type": "Structure-Property",
                 "question": "What structural features evolve as the precursor transitions from (a) to (d)?",
                 "answer_type": "List",
-                "answer": "Increased coordination number of Hf, Formation of additional Hf\u2013O bonds, Reduction in the number of surface-bound Hf atoms, Loss of ligand saturation"
+                "answer": "Hf coordination number increases from 5 to 6, Hf migrates downward into the surface, Hf\u2013O bonds increase from 2 to 4, Hf\u2013N bonds decrease from 3 to 0, Hf\u2013H bonds decrease from 3 to 0, Hf\u2013X bonds decrease from 3 to 0, Hf\u2013F bonds increase from 0 to 4, Hf\u2013Cl bonds increase from 0 to 2"
             }
         ]
     },
@@ -8471,7 +8471,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the structural changes occurring during the water pulse as shown across panels (a)\u2013(c).",
                 "answer_type": "List",
-                "answer": "Formation of Hf\u2013O bonds with surface oxygen, Dissociation of HX ligands from the Hf center, Increase in Hf coordination number from 5 to 6"
+                "answer": "(a) Initial state with HfX\u2084 cluster on the surface, (b) H\u2082O adsorption and dissociation leading to OH and H species, (c) Formation of Hf\u2013OH and release of HX as gaseous by-product"
             }
         ]
     },
@@ -8505,7 +8505,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the key structural changes observed in the transition state of the iodine release reaction.",
                 "answer_type": "List",
-                "answer": "Increased distance between iodine and titanium atoms, Reduced hydrogen bonding between iodine and surface hydroxyl, Localized charge transfer indicated by atomic charge states"
+                "answer": "Ti\u2013I bond elongation, I\u2013I bond formation, Loss of coordination of I atoms to Ti, Increased distance of I atoms from the TiO\u2082 surface"
             }
         ]
     },
@@ -8549,7 +8549,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the key bond distance changes observed in the transition states for reactions C and D.",
                 "answer_type": "List",
-                "answer": "Ti\u2013I bond lengthens from ~2.35 \u00c5 to >3.8 \u00c5 in TS(C) and ~2.30 \u00c5 to >3.8 \u00c5 in TS(D), indicating bond cleavage, Ti\u2013O shortens from ~2.6 \u00c5 to ~1.95 \u00c5 in both TS(C) and TS(D), indicating Ti\u2013O bond formation, H\u2013O bond lengthens from ~0.96 \u00c5 to ~1.1 \u00c5 in TS(C) and H\u2013O bond lengthens from ~0.96 \u00c5 to ~1.05 \u00c5 in TS(D), indicating proton transfer, H\u2013I bond shortens from infinity to ~1.94 \u00c5 in TS(C) and H\u2013I bond shortens from infinity to ~1.65 \u00c5 in TS(D), indicating HI formation."
+                "answer": "Ti\u2013I distance increases from ~2.45 \u00c5 to 3.85 \u00c5, Ti\u2013O distance decreases from ~2.05 \u00c5 to 1.95 \u00c5, H\u2013O distance increases from ~0.97 \u00c5 to 1.38 \u00c5, H\u2013I distance decreases from ~2.5 \u00c5 to 1.94 \u00c5"
             }
         ]
     },
@@ -8669,7 +8669,7 @@
                 "question_type": "Structure-Property",
                 "question": "List the key bond distances shown in panels (b)\u2013(d) of the figure and their significance.",
                 "answer_type": "List",
-                "answer": "Ti\u2013O1 distance: 2.26 \u00c5 (H\u2082O adsorption to Ti\u2013O\u2013I site), Si\u2013O distance: 1.85 \u00c5 (transition state), Si\u2013O distance: 1.64 \u00c5 (final product)"
+                "answer": "Ti\u2013O1 = 2.26 \u00c5, H\u2013O2 = 1.90 \u00c5, Si\u2013O = 1.85 \u00c5, Ti\u2013I = 2.90 \u00c5, H\u2013I = 2.30 \u00c5"
             }
         ]
     },
@@ -8695,7 +8695,7 @@
                 "question_type": "Structure-Property",
                 "question": "What characteristics distinguish the three surface functional groups modeled on SiO\u2082 clusters?",
                 "answer_type": "List",
-                "answer": "Isolated \u2212OH groups, Adjacent hydrogen-bonded \u2212OH groups, Oxygen bridges"
+                "answer": "Isolated OH groups, Hydrogen-bonded OH groups, Oxygen bridges"
             }
         ]
     },
@@ -8937,7 +8937,7 @@
                 "question_type": "Process-Oriented",
                 "question": "Sequence the dominant physical control mechanisms as the reactor cools from 1300 K (1000/T \u2248 0.77) to 700 K (1000/T \u2248 1.4). Explain the transition observed at 1000/T \u2248 1.1.",
                 "answer_type": "List",
-                "answer": "Surface Reaction Control (High T), Mixed/Transition Regime (Mid T), Mass Transport / Diffusion Control (Low T)"
+                "answer": "High T: Desorption-limited regime (surface cleaning dominates), Intermediate T: Reaction-limited regime (surface reaction becomes rate-limiting), Low T: Diffusion-limited regime (reactant transport to surface dominates), Transition at 1000/T \u2248 1.1: Peak in growth rate indicates the crossover from reaction-limited to diffusion-limited behavior"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -9001,7 +9001,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which structural features of the injector govern gas flow and precursor confinement?",
                 "answer_type": "List",
-                "answer": "Precursor outlet geometry, Gap distance to substrate, Exhaust channel spacing, Surface roughness of internal surfaces"
+                "answer": "Precursor outlet geometry, Exhaust channel spacing, Gap between injector and substrate, N\u2082 flow distribution"
             }
         ],
         "b": [
@@ -9087,7 +9087,7 @@
                 "question_type": "Structure-Property",
                 "question": "Which system parameters control the shape of the DEZ concentration profile at the substrate surface?",
                 "answer_type": "List",
-                "answer": "Substrate velocity, Gap distance, Substrate temperature"
+                "answer": "Substrate velocity, Gap between injection head and substrate, Substrate temperature"
             }
         ],
         "b": [
@@ -9793,7 +9793,7 @@
                 "question_type": "Process-Oriented",
                 "question": "For the experiment generating these saturation curves, what is the fixed sequence and timing of steps in one ALD cycle?",
                 "answer_type": "List",
-                "answer": "(CpMe)\u2082Zr(Me)(OMe) pulse, O\u2083 pulse, Purge, Repeat."
+                "answer": "Zr precursor pulse, purge, Ozone pulse, purge"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -10127,7 +10127,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What lithium phase/compounds are formed at different temperatures?",
                 "answer_type": "List",
-                "answer": "1. LiOH at 250 \u00b0C, 2. Li2O at 275 \u00b0C, 3. Li2O at 300 \u00b0C"
+                "answer": "250 \u00b0C \u2192 Li\u2082CO\u2083, 275 \u00b0C \u2192 Li\u2082O, 300 \u00b0C \u2192 LiOH + Li\u2082O"
             },
             {
                 "question_type": "Process-Oriented",
@@ -10323,7 +10323,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What sequence of changes in the electronic structure of the surface species is inferred from thr XPS spectra at increasing pressure?",
                 "answer_type": "List",
-                "answer": "Increased intensity of the O 1s peak, indicating higher oxygen-related species, Decreased intensity of the V 2p peak, indicating reduced vanadium-related species, Shift of the V 2p peak toward higher binding energy, suggesting a change in the chemical state of vanadium"
+                "answer": "At 850 mTorr, the V 2p peak is dominant and the O 1s peak is absent, indicating a vanadium-rich surface,At 1600 mTorr, the O 1s peak begins to appear, signaling oxygen adsorption,At 2500 mTorr, the O 1s peak increases further, showing stronger oxygen surface interaction,At 3700 mTorr, the O 1s peak is fully developed, indicating saturation of oxygen adsorption,At 5000 mTorr (capacitively coupled), the O 1s peak is strongest, confirming enhanced oxygen incorporation"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -10369,7 +10369,7 @@
                 "question_type": "Application/Performance",
                 "question": "What are the implications of decreasing plasma potential on surface processing in high-pressure plasma environments?",
                 "answer_type": "List",
-                "answer": "Lower plasma potential reduces ion energy, potentially decreasing etch rates or affecting film quality, and may require adjustments in process parameters to maintain performance."
+                "answer": "Lower electron temperatures, Reduced surface damage, Improved selectivity in etching processes, More favorable conditions for thin-film deposition"
             }
         ]
     },
@@ -10397,7 +10397,7 @@
                 "question_type": "Application/Performance",
                 "question": "What practical implications can be drawn from the relationship between pressure and surface contamination in this plasma system?",
                 "answer_type": "List",
-                "answer": "Higher pressures lead to increased carbon contamination, which may affect film quality or performance, while nitrogen contamination remains low across the pressure range, indicating it is not the primary source of impurity."
+                "answer": "Higher pressures increase surface contamination, Lower pressures reduce surface contamination, Contamination levels are higher for capacitively coupled plasmas at high pressure, Controlling pressure can help minimize surface contamination"
             }
         ]
     },
@@ -10407,7 +10407,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are the possible film growth outcomes indicated on this figure and what conditon governs the transition between them?",
                 "answer_type": "List",
-                "answer": "Crystalline, Amorphous, The transition is governed by the plasma pressure"
+                "answer": "Crystalline films, Amorphous films, Mixed amorphous and crystalline films, The transition is governed by the plasma potential"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -10447,7 +10447,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What key variables are plotted in this figure to assess plasma behaviour?",
                 "answer_type": "List",
-                "answer": "Plasma potential (V), Ion flux (m\u207b\u00b2 s\u207b\u00b9), Power (W)"
+                "answer": "Ion flux, Plasma potential, Power"
             },
             {
                 "question_type": "Application/Performance",
@@ -10475,7 +10475,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What experimental parameter was varied to generate the Rman spectra in the figure?",
                 "answer_type": "List",
-                "answer": "Inductively coupled plasma O\u2082 flow fraction"
+                "answer": "O\u2082 flow fraction through the inductively coupled plasma (ICP)"
             },
             {
                 "question_type": "Application/Performance",
@@ -10509,7 +10509,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is it important to monitor both plasma potential and ion flux during plasma-assisted processes?",
                 "answer_type": "List",
-                "answer": "-It helps identify conditions that may lead to over-etching or under-etching, -It aids in optimizing process parameters for uniform material removal, -It prevents damage to sensitive substrates caused by excessive ion bombardment."
+                "answer": "It reflects the balance between physical sputtering and chemical etching, It helps optimize etch selectivity and surface damage, It enables control over the etch rate and surface quality"
             }
         ]
     },
@@ -10565,7 +10565,7 @@
                 "question_type": "Application/Performance",
                 "question": "What implication does GPC stabilisation after 50 s have for process design?",
                 "answer_type": "List",
-                "answer": "-Redundancy in pulse time beyond 50 s, -Increased throughput via shorter pulses, -Stable film thickness control"
+                "answer": "Allows shorter plasma pulses to be used, Reduces cycle time while maintaining precision, Improves throughput in plasma-based etching or deposition processes"
             }
         ]
     },
@@ -10609,7 +10609,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What process variables are manipulated in the figure to control energy flux density?",
                 "answer_type": "List",
-                "answer": "Plasma pressure, Ions only, Ions + fast neutr"
+                "answer": "Pressure, Ion energy"
             },
             {
                 "question_type": "Application/Performance",
@@ -10645,7 +10645,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What experimental parameter is varied across the different Raman spectra?",
                 "answer_type": "List",
-                "answer": "ICP power (50, 200, 400, 600, 950 W)"
+                "answer": "50 W, 200 W, 400 W, 600 W, 950 W"
             },
             {
                 "question_type": "Application/Performance",
@@ -10679,7 +10679,7 @@
                 "question_type": "Application/Performance",
                 "question": "What potential material characteristics can be inferred from the Raman spectra of the capactively coupled condition?",
                 "answer_type": "List",
-                "answer": "The presence of crystalline phases, the absence of crystalline phases, Amorphous structure"
+                "answer": "Crystalline V\u2082O\u2085, Mixed phase (V\u2082O\u2085 + Ag), Reduced interaction with Al\u2082O\u2083 substrate"
             }
         ]
     },
@@ -10707,7 +10707,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is XPS used to evaluate the effect of plasma power in this context?",
                 "answer_type": "List",
-                "answer": "It provides a non-destructive way to assess surface chemistry, stoichiometry, and the presence of sub-oxide or metal states, which are relevant for understanding how plasma conditions influence the final film properties."
+                "answer": "It identifies the oxidation state of vanadium in the deposited film, It confirms the formation of the desired VO\u2082 phase, It verifies the stoichiometry of the material, It helps distinguish between crystalline and non-crystalline phases"
             }
         ]
     },
@@ -10735,7 +10735,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is identifying an optimal O\u2082 flow fraction important for plasma-based processes?",
                 "answer_type": "List",
-                "answer": "-It can help optimize process conditions, -It may reduce unwanted by-products, -It can improve efficiency and reproducibility"
+                "answer": "It directly affects the concentration of reactive oxygen species, It influences the stoichiometry of the deposited film, It helps optimize the balance between oxidation and other plasma reactions"
             }
         ]
     },
@@ -10763,7 +10763,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is Raman spectroscopy useful for analysing pressure effects on thin films?",
                 "answer_type": "List",
-                "answer": "-Non-destructive analysis, Phase identification, Detection of crystalline and amorphous phases, Correlation of processing conditions with film structure"
+                "answer": "It identifies vibrational modes that distinguish crystalline phases, It tracks phase changes with pressure, It complements XRD for phase identification, It is non-destructive and surface-sensitive"
             }
         ]
     },
@@ -10791,7 +10791,7 @@
                 "question_type": "Application/Performance",
                 "question": "What are the benefits of achieving consistent GPC across different O\u2082:Ar flow ratios?",
                 "answer_type": "List",
-                "answer": "Improved process robustness, Reduced sensitivity to plasma conditions, Consistent film thickness control"
+                "answer": "Improved process flexibility, Better control over film properties, Enhanced reproducibility in deposition, Compatibility with varying gas flow conditions"
             }
         ]
     },
@@ -10823,7 +10823,7 @@
                 "question_type": "Application/Performance",
                 "question": "Why is it important to control ion energy and plasma potential in thin film deposition or etching?",
                 "answer_type": "List",
-                "answer": "-It helps tailor the crystallinity of the deposited film.-It influences the structural order (amorphous, mixed, or crystalline) of the material.-It can determine whether the film is suitable for specific electronic or functional applications."
+                "answer": "It influences the degree of crystallinity in deposited films, It affects surface damage or modification during etching, It helps distinguish between desired and unwanted surface interactions, It can be tuned to optimize film quality or etch selectivity"
             }
         ]
     },
@@ -10851,7 +10851,7 @@
                 "question_type": "Application/Performance",
                 "question": "What is the significance of tracking Raman intensity over time during plasma treatment?",
                 "answer_type": "List",
-                "answer": "-It reveals the temporal evolution of surface chemical changes, -It helps identify the onset and progression of etching or modification, -It provides insight into process kinetics and self-limiting behavior."
+                "answer": "Monitors surface changes during treatment, Detects formation of new surface species, Helps optimize plasma exposure time, Confirms removal of surface contaminants"
             }
         ]
     },
@@ -10879,7 +10879,7 @@
                 "question_type": "Application/Performance",
                 "question": "What plasma operating conditions are varied in the figure to infleunce oxygen density?",
                 "answer_type": "List",
-                "answer": "Inductively coupled plasma pressure, Capacitively coupled plasma pressure"
+                "answer": "Pressure, Inductive or capacitive coupling"
             }
         ]
     },
@@ -10895,7 +10895,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "How does film thickness change at specific ALD cycle intervals?",
                 "answer_type": "List",
-                "answer": "1. 0 cycles \u2192 0 \u00c5, 2. 50 cycles \u2192 20 \u00c5, 3. 100 cycles \u2192 60 \u00c5, 4. 200 cycles \u2192 140 \u00c5, 5. 300 cycles \u2192 200 \u00c5, 6. 400 cycles \u2192 280 \u00c5, 7. 500 cycles \u2192 380 \u00c5, 8. 600 cycles \u2192 440 \u00c5, 9. 700 cycles \u2192 480 \u00c5"
+                "answer": "At 0 cycles, thickness is 0 \u00c5, At 50 cycles, thickness is ~20 \u00c5, At 100 cycles, thickness is ~60 \u00c5, At 200 cycles, thickness is ~140 \u00c5, At 300 cycles, thickness is ~200 \u00c5, At 400 cycles, thickness is ~280 \u00c5, At 500 cycles, thickness is ~380 \u00c5, At 600 cycles, thickness is ~440 \u00c5, At 700 cycles, thickness is ~480 \u00c5"
             },
             {
                 "question_type": "Application/Performance",
@@ -10917,7 +10917,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "What are the key differences in growth rate behaviour ?",
                 "answer_type": "List",
-                "answer": "1.\t150 \u00b0C: Growth rate increases sharply at short TDMASn pulse times and saturates at ~0.7 \u00c5/cycle after ~1 s.\n2.\t30 \u00b0C: Growth rate increases more gradually and saturates at ~0.8 \u00c5/cycle after ~2 s."
+                "answer": "At low pulse times, the growth rate increases rapidly, then the growth rate plateaus, indicating saturation, At higher temperatures, saturation is achieved at shorter pulse times"
             },
             {
                 "question_type": "Application/Performance",
@@ -10965,7 +10965,7 @@
                 "question_type": "Application/Performance",
                 "question": "What are the benefits of annealing based on the XRD data presented?",
                 "answer_type": "List",
-                "answer": "Improved crystallinity, Phase transformation, Enhanced material properties"
+                "answer": "Improved crystallinity, Phase change from amorphous to crystalline, Formation of SnO\u2082 phase, Reduced SnO content"
             }
         ]
     },
@@ -10981,7 +10981,7 @@
                 "question_type": "Application/Performance",
                 "question": "What deposition temperature ranges are suitable for achieving high growth rates (>1.5\u202f\u00c5/cycle)?",
                 "answer_type": "List",
-                "answer": "25\u201350\u202f\u00b0C, 75\u202f\u00b0C"
+                "answer": "25\u201350 \u00b0C"
             },
             {
                 "question_type": "Process-Oriented",
@@ -11009,7 +11009,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "Which peaks are observed in the XPS spectrum, and what do they correspond to?",
                 "answer_type": "List",
-                "answer": "Sn3s, Sn3p1, Sn3p3, Sn3d3, Sn3d5, O1s, Sn4s, Sn4d"
+                "answer": "Sn3s, Sn3p1, Sn3p3, O1s, Sn3d5, Sn3d3, Sn4s, Sn4d"
             },
             {
                 "question_type": "Application/Performance",
@@ -11031,7 +11031,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "How does the growth rate change across different purge durations ?",
                 "answer_type": "List",
-                "answer": "1. Decreases with increasing purge time, 2. Plateaus at longer purge times"
+                "answer": "At 0 s N\u2082 purge, growth rate is highest (~3.6 \u00c5/cycle), At 30 s N\u2082 purge, growth rate decreases (~2.2 \u00c5/cycle), At 60 s N\u2082 purge, growth rate further decreases (~1.9 \u00c5/cycle), At 180 s N\u2082 purge, growth rate stabilizes (~1.7 \u00c5/cycle), At 360 s N\u2082 purge, growth rate remains similar (~1.7 \u00c5/cycle)"
             }
         ],
         "a": [
@@ -11067,7 +11067,7 @@
                 "question_type": "Application/Performance",
                 "question": "What optical properties of the films are improved by increasing substrate temperature?",
                 "answer_type": "List",
-                "answer": "Higher refractive index, Lower extinction coefficient, Higher bandgap"
+                "answer": "Refractive index, Extinction coefficient, Bandgap"
             }
         ],
         "d": [
@@ -11657,7 +11657,7 @@
                 "question_type": "Process-Oriented",
                 "question": "What are species formed in the ammonia plasma, based on the spectrum?",
                 "answer_type": "List",
-                "answer": "1. NH, 2. H, 3. N, 4. H2, 5. N2"
+                "answer": "NH, H, N2, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2+, N2"
             }
         ],
         "a": [
@@ -11975,7 +11975,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which deposition methods and materials were compared in this figure?",
                 "answer_type": "List",
-                "answer": "PVD TaN, PE-ALD TaN, PVD Ta, PE-ALD Ta"
+                "answer": "PE-ALD TaN, PVD TaN, PE-ALD Ta, PVD Ta"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12013,7 +12013,7 @@
                 "question_type": "Application/Performance",
                 "question": "Each bar represents the total number of publications per year that include plasma-assisted ALD and related keywords.",
                 "answer_type": "List",
-                "answer": "1. The first report of a plasma-assisted ALD process by De Keijser and Van Opdorp (Philips Research Laboratories, Eindhoven), published in 1991."
+                "answer": "1991\u20131995: 0 publications per year, 1996\u20132000: 0 publications per year, 2001\u20132005: 0\u201310 publications per year, 2006\u20132010: 10\u201340 publications per year, 2011: ~24 publications"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12063,7 +12063,7 @@
                 "question_type": "Application/Performance",
                 "question": "What experimental conditions are compared in this figure?",
                 "answer_type": "List",
-                "answer": "Plasma-assisted ALD using O2 plasma, Thermal ALD using H2O, Low-pressure operation at 15 mTorr, High-pressure operation at 170 mTorr"
+                "answer": "O\u2082 plasma deposition at 15 mTorr, O\u2082 plasma deposition at 170 mTorr, Thermal H\u2082O deposition at 15 mTorr, Thermal H\u2082O deposition at 170 mTorr"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12085,7 +12085,7 @@
                 "question_type": "Application/Performance",
                 "question": "What process parameters influence the dose necessary for saturation ?",
                 "answer_type": "List",
-                "answer": "1. The aspect ratio of the substrate.\n2. The surface recombination probability."
+                "answer": "Surface recombination probability, Aspect ratio of the trench"
             }
         ],
         "a": [
@@ -12127,7 +12127,7 @@
                 "question_type": "Application/Performance",
                 "question": "What can be inferred about plasma behavior from the ion energy distributions?",
                 "answer_type": "List",
-                "answer": "H\u2082 plasma shows the highest ion flux at lower energies, N\u2082 plasma peaks at intermediate energies, and O\u2082 plasma peaks at higher energies"
+                "answer": "Higher ion energies in H\u2082 and N\u2082 plasmas, Lower ion energies in O\u2082 plasma, Differences in plasma excitation mechanisms"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12155,7 +12155,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which techniques were used to measure resistivity?",
                 "answer_type": "List",
-                "answer": "Spectroscopic ellipsometry, Four-point probe"
+                "answer": "Spectroscopic ellipsometry, 4-point probe"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12191,7 +12191,7 @@
                 "question_type": "Application/Performance",
                 "question": "What experimental conditions were varied in the measurements?",
                 "answer_type": "List",
-                "answer": "1. O\u2082 plasma exposure time (0, 10, 20, 30 s), 2. Plasma power (100 W, 500 W), 3. O\u2082 pressure (7.5 mTorr, 75 mTorr)"
+                "answer": "O\u2082 plasma exposure time, O\u2082 pressure (7.5 mTorr vs. 75 mTorr), plasma power (100 W vs. 500 W)"
             }
         ]
     },
@@ -12221,7 +12221,7 @@
                 "question_type": "Application/Performance",
                 "question": "What plasma systems and transitions are identified in the spectra?",
                 "answer_type": "List",
-                "answer": "Plasma systems: O\u2082, H\u2082, N\u2082, Molecular transitions: OH(A\u00b2\u03a3\u207a \u2192 X\u00b2\u03a0), NH(B\u00b2\u03a3\u207a \u2192 X\u00b2\u03a3\u207a), Atomic transitions: H\u03b4 (Balmer-\u03b1), H\u03b3 (Balmer-\u03b2), H\u03b2 (Balmer-\u03b1), NII (700.4 nm), OI (777.1, 792.3, 844.6 nm)"
+                "answer": "O\u2082 plasma, H\u2082 plasma, N\u2082 plasma, O\u2082\u207a (1st neg. system), O\u2082\u207a (2nd neg. system), O (2D), O (4S), O\u2082 (0,0,0)"
             }
         ]
     },
@@ -12243,7 +12243,7 @@
                 "question_type": "Structure-Property",
                 "question": "What physical effects are associated with different ion energies?",
                 "answer_type": "List",
-                "answer": "Low ion energy (below 10 eV): Surface reactions, chemical reactions, and plasma chemistry. \nMedium ion energy (10\u2013100 eV): Etching. \nHigh ion energy (above 100 eV): Ion implantation."
+                "answer": "10 eV: Desorption, 100 eV: Displacement of lattice atoms, 1000 eV: Sputtering, 10000 eV: Implantation"
             },
             {
                 "question_type": "Application/Performance",
@@ -12271,7 +12271,7 @@
                 "question_type": "Application/Performance",
                 "question": "What does the linear relationship suggest about the ALD process?",
                 "answer_type": "List",
-                "answer": "It suggests a constant growth per cycle, indicating a stable and reliable ALD process"
+                "answer": "Consistent growth per cycle, Stable and controllable process, Ideal behavior for uniform film deposition"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12299,7 +12299,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which titanium precurors are induced in the plot?",
                 "answer_type": "List",
-                "answer": "Ti(OiPr)4, Ti(CpMe)(OiPr)3, Ti(Cp*)(OMe)3, Ti(CpMe)(NMe2)3"
+                "answer": "Ti(O^iPr)_4, Ti(Cp^Me)(O^iPr)_3, Ti(Cp^*)OMe)_3, Ti(Cp^Me)(NMe_2)_3"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12321,7 +12321,7 @@
                 "question_type": "Application/Performance",
                 "question": "What does the inset demonstrate about Al\u2082O\u2083 film performance?",
                 "answer_type": "List",
-                "answer": "Demonstrates WVTR as a function of film thickness, Shows lowest WVTR at 20 nm thickness, Indicates optimal barrier properties at this thickness"
+                "answer": "Lower WVTR at higher thicknesses, Improved barrier performance with increased film thickness, Inset shows thickness-dependent WVTR behavior"
             }
         ],
         "a": [
@@ -12765,7 +12765,7 @@
                 "question_type": "Process-Oriented",
                 "question": "Which optical emission wavelengths are monitored and to which species do they correspond?",
                 "answer_type": "List",
-                "answer": "777 nm (O*), 656 nm (H*), 519 nm (CO*)"
+                "answer": "777 nm - O*, 656 nm - H*, 519 nm - CO*"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12801,7 +12801,7 @@
                 "question_type": "Application/Performance",
                 "question": "Which species dominate the ion current signals in NH\u2083 plasma that could influence surface chemistry?",
                 "answer_type": "List",
-                "answer": "H\u2082, N\u2082, NH, NH\u2082, NH\u2083"
+                "answer": "H\u2082 (m/z = 2), N\u2082 (m/z = 14), NH\u2083 (m/z = 15, 16, 17)"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12829,7 +12829,7 @@
                 "question_type": "Application/Performance",
                 "question": "What insights can be drawn from the behavior of m/z = 16 and 17 with increasing H\u2082 ratio in plasma?",
                 "answer_type": "List",
-                "answer": "Increased NH\u2083 formation, NH\u2082\u207a signal rise, NH\u2083 dominance at higher H\u2082 ratios"
+                "answer": "Increased H\u2082 leads to higher NH\u2082\u207a and NH\u2083\u207a signals, NH\u2083 production peaks at intermediate H\u2082/N\u2082 ratios, High H\u2082 favors dissociation into lighter fragments (NH\u2082\u207a), Excess H\u2082 reduces NH\u2083 signal, indicating over-dissociation"
             },
             {
                 "question_type": "Process-Oriented",
@@ -12857,7 +12857,7 @@
                 "question_type": "Application/Performance",
                 "question": "What performance-related insights can be drawn from the increasing Co content with ion current?",
                 "answer_type": "List",
-                "answer": "Higher Co content suggests improved film purity, Reduced oxygen incorporation, Better film stability and performance"
+                "answer": "Higher ion current correlates with increased Co incorporation, Improved film purity with increasing ion current, Potential optimization of plasma conditions to enhance Co content"
             },
             {
                 "question_type": "Comparative/Trend",
@@ -12885,7 +12885,7 @@
                 "question_type": "Comparative/Trend",
                 "question": "What trends are observed in ion intensities for m/z = 27 (C\u2082H\u2083\u207a/HCN\u207a) across the different processes?",
                 "answer_type": "List",
-                "answer": "CoCp\u2082 pulse shows a strong C\u2082H\u2083\u207a/HCN\u207a peak, CoCp\u2082 + H\u2082/N\u2082 shows a reduced but still present signal, CoCp\u2082 + NH\u2083 shows a further reduced signal, No CoCp\u2082 + H\u2082/N\u2082 and No CoCp\u2082 + NH\u2083 show negligible signals"
+                "answer": "m/z = 27: Highest intensity for AB-H2/N2, followed by AB-NH3, then AB-Cp2-N2-H2, then AB without CoCp2"
             },
             {
                 "question_type": "Application/Performance",
