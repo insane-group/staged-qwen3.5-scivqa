@@ -28,8 +28,8 @@ from collections import defaultdict
 # %%
 MODEL_ID = "unsloth/Qwen3.5-9B"
 
-MAX_NEW_TOKENS = 256
-MAX_SEQUENCE_LENGTH = 4096
+MAX_NEW_TOKENS = 768  # Covers the 99th percentile
+MAX_SEQUENCE_LENGTH = 3072
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
 ENABLE_THINKING = False
@@ -75,7 +75,7 @@ PROMPT_TEMPLATE = """
 Additional context from the original paper:
 {context}
 
-Extract the structured data represented in the scientific chart by reconstructing it as a Markdown table.
+Extract the structured data represented in the scientific chart.
 
 Strict requirements:
 
@@ -83,28 +83,22 @@ Strict requirements:
 2. Determine the field/column names from axis labels, legends, or annotations.
 3. Reconstruct the underlying tabular structure represented in the chart.
 4. Extract all visible textual and numerical values as accurately as possible.
-5. If multiple series exist, include them as separate columns or clearly distinguish them.
+5. Strip all standard table formatting. Use commas (,) to separate columns and semicolons (;) to separate rows. Do not use spaces around the delimiters.
 6. Preserve units exactly as shown in the figure.
 7. Ignore decorative elements, schematics, arrows, and non-data graphics.
 8. Do not infer or extrapolate missing values—only include explicitly visible data.
-9. Ensure the table is complete, consistent, and machine-readable.
+9. Ensure the output is complete, consistent, and machine-readable.
 
 Output format:
 
-- A valid Markdown table only.
-- First row: column names.
-- Second row: separator (|---|---|...|).
-- Subsequent rows: extracted data values.
+- A single dense text string representing the table.
+- Columns separated by commas `,`.
+- Rows separated by semicolons `;`.
 - No explanations or extra text.
 
 Example:
 
-| Time (s) | Mass Change (ng/cm²) |
-|---|---|
-| 0 | 0 |
-| 2000 | -500 |
-| 4000 | -1000 |
-| 6000 | -1500 |
+Time (s),Mass Change (ng/cm²);0,0;2000,-500;4000,-1000;6000,-1500
 """
 
 
@@ -336,6 +330,55 @@ for sample in tqdm(dataset, desc="Running Inference"):
     with open(STATE_FILE, "w") as f:
         json.dump(state, f)
 
+
+# %%
+def dense_to_markdown(dense_str: str) -> str:
+    """
+    Converts the model's dense output (Col1,Col2;Val1,Val2)
+    back into a valid Markdown table, with visually aligned and padded columns.
+    """
+    if not dense_str or not isinstance(dense_str, str):
+        return ""
+
+    rows_raw = dense_str.strip().split(";")
+    if len(rows_raw) < 1 or not rows_raw[0]:
+        return ""
+
+    # Parse rows and strip any stray whitespace
+    parsed_rows = [[cell.strip() for cell in row.split(",")] for row in rows_raw]
+
+    # 1. Find the maximum number of columns across all rows
+    max_cols = max(len(row) for row in parsed_rows)
+
+    # Pad shorter rows with empty strings so every row matches max_cols
+    for row in parsed_rows:
+        row.extend([""] * (max_cols - len(row)))
+
+    # 2. Find the maximum character width for each column
+    col_widths = [max(len(row[col]) for row in parsed_rows) for col in range(max_cols)]
+
+    # Ensure a minimum width of 3 to accommodate standard markdown '---'
+    col_widths = [max(width, 3) for width in col_widths]
+
+    md_lines = []
+
+    for i, row in enumerate(parsed_rows):
+        # Left-justify each cell based on the maximum width of its column
+        padded_cells = [cell.ljust(col_widths[j]) for j, cell in enumerate(row)]
+
+        # Format row with spaces around the pipes: | Cell1 | Cell2 |
+        md_line = "| " + " | ".join(padded_cells) + " |"
+        md_lines.append(md_line)
+
+        # Insert the markdown separator after the header (first row)
+        if i == 0:
+            # The separator dashes match the width of the padded cell plus the 2 surrounding spaces
+            separator = "|" + "|".join("-" * (width + 2) for width in col_widths) + "|"
+            md_lines.append(separator)
+
+    return "\n".join(md_lines)
+
+
 # %%
 submission = []
 for sample_id, sub_figs in state.items():
@@ -343,7 +386,8 @@ for sample_id, sub_figs in state.items():
         {
             "sample_id": sample_id,
             "data_extraction": {
-                sub_fig: answer for sub_fig, answer in sub_figs.items()
+                sub_fig: dense_to_markdown(answer)
+                for sub_fig, answer in sub_figs.items()
             },
         }
     )

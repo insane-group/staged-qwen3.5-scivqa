@@ -27,7 +27,6 @@ import torch
 from PIL import Image
 import warnings
 from tqdm.auto import tqdm
-from transformers import TextStreamer
 from trl import SFTConfig, SFTTrainer
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -35,8 +34,8 @@ import matplotlib.pyplot as plt
 # %%
 MODEL_ID = "unsloth/Qwen3.5-9B"
 
-MAX_NEW_TOKENS = 2048  # Covers the 99th percentile
-MAX_SEQUENCE_LENGTH = 4096
+MAX_NEW_TOKENS = 768  # Covers the 99th percentile
+MAX_SEQUENCE_LENGTH = 3072
 NUM_TRAIN_EPOCHS = 5
 
 # https://unsloth.ai/docs/models/qwen3.5#recommended-settings
@@ -87,7 +86,7 @@ PROMPT_TEMPLATE = """
 Additional context from the original paper:
 {context}
 
-Extract the structured data represented in the scientific chart by reconstructing it as a Markdown table.
+Extract the structured data represented in the scientific chart.
 
 Strict requirements:
 
@@ -95,37 +94,30 @@ Strict requirements:
 2. Determine the field/column names from axis labels, legends, or annotations.
 3. Reconstruct the underlying tabular structure represented in the chart.
 4. Extract all visible textual and numerical values as accurately as possible.
-5. If multiple series exist, include them as separate columns or clearly distinguish them.
+5. Strip all standard table formatting. Use commas (,) to separate columns and semicolons (;) to separate rows. Do not use spaces around the delimiters.
 6. Preserve units exactly as shown in the figure.
 7. Ignore decorative elements, schematics, arrows, and non-data graphics.
 8. Do not infer or extrapolate missing values—only include explicitly visible data.
-9. Ensure the table is complete, consistent, and machine-readable.
+9. Ensure the output is complete, consistent, and machine-readable.
 
 Output format:
 
-- A valid Markdown table only.
-- First row: column names.
-- Second row: separator (|---|---|...|).
-- Subsequent rows: extracted data values.
+- A single dense text string representing the table.
+- Columns separated by commas `,`.
+- Rows separated by semicolons `;`.
 - No explanations or extra text.
 
 Example:
 
-| Time (s) | Mass Change (ng/cm²) |
-|---|---|
-| 0 | 0 |
-| 2000 | -500 |
-| 4000 | -1000 |
-| 6000 | -1500 |
+Time (s),Mass Change (ng/cm²);0,0;2000,-500;4000,-1000;6000,-1500
 """
 
 
 # %%
-def markdown_to_mapping(md_string: str) -> list[tuple[str, str, str]]:
+def parse_markdown_to_grid(md_string: str) -> list[list[str]]:
     """
-    Parses a markdown table into a list of (row_header, col_header, value) mappings.
-    Safely handles escaped pipes (\\|) in cells.
-    Assumes standard format: first column is the row header, first row is column headers.
+    Parses a markdown table into a 2D list (grid), sanitizing delimiters.
+    Returns an empty list if the markdown is invalid.
     """
     if not md_string or not isinstance(md_string, str):
         return []
@@ -134,53 +126,48 @@ def markdown_to_mapping(md_string: str) -> list[tuple[str, str, str]]:
     if len(lines) < 3:
         return []
 
-    def parse_row(row_str: str) -> list[str]:
-        # Strip leading and trailing unescaped pipes
-        row_str = re.sub(r"^\||\|$", "", row_str.strip())
-        # Split by pipes that are NOT preceded by a backslash
-        cells = re.split(r"(?<!\\)\|", row_str)
-        # Unescape the pipes for the final content and strip whitespace
-        return [cell.replace("\\|", "|").strip() for cell in cells]
-
-    # Extract column headers
-    col_headers = parse_row(lines[0])
-
-    mappings = []
-    # Skip line 0 (headers) and line 1 (separators like |---|---|)
-    for line in lines[2:]:
-        cells = parse_row(line)
-        if not cells or not any(cells):  # Skip empty rows
+    grid = []
+    for i, line in enumerate(lines):
+        if i == 1:  # Skip the markdown separator line (e.g., |---|---|)
             continue
 
-        row_header = cells[0]
-        # Map remaining cells to their corresponding column headers
-        for col_idx in range(1, len(cells)):
-            col_header = (
-                col_headers[col_idx] if col_idx < len(col_headers) else f"Col_{col_idx}"
-            )
-            value = cells[col_idx]
-            mappings.append((row_header, col_header, value))
+        row_str = re.sub(r"^\||\|$", "", line.strip())
+        cells = re.split(r"(?<!\\)\|", row_str)
 
-    return mappings
+        cleaned_cells = []
+        for cell in cells:
+            clean_cell = cell.replace("\\|", "|").strip()
+            # Sanitize delimiters so they don't break the dense format downstream
+            clean_cell = clean_cell.replace(",", " ").replace(";", " ")
+            cleaned_cells.append(clean_cell)
+
+        # Only add the row if it actually contains data
+        if any(cleaned_cells):
+            grid.append(cleaned_cells)
+
+    return grid
 
 
 def clean_table(raw_table: str) -> tuple[str, bool]:
     """
-    Cleans the raw markdown table string and validates its structure
-    using the markdown_to_mapping helper.
-    Returns: (cleaned_table, is_valid_format)
+    Validates the table structure and converts it to the dense format.
+    Returns: (dense_table_string, is_valid_format)
     """
-    if not raw_table or not isinstance(raw_table, str):
+    # 1. Parse the markdown ONCE into a structured 2D grid
+    grid = parse_markdown_to_grid(raw_table)
+
+    # 2. Strict Validation: A valid table must have at least a header row
+    # and one data row, and the header must have columns.
+    is_valid = len(grid) >= 2 and len(grid[0]) > 0
+
+    if not is_valid:
         return "", False
 
-    # Basic cleaning (strip surrounding whitespace/newlines)
-    cleaned = raw_table.strip()
+    # 3. If valid, instantly format the grid into the token-efficient dense string
+    dense_rows = [",".join(row) for row in grid]
+    dense_table = ";".join(dense_rows)
 
-    # If it parses to a non-empty list of mappings, it's a structurally valid table
-    mappings = markdown_to_mapping(cleaned)
-    is_valid = len(mappings) > 0
-
-    return cleaned, is_valid
+    return dense_table, True
 
 
 def convert_to_conversation(prompt: str, image: Image, response: str) -> dict:
@@ -416,17 +403,58 @@ display(
     )
 )
 
-# Plotting
-fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-df_tokens["assistant_tokens"].hist(
-    bins=30, ax=axes[0], color="salmon", edgecolor="black"
+# --- Paper-Ready Styling Configuration ---
+plt.rcParams.update(
+    {
+        "font.size": 12,  # Base font size
+        "axes.titlesize": 14,  # Larger title
+        "axes.labelsize": 12,  # Larger axis labels
+        "axes.spines.top": False,  # Remove top border
+        "axes.spines.right": False,  # Remove right border
+        "font.family": "serif",  # Serif fonts are often preferred in papers (optional)
+    }
 )
-axes[0].set_title("Assistant Tokens (for MAX_NEW_TOKENS)")
-axes[0].set_xlabel("Token Count")
 
-df_tokens["total_tokens"].hist(bins=30, ax=axes[1], color="skyblue", edgecolor="black")
-axes[1].set_title("Total Sequence Tokens (for max_length)")
-axes[1].set_xlabel("Token Count")
+# --- Plot 1: Assistant Tokens ---
+fig1, ax1 = plt.subplots(figsize=(6, 4))
+ax1.hist(
+    df_tokens["assistant_tokens"].dropna(),
+    bins=30,
+    color="#E26D5C",  # A slightly softer, professional salmon/red
+    edgecolor="black",
+    linewidth=0.8,
+    alpha=0.85,  # Slight transparency looks cleaner
+)
+ax1.set_title("Distribution of Assistant Tokens")
+ax1.set_xlabel("Assistant Token Count (MAX_NEW_TOKENS)")
+ax1.set_ylabel("Frequency")
+ax1.grid(axis="y", linestyle="--", alpha=0.5)  # Subtle horizontal gridlines
+
+# Save as SVG
+fig1.tight_layout()
+fig1.savefig(
+    "./images/table_assistant_tokens_dist.svg", format="svg", bbox_inches="tight"
+)
+plt.show()  # Display in notebook
+
+# --- Plot 2: Total Sequence Tokens ---
+fig2, ax2 = plt.subplots(figsize=(6, 4))
+ax2.hist(
+    df_tokens["total_tokens"].dropna(),
+    bins=30,
+    color="#4BA3C3",  # A professional sky/steel blue
+    edgecolor="black",
+    linewidth=0.8,
+    alpha=0.85,
+)
+ax2.set_title("Distribution of Total Sequence Tokens")
+ax2.set_xlabel("Total Token Count (max_length)")
+ax2.set_ylabel("Frequency")
+ax2.grid(axis="y", linestyle="--", alpha=0.5)
+
+# Save as SVG
+fig2.tight_layout()
+fig2.savefig("./images/table_total_tokens_dist.svg", format="svg", bbox_inches="tight")
 plt.show()
 
 # %%
@@ -465,41 +493,6 @@ print(f"Max Length Allowed: {MAX_SEQUENCE_LENGTH}")
 print(f"Kept (Safe): {filtered_size}")
 print(f"Dropped (Outliers): {dropped_count}")
 print("-" * 40)
-
-# %% [markdown]
-# Let's first see before we do any finetuning what the model outputs for the first example!
-
-# %%
-FastVisionModel.for_inference(model)  # Enable for inference!
-
-image = dataset[0]["messages"][0]["content"][1]["image"]
-instruction = dataset[0]["messages"][0]["content"][0]["text"]
-
-messages = [
-    {
-        "role": "user",
-        "content": [{"type": "image"}, {"type": "text", "text": instruction}],
-    }
-]
-input_text = tokenizer.apply_chat_template(messages, add_generation_prompt=True)
-inputs = tokenizer(
-    image,
-    input_text,
-    add_special_tokens=False,
-    return_tensors="pt",
-).to("cuda")
-
-text_streamer = TextStreamer(tokenizer, skip_prompt=True)
-_ = model.generate(
-    **inputs,
-    streamer=text_streamer,
-    max_new_tokens=MAX_NEW_TOKENS,
-    use_cache=True,
-    temperature=TEMPERATURE,
-    min_p=MIN_P,
-    top_p=TOP_P,
-    top_k=TOP_K,
-)
 
 # %% [markdown]
 # <a name="Training"></a>
