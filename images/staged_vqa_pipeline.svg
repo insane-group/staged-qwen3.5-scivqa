@@ -1,0 +1,110 @@
+<svg width="100%" viewBox="0 0 680 720" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Staged VQA pipeline: summarization and table extraction feed into VQA</title>
+  <desc>Two parallel evidence-construction stages (summarization and data-table extraction) feed a VQA component that produces typed answers.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- ── INPUT ─────────────────────────────────────────────────────────── -->
+  <rect x="210" y="18" width="260" height="52" rx="8" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="0.5"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#2C2C2A" x="340" y="38" text-anchor="middle" dominant-baseline="central">Scientific subfigure</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#444441" x="340" y="57" text-anchor="middle" dominant-baseline="central">cropped image + sliding-window context</text>
+
+  <!-- fork lines -->
+  <line x1="280" y1="70" x2="175" y2="142" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <line x1="400" y1="70" x2="505" y2="142" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ── TASK 3: SUMMARIZATION ──────────────────────────────────────────── -->
+  <rect x="60" y="142" width="230" height="48" rx="8" fill="#5DCAA5" stroke="#0F6E56" stroke-width="0.5"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#04342C" x="175" y="161" text-anchor="middle" dominant-baseline="central">Task 3 — Summarization</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#085041" x="175" y="179" text-anchor="middle" dominant-baseline="central">Qwen3.5-9B + LoRA · 256-tok cap</text>
+
+  <!-- ── TASK 2: TABLE EXTRACTION ──────────────────────────────────────── -->
+  <rect x="390" y="142" width="230" height="48" rx="8" fill="#AFA9EC" stroke="#534AB7" stroke-width="0.5"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#26215C" x="505" y="161" text-anchor="middle" dominant-baseline="central">Task 2 — Table extraction</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#3C3489" x="505" y="179" text-anchor="middle" dominant-baseline="central">Qwen3.5-9B + LoRA · 768-tok cap</text>
+
+  <!-- ── SUMMARY EXAMPLE CARD ──────────────────────────────────────────── -->
+  <rect x="40" y="210" width="270" height="130" rx="8" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.5"/>
+  <rect x="40" y="210" width="270" height="22" rx="8" fill="#5DCAA5"/>
+  <rect x="40" y="224" width="270" height="8" fill="#5DCAA5"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#04342C" x="52" y="225" dominant-baseline="central">summary output</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#04342C" x="52" y="248">Growth rate peaks at ~0.8 nm/cycle</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#04342C" x="52" y="264">between 150–200 °C, consistent with</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#04342C" x="52" y="280">ALD saturation. Below 150 °C the</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#04342C" x="52" y="296">rate declines, suggesting incomplete</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#04342C" x="52" y="312">precursor reactivity.</text>
+
+  <!-- ── TABLE EXAMPLE CARD ─────────────────────────────────────────────── -->
+  <rect x="370" y="210" width="270" height="130" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+  <rect x="370" y="210" width="270" height="22" rx="8" fill="#AFA9EC"/>
+  <rect x="370" y="224" width="270" height="8" fill="#AFA9EC"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#26215C" x="382" y="225" dominant-baseline="central">extracted table (markdown)</text>
+  <text font-family="Courier New, Courier, monospace" font-size="12" fill="#26215C" x="382" y="248">| Temp (°C) | GPC (nm) |</text>
+  <text font-family="Courier New, Courier, monospace" font-size="12" fill="#26215C" x="382" y="264">|-----------|----------|</text>
+  <text font-family="Courier New, Courier, monospace" font-size="12" fill="#26215C" x="382" y="280">| 100       | 0.52     |</text>
+  <text font-family="Courier New, Courier, monospace" font-size="12" fill="#26215C" x="382" y="296">| 150       | 0.81     |</text>
+  <text font-family="Courier New, Courier, monospace" font-size="12" fill="#26215C" x="382" y="312">| 200       | 0.80     |</text>
+
+  <!-- arrows from cards down to VQA -->
+  <line x1="175" y1="340" x2="270" y2="408" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <line x1="505" y1="340" x2="410" y2="408" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#888780" x="340" y="378" text-anchor="middle">auxiliary evidence</text>
+
+  <!-- ── TASK 4: VQA ────────────────────────────────────────────────────── -->
+  <rect x="185" y="408" width="310" height="48" rx="8" fill="#F0997B" stroke="#993C1D" stroke-width="0.5"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#4A1B0C" x="340" y="427" text-anchor="middle" dominant-baseline="central">Task 4 — VQA</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#712B13" x="340" y="446" text-anchor="middle" dominant-baseline="central">Qwen3.5-9B + LoRA · answer-type-aware</text>
+
+  <!-- question card -->
+  <rect x="185" y="474" width="310" height="50" rx="8" fill="#F5C4B3" stroke="#993C1D" stroke-width="0.5"/>
+  <rect x="185" y="474" width="310" height="22" rx="8" fill="#F0997B"/>
+  <rect x="185" y="488" width="310" height="8" fill="#F0997B"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#4A1B0C" x="198" y="488" dominant-baseline="central">question input</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#4A1B0C" x="198" y="510">Does growth rate saturate above 150 °C?</text>
+
+  <!-- fan arrows -->
+  <line x1="260" y1="524" x2="100" y2="590" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <line x1="310" y1="524" x2="240" y2="590" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <line x1="370" y1="524" x2="440" y2="590" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+  <line x1="420" y1="524" x2="580" y2="590" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+
+  <!-- ── ANSWER CARDS ────────────────────────────────────────────────────── -->
+  <!-- Yes/No -->
+  <rect x="40" y="590" width="120" height="96" rx="8" fill="#C0DD97" stroke="#3B6D11" stroke-width="0.5"/>
+  <rect x="40" y="590" width="120" height="22" rx="8" fill="#97C459"/>
+  <rect x="40" y="604" width="120" height="8" fill="#97C459"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#173404" x="100" y="604" text-anchor="middle" dominant-baseline="central">Yes/No</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#173404" x="100" y="622" text-anchor="middle">1-tok · binary</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="14" font-weight="500" fill="#173404" x="100" y="660" text-anchor="middle" dominant-baseline="central">Yes</text>
+
+  <!-- Factoid -->
+  <rect x="178" y="590" width="124" height="96" rx="8" fill="#B5D4F4" stroke="#185FA5" stroke-width="0.5"/>
+  <rect x="178" y="590" width="124" height="22" rx="8" fill="#85B7EB"/>
+  <rect x="178" y="604" width="124" height="8" fill="#85B7EB"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#042C53" x="240" y="604" text-anchor="middle" dominant-baseline="central">Factoid</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#042C53" x="240" y="622" text-anchor="middle">72-tok · plain text</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#042C53" x="240" y="648" text-anchor="middle">~0.80 nm/cycle</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#042C53" x="240" y="664" text-anchor="middle">at 150–200 °C</text>
+
+  <!-- List -->
+  <rect x="318" y="590" width="124" height="96" rx="8" fill="#FAC775" stroke="#854F0B" stroke-width="0.5"/>
+  <rect x="318" y="590" width="124" height="22" rx="8" fill="#EF9F27"/>
+  <rect x="318" y="604" width="124" height="8" fill="#EF9F27"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#412402" x="380" y="604" text-anchor="middle" dominant-baseline="central">List</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#412402" x="380" y="622" text-anchor="middle">144-tok · CSV set</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#412402" x="380" y="648" text-anchor="middle">100 °C, 150 °C,</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#412402" x="380" y="664" text-anchor="middle">200 °C, 250 °C</text>
+
+  <!-- Paragraph -->
+  <rect x="458" y="590" width="182" height="96" rx="8" fill="#CECBF6" stroke="#534AB7" stroke-width="0.5"/>
+  <rect x="458" y="590" width="182" height="22" rx="8" fill="#AFA9EC"/>
+  <rect x="458" y="604" width="182" height="8" fill="#AFA9EC"/>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#26215C" x="549" y="604" text-anchor="middle" dominant-baseline="central">Paragraph</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#26215C" x="549" y="622" text-anchor="middle">176-tok · plain text</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#26215C" x="549" y="645" text-anchor="middle">Growth saturates above</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#26215C" x="549" y="661" text-anchor="middle">150 °C, indicating ALD</text>
+  <text font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#26215C" x="549" y="677" text-anchor="middle">self-limiting behaviour.</text>
+</svg>

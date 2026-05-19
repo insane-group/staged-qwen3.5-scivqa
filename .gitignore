@@ -186,3 +186,4 @@ Sci-ImageMiner-Qwen3.5-*LORA*
 unsloth_compiled_cache/
 notebooks/nohup.out
 notebooks/*.json
+notebooks/*.py

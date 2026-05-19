@@ -2,21 +2,28 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: sci-imageminer-2026
+title: staged-qwen3.5-scivqa
 message: 'If you use this software, please cite it as below.'
 type: software
 authors:
   - given-names: Vassilis
     family-names: Sioros
     email: v.sioros@iit.demokritos.gr
-    affiliation: NCSR “Demokritos”
+    affiliation: NCSR "Demokritos"
     orcid: 'https://orcid.org/0000-0002-6266-0755'
-repository-code: 'https://github.com/insane-group/sci-imageminer-2026'
-url: 'https://insane-group.github.io/sci-imageminer-2026/'
-abstract: Sci-ImageMiner - Information Extraction from Atomic Layer Deposition/Etching (ALD/E) Scientific Figures (ICDAR 2026)
+repository-code: 'https://github.com/billsioros/staged-qwen3.5-scivqa'
+url: 'https://github.com/billsioros/staged-qwen3.5-scivqa'
+abstract: >-
+  Staged multimodal pipeline for scientific figure VQA using Qwen3.5 —
+  summarization, table extraction, and answer-type-specific fine-tuning
+  for the ICDAR 2026 Sci-ImageMiner competition.
 keywords:
-  - template
-  - pytorch
-  - hydra
-  - pytorch-lightning
+  - scientific-figures
+  - vqa
+  - multimodal
+  - qwen
+  - icdar
+  - ald
+  - information-extraction
+  - neurosymbolic
 license: Apache-2.0

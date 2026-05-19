@@ -1,223 +1,176 @@
 <div align="center">
-<a href="https://insane.iit.demokritos.gr/">
-    <img
-      src="https://raw.githubusercontent.com/insane-group/.github/refs/heads/main/images/logo.png"
-      alt="LOGO"
+  <img
+      src="https://raw.githubusercontent.com/insane-group/staged-qwen3.5-scivqa/refs/heads/main/images/staged_vqa_pipeline.svg"
+      alt="Staged VQA Pipeline"
     />
-  </a>
 </div>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/1234.56789">
-    <img
-      src="https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg"
-      alt="arXiv"
-    />
+  <a href="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/ci.yml">
+    <img src="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
-  <a href="https://insane-group.github.io/sci-imageminer-2026/">
-    <img src="https://img.shields.io/badge/Docs-526CFE?logo=MaterialForMkDocs&logoColor=white" alt="Mkdocs" />
+  <a href="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/cd.yml">
+    <img src="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/cd.yml/badge.svg" alt="CD" />
   </a>
-  <a href="https://colab.research.google.com/github/insane-group/sci-imageminer-2026/blob/master/notebooks/template.ipynb">
-    <img
-      src="https://colab.research.google.com/assets/colab-badge.svg"
-      alt="Open In Colab"/>
+  <a href="https://sites.google.com/view/sci-imageminer/">
+    <img src="https://img.shields.io/badge/Competition-Sci--ImageMiner-blue" alt="Competition" />
   </a>
-  <a href="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/tests.yml">
-    <img
-      src="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/tests.yml/badge.svg"
-      alt="CI"
-    />
-  </a>
-  <a href="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/pre-commit.yml">
-    <img
-      src="https://github.com/insane-group/sci-imageminer-2026/actions/workflows/pre-commit.yml/badge.svg"
-      alt="pre-commit"
-    />
-  </a>
-  <a href="https://www.apache.org/licenses/LICENSE-2.0">
-    <img
-      src="https://img.shields.io/github/license/insane-group/sci-imageminer-2026"
-      alt="LICENSE"
-    />
+  <a href="https://github.com/billsioros/staged-qwen3.5-scivqa/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License" />
   </a>
 </p>
 
-## [Sci-ImageMiner - Information Extraction from Atomic Layer Deposition/Etching (ALD/E) Scientific Figures (ICDAR 2026)](https://sites.google.com/view/sci-imageminer/download-the-data)
+> Staged multimodal pipeline for scientific figure VQA using Qwen3.5 — summarization, table extraction, and answer-type-specific fine-tuning for the [ICDAR 2026 Sci-ImageMiner competition](https://sites.google.com/view/sci-imageminer/).
+>
+> **Note:** The code used for the competition is specifically [this commit](https://github.com/insane-group/staged-qwen3.5-scivqa/tree/16316d797c687ae234263ff48f8403044e3490a4).
 
-> Accompanying code for the paper [**Paper Title**](https://arxiv.org/abs/1234.56789).
+## :bar_chart: Results
 
-Add a brief description of your project here. You can use Markdown syntax for formatting, such as **bold**, _italics_, and [links](https://www.example.com).
-
-Make sure you:
-
-- [ ] Replace the **Project Name** with the name of your project
-- [ ] Add a brief description of your project
-- [ ] Rename the project appropriately
-- [ ] Change the project details (e.g. name, description, URLs) in the following files:
-  - [ ] pyproject.toml
-  - [ ] mkdocs.yml
-  - [ ] README.md
-- [ ] Update CITATION.cff (and the **:bookmark_tabs: Citation** section below)
-- [ ] Update the arXiv badge in the README.md with the correct arXiv ID (when available)
-- [ ] Update the logo in the README.md
-
-### Main Technologies
-
-- [**Z3**](https://github.com/Z3Prover/z3): A high-performance theorem prover.
-- [**PyTorch Lightning**](https://lightning.ai/docs/pytorch/stable/starter/introduction.html): A lightweight wrapper for PyTorch that streamlines high-performance AI research. It serves as a structured framework for organizing PyTorch code.
-- [**Hydra**](https://hydra.cc/): A powerful configuration framework for managing complex applications. It enables dynamic composition of hierarchical configurations, allowing overrides via config files and the command line.
+| Task                               | Best Score                                           | Rank |
+| ---------------------------------- | ---------------------------------------------------- | ---- |
+| **Task 2 — Data Table Extraction** | Weighted=35.07, TEDS=55.2                            | 5th  |
+| **Task 3 — Summarization**         | Weighted=0.5340, ROUGE-L=0.2715, BERTScore F1=0.8161 | 6th  |
+| **Task 4 — VQA**                   | Weighted=0.26                                        | 5th  |
 
 ## :rocket: Getting Started
 
-Click [<kbd>Use this template</kbd>](https://github.com/insane-group/sci-imageminer-2026/generate) to create a new repository.
-
-Once your repository is set up [using the template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template), clone it and start working with the following commands (We use the [Rye](https://rye.astral.sh/) Python package manager):
-
 ```shell
-# Install Rye (https://rye.astral.sh/guide/installation/)
-curl -sSf https://rye.astral.sh/get | bash
+# Clone the repository
+git clone https://github.com/billsioros/staged-qwen3.5-scivqa
+cd staged-qwen3.5-scivqa
 
-# Clone the repository & cd into it
-git clone https://github.com/insane-group/<YOUR-PROJECT-NAME>
-cd <YOUR-PROJECT-NAME>
+# Install dependencies
+uv sync --all-groups
 
-# Rename the project and make sure you change the project details (e.g. name, description, URLs) in the following files:
-# 1. pyproject.toml
-# 2. mkdocs.yml
-# 3. README.md
-mv src/project src/<YOUR-PROJECT-NAME>
+# Run unit tests (no GPU needed)
+poe test unit
 
-# Install dependencies using Rye
-rye sync
-
-# Activate the virtual environment
-source .venv/bin/activate
-
-# Install the pre-commit hooks
-poe hooks
-
-# Run the training/evaluation script
-# Override any config parameter from command line
-python src/project/train.py trainer.max_epochs=20 model.optimizer.lr=1e-4
-# train on CPU
-python src/project/train.py trainer=cpu
-# train on 1 GPU
-python src/project/train.py trainer=gpu
-# test checkpoint on test dataset
-python src/project/test.py checkpoint="/path/to/ckpt/name.ckpt"
+# Run full test suite with coverage
+poe coverage
 ```
 
-> Feel free to share any relevant details to help others get started, for example, content similar to the *Setup* and *Quickstart* sections in [Google’s Prompt-to-Prompt](https://github.com/google/prompt-to-prompt?tab=readme-ov-file#setup).
+### Prerequisites
 
-### Performing tasks using `poethepoet`
+- Python 3.12+
+- [uv](https://docs.astral.sh/uv/) for dependency management
+- Competition data from the [Sci-ImageMiner download page](https://sites.google.com/view/sci-imageminer/download-the-data)
+- [cvc5](https://github.com/cvc5/cvc5) solver at `~/cvc5-Linux-x86_64-shared/bin/cvc5` (optional, for SMT reflection):
 
-We are using [poethepoet](https://github.com/nat-n/poethepoet), to perform various development oriented tasks. Formatting, type-checking, as well as a few other operations, can be performed by running
+  ```shell
+  wget https://github.com/cvc5/cvc5/releases/download/cvc5-1.3.3/cvc5-Linux-x86_64-shared.zip
+  unzip cvc5-Linux-x86_64-shared.zip -d ~
+  rm cvc5-Linux-x86_64-shared.zip
+  ```
+
+### CLI Usage
 
 ```shell
-poe <task>
+# Run full pipeline (summary → table → VQA → SMT → reflection)
+sci-vqa run --stages summary,table,vqa,smt,reflect --category test [--resume] [--config pipeline.yaml]
+
+# Train individual stages
+sci-vqa train summary --category test
+sci-vqa train table --category test
+sci-vqa train vqa --category test --answer-types factoid,list,paragraph,yes_no
+
+# Run inference
+sci-vqa inference vqa --category test --checkpoint-dir ./models/vqa
+
+# SMT pipeline & reflection (requires outlines + cvc5)
+sci-vqa smt run --category test [--model-id unsloth/Qwen3.5-9B] [--max-retries 3]
+sci-vqa reflect --category test [--model-id unsloth/Qwen3.5-9B]
+
+# Evaluate predictions
+sci-vqa eval vqa --predictions data/submission_final.json --category test
+sci-vqa eval summary --predictions data/summary_results.json --category test
+sci-vqa eval table --predictions data/table_results.json --category test
+
+# HuggingFace Hub integration
+sci-vqa hf push ./checkpoint --repo-id user/model
+sci-vqa hf pull --repo-id user/model --output ./models/
+sci-vqa hf push-dataset ./data/processed --repo-id user/dataset
+sci-vqa hf pull-dataset --repo-id user/dataset --output ./data/
 ```
 
-where `<task>` is one of the tasks listed by running:
+### Development Tasks
 
 ```shell
-poe --help
-Poe the Poet - A task runner that works well with poetry.
-version 0.28.0
-
-Result: No task specified.
-
-Usage:
-  poe [global options] task [task arguments]
-
-Global options:
-  -h, --help            Show this help page and exit
-  --version             Print the version and exit
-  -v, --verbose         Increase command output (repeatable)
-  -q, --quiet           Decrease command output (repeatable)
-  -d, --dry-run         Print the task contents but don't actually run it
-  -C PATH, --directory PATH
-                        Specify where to find the pyproject.toml
-  -e EXECUTOR, --executor EXECUTOR
-                        Override the default task executor
-  --ansi                Force enable ANSI output
-  --no-ansi             Force disable ANSI output
-
-Configured tasks:
-  clean                 Clean up any auxiliary files
-  format                Format your codebase
-  hooks                 Run all pre-commit hooks
-  test                  Run the test suite
-  type-check            Run static type checking on your codebase
-  lint                  Lint your code for errors
-  docs                  Build and serve the documentation
+poe fmt          # Format + fix with ruff
+poe lint         # Lint code
+poe types        # Type check with mypy
+poe hooks        # Run all pre-commit checks
+poe test unit    # Unit tests only
+poe test all     # Full suite
+poe coverage     # Coverage report
 ```
 
-> Consider installing `poe` as global dependency to make your life easier using `rye install poethepoet` :stuck_out_tongue:.
+## :bulb: Why?
+
+Scientific figures encode trends, values, and relationships that are difficult to recover from text alone — especially in Atomic Layer Deposition and Etching (ALD/E) research. This repository implements a **staged multimodal pipeline** that chains summarization and table extraction as auxiliary evidence into a VQA model, with an experimental neurosymbolic reflection path for formal verification.
+
+### Main Techniques
+
+- **QLoRA fine-tuning** of `unsloth/Qwen3.5-9B` (r=16, α=16, 16-bit training, 4-bit inference)
+- **Cross-task context injection**: summaries + tables → VQA prompts
+- **Answer-type-specific token budgets** tuned to competition data percentiles
+- **Answer-type-aware preprocessing**: Unicode resolution, whitespace/punctuation cleanup, format-specific post-processing
+- **Neurosymbolic reflection (WIP)**: Grammar-constrained SMT-LIB decoding via cvc5 with answer rewriting
 
 ## :open_file_folder: Project Structure
 
-The project follows a standard structure for a Python project.
-
-```shell
-├── CITATION.cff                                 <- Citation file for referencing the project
-├── configs                                      <- Hydra configuration files
-│   ├── callbacks                                  <- Configs for training callbacks
-│   ├── data                                       <- Configs for loading the dataset
-│   ├── hydra                                      <- Hydra-specific settings
-│   ├── loggers                                    <- Configs for logging
-│   ├── model                                      <- Model-specific config
-│   ├── test.yaml                                  <- Test configuration file
-│   ├── trainer                                    <- Configs for the training loop
-│   └── train.yaml                                 <- Training configuration file
-├── data                                         <- Dataset storage directory
-├── docs                                         <- Project documentation
-│   ├── code                                       <- Source code documentation
-│   ├── CODE_OF_CONDUCT.md                         <- Guidelines for community behavior
-│   ├── CONTRIBUTING.md                            <- Instructions for contributing to the project
-│   ├── images                                     <- Images used in documentation
-│   ├── LICENSE.md                                 <- License information
-│   ├── index.md                                   <- Main documentation page
-│   └── welcome.md                                 <- Welcome page for the project
-├── .editorconfig                                <- Editor configuration for consistent formatting
-├── .github                                      <- GitHub-specific configurations
-│   └── workflows                                  <- CI/CD workflow definitions for GitHub Actions
-├── .gitignore                                   <- Files and directories to ignore in Git
-├── logs                                         <- Logs generated during training/testing
-├── models                                       <- Trained models and related files
-├── notebooks                                    <- Jupyter notebooks for experiments and analysis
-│   └── template.ipynb                             <- Notebook template for new experiments
-├── .pre-commit-config.yaml                      <- Pre-commit hook configurations
-├── src                                          <- Source code directory
-│   └── project                                    <- Main project codebase
-├── tests                                        <- Unit tests for the project
-│   ├── __init__.py                                <- Init file for test module
-│   └── test_model.py                              <- Tests for model functionality
-├── LICENSE                                      <- License information for the project
-├── README.md                                    <- Main project README file
-├── mkdocs.yml                                   <- Configuration for MkDocs documentation site
-├── pyproject.toml                               <- Python project configuration file
-├── .python-version                              <- Python version specification
-├── requirements-dev.lock                        <- Locked dependencies for development
-├── requirements.lock                            <- Locked dependencies for production
-└── .vscode                                      <- VS Code workspace settings
-    ├── extensions.json                            <- Recommended extensions for VS Code
-    ├── launch.json                                <- Debugging configurations
-    └── settings.json                              <- VS Code-specific settings
+```
+staged-qwen3.5-scivqa/
+├── notebooks/                    # Jupyter notebooks (primary experimentation)
+│   ├── 1. Data loading.py
+│   ├── 2. Finetuning Qwen3.5 (submission).py
+│   ├── 2. Finetuning Qwen3.5 (Factoid/List/Paragraph/Yes|No) (submission).py
+│   ├── 2. Finetuning Qwen3.5 (image+context->summary/table) (submission).py
+│   ├── 4. Qwen3.5 Image+Context-to-SMT.py
+│   ├── 7. Reflecting on Qwen3.5 answers using SMT (submission).py
+│   └── 8. Merge states into submission.py
+├── src/staged_qwen3_5_scivqa/    # Production package
+│   ├── config.py                 # Constants, prompts, token budgets, SMT grammars
+│   ├── data.py                   # Dataset loading
+│   ├── preprocessing.py          # Answer cleaning and validation
+│   ├── analysis.py               # Token statistics, quality reports
+│   ├── context.py                # Paper context extraction
+│   ├── conversation.py           # Qwen/Unsloth conversation formatting
+│   ├── models/                   # loader, lora, trainer, inference
+│   ├── evaluation/               # BERTScore, ROUGE, TEDS, accuracy, set F1
+│   └── smt/                      # grammars, solver, pipeline, reflection
+├── tests/                        # Unit and integration tests (fully mocked)
+├── .github/workflows/            # CI (pytest + coverage) and CD (semantic release)
+├── pyproject.toml                # Project metadata, uv/poe/ruff/mypy config
+├── .pre-commit-config.yaml       # Pre-commit hooks
+├── data/                         # Saved states and outputs (gitignored)
+├── models/                       # LoRA checkpoints (gitignored)
+└── ALD-E-ImageMiner/             # Competition data (external, gitignored)
 ```
 
-## :book: Exploring the Documentation
+## :notebook: Notebooks
 
-The documentation is generated from Python docstrings using [`MkDocs`](https://www.mkdocs.org/) and [`mkdocstrings`](https://mkdocstrings.github.io/) for the source code, while the rest is written in standard Markdown. To view it, run `poe docs` in the terminal or visit [`https://insane-group.github.io/sci-imageminer-2026/`](https://insane-group.github.io/sci-imageminer-2026/).
+Notebooks are the primary experimentation interface. Edit the `.py` (percent script) versions, then sync:
+
+```shell
+jupytext --sync notebooks/*.py
+```
 
 ## :bookmark_tabs: Citation
 
-Please use the following citation if you use this project in your work:
-
 ```bibtex
-@software{Sioros_scikit-learn-template,
-  author = {Sioros, Vassilis},
-  license = {Apache-2.0},
-  title = {{scikit-learn-template}},
-  url = {https://github.com/insane-group/scikit-learn-template}
+@inproceedings{stagedqwen35scivqa2026sciimage,
+  title     = {Staged Qwen3.5 SciVQA: QLoRA Fine-tuning with Neurosymbolic
+               Reflection for Scientific Figure VQA},
+  author    = {Staged Qwen3.5 SciVQA Contributors},
+  booktitle = {Sci-ImageMiner 2026: Scientific Image Mining Challenge at ICDAR 2026},
+  year      = {2026},
+  publisher = {TIB Open Publishing}
 }
 ```
+
+## :coin: Credits
+
+- [ICDAR 2026 Sci-ImageMiner Competition](https://sites.google.com/view/sci-imageminer/) — organized by TIB, TU Eindhoven, and University of Warwick, supported by [NFDI4DataScience](https://www.nfdi4datascience.de/) (DFG Grant ID: 460234259)
+- [Qwen3.5](https://github.com/QwenLM/Qwen3.5) — base vision-language model
+- [Unsloth](https://github.com/unslothai/unsloth) — accelerated fine-tuning
+- [cvc5](https://github.com/cvc5/cvc5) — SMT solver for neurosymbolic reflection
