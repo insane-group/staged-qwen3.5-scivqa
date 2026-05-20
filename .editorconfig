@@ -24,3 +24,9 @@ indent_size = 2
 
 [{LICENSE,CITATION.cff}]
 indent_size = unset
+
+[src/staged_qwen3_5_scivqa/smt/grammars.py]
+indent_size = unset
+
+[src/staged_qwen3_5_scivqa/config.py]
+indent_size = unset
