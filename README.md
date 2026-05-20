@@ -1,9 +1,4 @@
-<div align="center">
-  <img
-      src="https://github.com/insane-group/staged-qwen3.5-scivqa/raw/refs/heads/master/images/staged_vqa_pipeline.svg"
-      alt="Staged VQA Pipeline"
-    />
-</div>
+# Extract, Summarize, Answer: A Staged Qwen3.5 Pipeline for Scientific VQA
 
 <p align="center">
   <a href="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/ci.yml">
@@ -12,17 +7,34 @@
   <a href="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/cd.yml">
     <img src="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/cd.yml/badge.svg" alt="CD" />
   </a>
-  <a href="https://sites.google.com/view/sci-imageminer/">
-    <img src="https://img.shields.io/badge/Competition-Sci--ImageMiner-blue" alt="Competition" />
-  </a>
   <a href="https://github.com/insane-group/staged-qwen3.5-scivqa/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License" />
   </a>
 </p>
 
-> Staged multimodal pipeline for scientific figure VQA using Qwen3.5 — summarization, table extraction, and answer-type-specific fine-tuning for the [ICDAR 2026 Sci-ImageMiner competition](https://sites.google.com/view/sci-imageminer/).
+> A staged multimodal pipeline for scientific figure VQA using Qwen3.5 — summarization, table extraction, and answer-type-specific fine-tuning for the [ICDAR 2026 Sci-ImageMiner competition](https://sites.google.com/view/sci-imageminer/).
 >
 > **Note:** The code used for the competition is specifically [this commit](https://github.com/insane-group/staged-qwen3.5-scivqa/tree/16316d797c687ae234263ff48f8403044e3490a4).
+
+
+## :bulb: Overview
+
+This repository implements a **staged multimodal pipeline** that chains summarization and table extraction as auxiliary evidence into a VQA model, with an experimental neurosymbolic reflection path for formal verification.
+
+### Main Techniques
+
+- **QLoRA fine-tuning** of `unsloth/Qwen3.5-9B` (r=16, α=16, 16-bit training, 4-bit inference)
+- **Cross-task context injection**: summaries + tables → VQA prompts
+- **Answer-type-specific token budgets** tuned to competition data percentiles
+- **Answer-type-aware preprocessing**: Unicode resolution, whitespace/punctuation cleanup, format-specific post-processing
+- **Neurosymbolic reflection (WIP)**: Grammar-constrained SMT-LIB decoding via cvc5 with answer rewriting
+
+<div align="center">
+  <img
+      src="https://github.com/insane-group/staged-qwen3.5-scivqa/raw/refs/heads/master/images/staged_vqa_pipeline.svg"
+      alt="Staged VQA Pipeline"
+    />
+</div>
 
 ## :bar_chart: Results
 
@@ -104,18 +116,6 @@ poe test all     # Full suite
 poe coverage     # Coverage report
 ```
 
-## :bulb: Why?
-
-Scientific figures encode trends, values, and relationships that are difficult to recover from text alone — especially in Atomic Layer Deposition and Etching (ALD/E) research. This repository implements a **staged multimodal pipeline** that chains summarization and table extraction as auxiliary evidence into a VQA model, with an experimental neurosymbolic reflection path for formal verification.
-
-### Main Techniques
-
-- **QLoRA fine-tuning** of `unsloth/Qwen3.5-9B` (r=16, α=16, 16-bit training, 4-bit inference)
-- **Cross-task context injection**: summaries + tables → VQA prompts
-- **Answer-type-specific token budgets** tuned to competition data percentiles
-- **Answer-type-aware preprocessing**: Unicode resolution, whitespace/punctuation cleanup, format-specific post-processing
-- **Neurosymbolic reflection (WIP)**: Grammar-constrained SMT-LIB decoding via cvc5 with answer rewriting
-
 ## :open_file_folder: Project Structure
 
 ```
@@ -153,19 +153,6 @@ Notebooks are the primary experimentation interface. Edit the `.py` (percent scr
 
 ```shell
 jupytext --sync notebooks/*.py
-```
-
-## :bookmark_tabs: Citation
-
-```bibtex
-@inproceedings{stagedqwen35scivqa2026sciimage,
-  title     = {Staged Qwen3.5 SciVQA: QLoRA Fine-tuning with Neurosymbolic
-               Reflection for Scientific Figure VQA},
-  author    = {Staged Qwen3.5 SciVQA Contributors},
-  booktitle = {Sci-ImageMiner 2026: Scientific Image Mining Challenge at ICDAR 2026},
-  year      = {2026},
-  publisher = {TIB Open Publishing}
-}
 ```
 
 ## :coin: Credits
