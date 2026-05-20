@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.0.2 (2026-05-20)
+
+### Bug Fixes
+
+- Update README and uv.lock for clarity and versioning
+  ([`54c21e0`](https://github.com/insane-group/staged-qwen3.5-scivqa/commit/54c21e0f27a6c7c1c07411e840a9e08785175196))
+
+
 ## v1.0.1 (2026-05-20)
 
 ### Bug Fixes
