@@ -62,8 +62,8 @@ dependencies = [
 ]
 
 urls.Competition = "https://sites.google.com/view/sci-imageminer/"
-urls.Homepage = "https://github.com/billsioros/staged-qwen3.5-scivqa"
-urls.Repository = "https://github.com/billsioros/staged-qwen3.5-scivqa"
+urls.Homepage = "https://github.com/insane-group/staged-qwen3.5-scivqa"
+urls.Repository = "https://github.com/insane-group/staged-qwen3.5-scivqa"
 
 scripts.sci-vqa = "staged_qwen3_5_scivqa.cli.main:app"
 

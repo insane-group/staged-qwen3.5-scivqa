@@ -1,21 +1,21 @@
 <div align="center">
   <img
-      src="https://raw.githubusercontent.com/insane-group/staged-qwen3.5-scivqa/refs/heads/main/images/staged_vqa_pipeline.svg"
+      src="https://github.com/insane-group/staged-qwen3.5-scivqa/raw/refs/heads/master/images/staged_vqa_pipeline.svg"
       alt="Staged VQA Pipeline"
     />
 </div>
 
 <p align="center">
-  <a href="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/ci.yml">
-    <img src="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/ci.yml/badge.svg" alt="CI" />
+  <a href="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/ci.yml">
+    <img src="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/ci.yml/badge.svg" alt="CI" />
   </a>
-  <a href="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/cd.yml">
-    <img src="https://github.com/billsioros/staged-qwen3.5-scivqa/actions/workflows/cd.yml/badge.svg" alt="CD" />
+  <a href="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/cd.yml">
+    <img src="https://github.com/insane-group/staged-qwen3.5-scivqa/actions/workflows/cd.yml/badge.svg" alt="CD" />
   </a>
   <a href="https://sites.google.com/view/sci-imageminer/">
     <img src="https://img.shields.io/badge/Competition-Sci--ImageMiner-blue" alt="Competition" />
   </a>
-  <a href="https://github.com/billsioros/staged-qwen3.5-scivqa/blob/master/LICENSE">
+  <a href="https://github.com/insane-group/staged-qwen3.5-scivqa/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License" />
   </a>
 </p>
@@ -36,7 +36,7 @@
 
 ```shell
 # Clone the repository
-git clone https://github.com/billsioros/staged-qwen3.5-scivqa
+git clone https://github.com/insane-group/staged-qwen3.5-scivqa
 cd staged-qwen3.5-scivqa
 
 # Install dependencies

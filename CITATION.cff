@@ -11,8 +11,8 @@ authors:
     email: v.sioros@iit.demokritos.gr
     affiliation: NCSR "Demokritos"
     orcid: 'https://orcid.org/0000-0002-6266-0755'
-repository-code: 'https://github.com/billsioros/staged-qwen3.5-scivqa'
-url: 'https://github.com/billsioros/staged-qwen3.5-scivqa'
+repository-code: 'https://github.com/insane-group/staged-qwen3.5-scivqa'
+url: 'https://github.com/insane-group/staged-qwen3.5-scivqa'
 abstract: >-
   Staged multimodal pipeline for scientific figure VQA using Qwen3.5 —
   summarization, table extraction, and answer-type-specific fine-tuning
