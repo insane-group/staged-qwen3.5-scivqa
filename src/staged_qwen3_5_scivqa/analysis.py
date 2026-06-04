@@ -277,3 +277,65 @@ def report_missing_data_extraction(case_dir: Path) -> tuple[int, int, float]:
     percentage = (missing_extraction_questions / total_questions) * 100
 
     return total_questions, missing_extraction_questions, percentage
+
+
+def find_contradictory_answers(
+    initial_state: dict,
+    smt_data: dict,
+    answer_types: list[str] | None = None,
+) -> list[dict]:
+    """Find VQA answers contradicted by SMT solver output.
+
+    Iterates over the initial VQA state and the SMT state to identify
+    questions where the SMT solver output contradicts the initial answer.
+
+    Args:
+        initial_state: Dict mapping sample_id -> sub_fig -> list of question objects.
+        smt_data: Dict mapping sample_id -> sub_fig -> question -> {code, output}.
+        answer_types: Optional list of answer types to filter by
+            (e.g. ["Yes/No"]). If None, checks all answer types.
+
+    Returns:
+        List of candidate dicts with keys:
+            sample_id, sub_fig, q_obj, smt_entry.
+
+    """
+    candidates: list[dict] = []
+
+    for sample_id, sub_figs in initial_state.items():
+        for sub_fig, questions in sub_figs.items():
+            for q_obj in questions:
+                atype = q_obj.get("answer_type", "").lower()
+                if answer_types and atype not in {t.lower() for t in answer_types}:
+                    continue
+
+                s_entry = (
+                    smt_data.get(sample_id, {})
+                    .get(sub_fig, {})
+                    .get(q_obj.get("question", ""), {})
+                )
+
+                code = s_entry.get("code", "")
+                output = s_entry.get("output", "N/A")
+
+                if not code or output == "N/A" or "sat" not in output.lower():
+                    continue
+
+                initial_answer = q_obj.get("answer", "").strip().lower()
+                output_lower = output.lower()
+
+                is_contradictory = (
+                    initial_answer == "yes" and "false" in output_lower
+                ) or (initial_answer == "no" and "true" in output_lower)
+
+                if is_contradictory:
+                    candidates.append(
+                        {
+                            "sample_id": sample_id,
+                            "sub_fig": sub_fig,
+                            "q_obj": q_obj,
+                            "smt_entry": s_entry,
+                        }
+                    )
+
+    return candidates

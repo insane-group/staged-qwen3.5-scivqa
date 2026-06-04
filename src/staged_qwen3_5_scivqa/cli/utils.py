@@ -10,7 +10,7 @@ from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
 
 if TYPE_CHECKING:
-    from staged_qwen3_5_scivqa.settings import PipelineConfig
+    from staged_qwen3_5_scivqa.config import SciVQAConfig
 
 console = Console()
 
@@ -187,7 +187,7 @@ def pull_dataset(
     return Path(path)
 
 
-def stage_has_output(config: "PipelineConfig", stage: str) -> bool:
+def stage_has_output(config: "SciVQAConfig", stage: str) -> bool:
     """Check if a pipeline stage already has output (for resume)."""
     state_path = config.get_state_path(stage)
     return bool(state_path.exists())

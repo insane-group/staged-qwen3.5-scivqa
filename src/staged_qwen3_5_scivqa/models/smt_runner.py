@@ -52,6 +52,32 @@ def load_smt_model(
     return outlines.from_transformers(lm, tokenizer)  # type: ignore[arg-type]
 
 
+def generate_smt_gen_kwargs(
+    max_new_tokens: int = 2048,
+    temperature: float = 1.0,
+    top_p: float = 0.95,
+    top_k: int = 20,
+    min_p: float = 0.0,
+    presence_penalty: float = 1.5,
+    repetition_penalty: float = 1.0,
+) -> dict[str, float | int]:
+    """Build generation kwargs dict for SMT model inference.
+
+    Returns a dict suitable for passing as **gen_kwargs to
+    ``smt.pipeline.reflect`` or ``smt.pipeline.generate_declarations``.
+
+    """
+    return {
+        "max_new_tokens": max_new_tokens,
+        "temperature": temperature,
+        "min_p": min_p,
+        "top_p": top_p,
+        "top_k": top_k,
+        "presence_penalty": presence_penalty,
+        "repetition_penalty": repetition_penalty,
+    }
+
+
 def run_smt_pipeline(
     category: str,
     output_path: Path,
@@ -195,15 +221,15 @@ def run_smt_pipeline(
 
     model = load_smt_model(model_id, max_new_tokens)
 
-    gen_kwargs = {
-        "max_new_tokens": max_new_tokens,
-        "temperature": temperature,
-        "min_p": min_p,
-        "top_p": top_p,
-        "top_k": top_k,
-        "presence_penalty": presence_penalty,
-        "repetition_penalty": repetition_penalty,
-    }
+    gen_kwargs = generate_smt_gen_kwargs(
+        max_new_tokens=max_new_tokens,
+        temperature=temperature,
+        min_p=min_p,
+        top_p=top_p,
+        top_k=top_k,
+        presence_penalty=presence_penalty,
+        repetition_penalty=repetition_penalty,
+    )
 
     current_img_path: Path | None = None
     full_img: Image.Image | None = None

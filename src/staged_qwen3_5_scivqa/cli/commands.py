@@ -32,7 +32,7 @@ from staged_qwen3_5_scivqa.cli.utils import (
     setup_wandb,
     stage_has_output,
 )
-from staged_qwen3_5_scivqa.settings import PipelineConfig, load_config
+from staged_qwen3_5_scivqa.config import SciVQAConfig, load_config
 
 train_app = typer.Typer(help="Train LoRA adapters for pipeline stages")
 inference_app = typer.Typer(help="Run inference with trained models")
@@ -150,7 +150,7 @@ def train_vqa(
         train_stage(cfg, atype, checkpoint_dir)
 
 
-def train_stage(cfg: PipelineConfig, stage: str, output_dir: Path):
+def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
     """Train a single stage LoRA adapter."""
     setup_wandb(cfg.wandb)
 
@@ -270,7 +270,7 @@ def inference_vqa(
 
 
 def run_inference_stage(
-    cfg: PipelineConfig,
+    cfg: SciVQAConfig,
     checkpoint_dir: str,
     answer_types: list[str],
 ) -> dict:
@@ -371,7 +371,7 @@ def smt_run(
     run_smt_stage(cfg, vqa_state)
 
 
-def run_smt_stage(cfg: PipelineConfig, vqa_state: str | None = None) -> None:
+def run_smt_stage(cfg: SciVQAConfig, vqa_state: str | None = None) -> None:
     """Run SMT pipeline stage."""
     state_path = Path(vqa_state) if vqa_state else cfg.get_state_path("vqa")
     output_path = cfg.get_state_path("smt")
@@ -703,6 +703,65 @@ def run_pipeline(
             border_style="green",
         )
     )
+
+
+# ── Dataset commands ──────────────────────────────────────────────────
+
+
+dataset_app = typer.Typer(help="Build and push cleaned HF datasets")
+
+
+@dataset_app.command("build")
+def dataset_build(
+    task: Annotated[
+        str,
+        typer.Option("--task", "-t", help="Task type: vqa, summary, or table"),
+    ],
+    categories: Annotated[
+        str,
+        typer.Option("--categories", "-c", help="Comma-separated: train,dev,test"),
+    ] = "train,dev,test",
+    repo_id: Annotated[
+        str | None,
+        typer.Option("--repo-id", "-r", help="HF dataset repo ID"),
+    ] = None,
+    token: Annotated[
+        str | None,
+        typer.Option("--token", help="HF token (or use HF_TOKEN env)"),
+    ] = None,
+):
+    """Build a cleaned DatasetDict from competition data and push to HF."""
+    cats = [c.strip() for c in categories.split(",")]
+    valid_tasks = {"vqa", "summary", "table"}
+    if task not in valid_tasks:
+        console.print(f"[red]Invalid task: {task}. Choose from {valid_tasks}[/red]")
+        raise typer.Exit(1)
+
+    console.print(f"[cyan]Building {task} dataset for categories: {cats}[/cyan]")
+    if repo_id:
+        console.print(f"[cyan]Target repo: {repo_id}[/cyan]")
+
+    try:
+        if task == "vqa":
+            from staged_qwen3_5_scivqa.data import build_vqa_dataset
+
+            build_vqa_dataset(tuple(cats), repo_id=repo_id, token=token)
+        elif task == "summary":
+            from staged_qwen3_5_scivqa.data import build_summary_dataset
+
+            build_summary_dataset(tuple(cats), repo_id=repo_id, token=token)
+        elif task == "table":
+            from staged_qwen3_5_scivqa.data import build_table_dataset
+
+            build_table_dataset(tuple(cats), repo_id=repo_id, token=token)
+
+        console.print(f"[green]Dataset {task} built and pushed successfully![/green]")
+    except ImportError as e:
+        console.print(f"[red]Missing dependency: {e}[/red]")
+        console.print("[yellow]Run: uv sync --all-groups[/yellow]")
+    except Exception as e:
+        console.print(f"[red]Error: {e}[/red]")
+        raise typer.Exit(1) from e
 
 
 # ── HF commands ───────────────────────────────────────────────────────

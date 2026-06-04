@@ -21,7 +21,7 @@ from staged_qwen3_5_scivqa.cli.utils import (
     setup_wandb,
     stage_has_output,
 )
-from staged_qwen3_5_scivqa.settings import PathsConfig, PipelineConfig
+from staged_qwen3_5_scivqa.config import PathsConfig, SciVQAConfig
 
 
 @pytest.mark.unit
@@ -58,14 +58,14 @@ class TestPrintHelpers:
 @pytest.mark.unit
 class TestWandbHelpers:
     def test_setup_wandb_disabled(self):
-        from staged_qwen3_5_scivqa.settings import WandbConfig
+        from staged_qwen3_5_scivqa.config import WandbConfig
 
         cfg = WandbConfig(enabled=False)
         result = setup_wandb(cfg)
         assert result is False
 
     def test_setup_wandb_no_import(self, capsys):
-        from staged_qwen3_5_scivqa.settings import WandbConfig
+        from staged_qwen3_5_scivqa.config import WandbConfig
 
         cfg = WandbConfig(enabled=True)
         with patch.dict("sys.modules", {"wandb": None}):
@@ -103,11 +103,11 @@ class TestStateHelpers:
     def test_stage_has_output_true(self, tmp_path):
         state_file = tmp_path / "smt_test_state.json"
         state_file.touch()
-        cfg = PipelineConfig(paths=PathsConfig(data_dir=tmp_path))
+        cfg = SciVQAConfig(paths=PathsConfig(data_dir=tmp_path))
         assert stage_has_output(cfg, "smt") is True
 
     def test_stage_has_output_false(self, tmp_path):
-        cfg = PipelineConfig(paths=PathsConfig(data_dir=tmp_path))
+        cfg = SciVQAConfig(paths=PathsConfig(data_dir=tmp_path))
         assert stage_has_output(cfg, "smt") is False
 
 

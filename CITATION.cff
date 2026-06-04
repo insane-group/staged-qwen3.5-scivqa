@@ -8,8 +8,8 @@ type: software
 authors:
   - given-names: Vassilis
     family-names: Sioros
-    email: v.sioros@iit.demokritos.gr
-    affiliation: NCSR "Demokritos"
+    email: vsioros@di.uoa.gr
+    affiliation: "Department of Informatics and Telecommunications, UoA; NCSR \"Demokritos\""
     orcid: 'https://orcid.org/0000-0002-6266-0755'
 repository-code: 'https://github.com/insane-group/staged-qwen3.5-scivqa'
 url: 'https://github.com/insane-group/staged-qwen3.5-scivqa'

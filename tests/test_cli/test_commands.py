@@ -425,9 +425,9 @@ class TestHFCommands:
 class TestTrainStageIntegration:
     def test_train_stage_with_mocks(self, tmp_path):
         from staged_qwen3_5_scivqa.cli.commands import train_stage
-        from staged_qwen3_5_scivqa.settings import PipelineConfig
+        from staged_qwen3_5_scivqa.config import SciVQAConfig
 
-        cfg = PipelineConfig()
+        cfg = SciVQAConfig()
         cfg.paths.output_dir = tmp_path / "models"
         cfg.paths.data_dir = tmp_path / "data"
         cfg.category = "test"

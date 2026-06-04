@@ -4,14 +4,14 @@ import os
 
 import pytest
 
-from staged_qwen3_5_scivqa.settings import (
+from staged_qwen3_5_scivqa.config import (
     HFConfig,
     InferenceConfig,
     LoRAConfig,
     ModelConfig,
     PathsConfig,
-    PipelineConfig,
     ReflectionConfig,
+    SciVQAConfig,
     SMTConfig,
     StageBudget,
     StageConfig,
@@ -133,7 +133,7 @@ class TestHFConfig:
         cfg = HFConfig()
         assert cfg.token is None
         assert cfg.hub_repo_id is None
-        assert cfg.push_checkpoints is False
+        assert cfg.push_checkpoints is True
         assert cfg.push_datasets is False
         assert cfg.load_from_hub is False
 
@@ -148,22 +148,22 @@ class TestWandbConfig:
 
 
 @pytest.mark.unit
-class TestPipelineConfig:
+class TestSciVQAConfig:
     def test_defaults(self):
-        cfg = PipelineConfig()
+        cfg = SciVQAConfig()
         assert cfg.model.model_id == "unsloth/Qwen3.5-9B"
         assert cfg.lora.r == 16
         assert cfg.training.epochs == 5
         assert cfg.category == "test"
 
     def test_get_stage_budget(self):
-        cfg = PipelineConfig()
+        cfg = SciVQAConfig()
         budget = cfg.get_stage_budget("yes_no")
         assert budget.max_new_tokens == 1
         assert budget.max_sequence_length == 3072
 
     def test_get_lora_checkpoint_name(self):
-        cfg = PipelineConfig()
+        cfg = SciVQAConfig()
         name = cfg.get_lora_checkpoint_name
         assert name("summary") == "Sci-ImageMiner-Qwen3.5-9B-LORA-SUMMARY"
         assert name("table") == "Sci-ImageMiner-Qwen3.5-9B-LORA-EXTRACTION"
@@ -171,7 +171,7 @@ class TestPipelineConfig:
         assert name("yes_no") == "Sci-ImageMiner-Qwen3.5-9B-LORA-YESNO"
 
     def test_get_state_path(self, tmp_path):
-        cfg = PipelineConfig(paths=PathsConfig(data_dir=tmp_path))
+        cfg = SciVQAConfig(paths=PathsConfig(data_dir=tmp_path))
         vqa_path = cfg.get_state_path("vqa")
         assert "submission_finetuning" in vqa_path.name
         assert vqa_path.parent == tmp_path
@@ -215,21 +215,21 @@ class TestLoadConfig:
 @pytest.mark.unit
 class TestEnvVarLoading:
     def test_env_prefix(self):
-        from staged_qwen3_5_scivqa.settings import _yaml_config_path
+        from staged_qwen3_5_scivqa.config import _yaml_config_path
 
         original_yaml = _yaml_config_path
         original_env = os.environ.get("SCIVQA_MODEL__MODEL_ID")
         try:
-            from staged_qwen3_5_scivqa import settings
+            from staged_qwen3_5_scivqa import config
 
-            settings._yaml_config_path = None
+            config._yaml_config_path = None
             os.environ["SCIVQA_MODEL__MODEL_ID"] = "test/model"
-            cfg = PipelineConfig()
+            cfg = SciVQAConfig()
             assert cfg.model.model_id == "test/model"
         finally:
-            from staged_qwen3_5_scivqa import settings
+            from staged_qwen3_5_scivqa import config
 
-            settings._yaml_config_path = original_yaml
+            config._yaml_config_path = original_yaml
             if original_env is None:
                 os.environ.pop("SCIVQA_MODEL__MODEL_ID", None)
             else:
@@ -239,7 +239,7 @@ class TestEnvVarLoading:
         original = os.environ.get("SCIVQA_TRAINING__EPOCHS")
         try:
             os.environ["SCIVQA_TRAINING__EPOCHS"] = "10"
-            cfg = PipelineConfig()
+            cfg = SciVQAConfig()
             assert cfg.training.epochs == 10
         finally:
             if original is None:

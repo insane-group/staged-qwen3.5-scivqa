@@ -4195,7 +4195,7 @@ wheels = [
 
 [[package]]
 name = "staged-qwen3-5-scivqa"
-version = "1.0.1"
+version = "1.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "apted" },

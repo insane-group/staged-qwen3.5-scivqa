@@ -107,7 +107,7 @@ Use fixtures from `tests/conftest.py`: `mock_tokenizer`, `sample_annotation`,
 ## Architecture
 
 **Source:** `src/staged_qwen3_5_scivqa/` — production package.
-**Notebooks:** `notebooks/*.py` (percent scripts) — experimentation, excluded from most hooks.
+**Notebooks:** `notebooks/*.ipynb` — experimentation, excluded from most hooks.
 **Tests:** `tests/` — fully mocked, no GPU required.
 **CLI:** `src/staged_qwen3_5_scivqa/cli/` — Typer entry point (`sci-vqa`).
 
@@ -141,9 +141,9 @@ Competition JSON + JPG → [Summary LoRA] → data/summary_state.json
 
 ## Key conventions
 
-- **Notebooks**: paired `.ipynb` + `.py` (percent script). Edit `.py`, sync with `jupytext --sync`.
-  `.py` files are git source of truth. `nbstripout` strips notebook outputs on commit.
-  Pairing configured in `jupytext.toml` (`formats = "ipynb,py:percent"`).
+- **Notebooks**: only `.ipynb` files currently committed. Jupytext pairing configured in
+  `pyproject.toml` (`notebooks/` → `ipynb`, `scripts/` → `py:percent`). `nbstripout` strips
+  notebook outputs on commit. Use `poe jupytext` to sync paired files.
 - **Notebooks are excluded** from ruff, codespell, debug-statements, editorconfig, and check-ast hooks.
   Do not try to fix lint errors in `notebooks/` — they are research code.
 - **Notebooks import from the library**: all utility functions, constants, and prompts come from
@@ -152,6 +152,8 @@ Competition JSON + JPG → [Summary LoRA] → data/summary_state.json
 - **Commit messages**: conventional commits enforced by commitizen + gitlint.
 - **Version**: bump in `src/staged_qwen3_5_scivqa/__init__.py` (semantic release reads this).
 - **All state/submission files saved to `data/`** — not repo root.
+- **HF Hub push after training**: enabled by default (`push_checkpoints=True`). Set
+  `SCIVQA_HF__TOKEN` env var or configure `hf.token`/`hf.hub_repo_id` to use it.
 
 ## Data & paths
 
