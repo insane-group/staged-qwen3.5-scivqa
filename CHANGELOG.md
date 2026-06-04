@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v2.0.0 (2026-06-04)
+
+### Features
+
+- Refactor configuration management and enhance SMT model generation
+  ([`6fc4357`](https://github.com/insane-group/staged-qwen3.5-scivqa/commit/6fc4357fbad36a73b4ebea44da60eefc1018c36b))
+
+
 ## v1.0.2 (2026-05-20)
 
 ### Bug Fixes
