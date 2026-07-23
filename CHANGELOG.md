@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v2.0.1 (2026-07-23)
+
+### Bug Fixes
+
+- Data loading and training configurations
+  ([`bd46eba`](https://github.com/insane-group/staged-qwen3.5-scivqa/commit/bd46eba4f93cac731ea52391071fb1868c031ca9))
+
+
 ## v2.0.0 (2026-06-04)
 
 ### Features

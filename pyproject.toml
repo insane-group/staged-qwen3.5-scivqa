@@ -5,7 +5,7 @@ requires = [ "uv-build>=0.10.8,<0.11" ]
 
 [project]
 name = "staged-qwen3-5-scivqa"
-version = "2.0.0"
+version = "2.0.1"
 description = "Staged multimodal pipeline for scientific figure VQA using Qwen3.5 — summarization, table extraction, and answer-type-specific fine-tuning for the ICDAR 2026 Sci-ImageMiner competition"
 readme = "README.md"
 keywords = [
