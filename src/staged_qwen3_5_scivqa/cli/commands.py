@@ -159,7 +159,7 @@ def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
 
     print_stage_header(f"Training {stage}", 1, 1)
     console.print(f"  Model: {cfg.model.model_id}")
-    console.print(f"  LoRA: r={cfg.lora.r}, α={cfg.lora.alpha}")
+    console.print(f"  LoRA: r={cfg.lora.r}, α={cfg.lora.lora_alpha}")
     console.print(f"  Epochs: {cfg.training.epochs}")
     console.print(f"  LR: {cfg.training.lr}")
     console.print(f"  Batch: {cfg.training.batch_size} × {cfg.training.grad_accum}")
@@ -222,7 +222,7 @@ def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
             trainer = SFTTrainer(  # type: ignore[call-arg]
                 model=model,
                 tokenizer=tokenizer,
-                data_collator=UnslothVisionDataCollator(model),
+                data_collator=UnslothVisionDataCollator(model, tokenizer),
                 train_dataset=samples,
                 args=sft_cfg,
             )

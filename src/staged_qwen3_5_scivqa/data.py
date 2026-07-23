@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import random
 import warnings
+from collections.abc import Generator
 from typing import TYPE_CHECKING, Any, Literal
 
 from datasets import Dataset, DatasetDict, Features, Sequence, Value
@@ -65,6 +66,52 @@ def _bbox_to_tuple(box: dict) -> tuple[int, int, int, int]:
 # ── HF Dataset builders ────────────────────────────────────────────────
 
 
+def _generate_vqa_rows(cat: str) -> Generator[dict, None, None]:
+    """Yield cleaned VQA dataset rows one by one for Dataset.from_generator."""
+    items = list(_competition_images(cat))
+    hf_split = _SPLIT_MAP.get(cat, cat)
+
+    # Wrap the file loop with tqdm so you see real-time progress during generator execution
+    for json_file, data in tqdm(items, desc=f"Building '{hf_split}' split"):
+        full_img = Image.open(json_file.with_suffix(".jpg").absolute())
+        context = get_paper_context(json_file, window_size=CONTEXT_WINDOW_SIZE)
+        bboxes = data.get("bbox", {})
+
+        for sub_key, q_list in data.get("vqa", {}).items():
+            box = bboxes.get(sub_key)
+            if box is None:
+                continue
+
+            left, top, w, h = _bbox_to_tuple(box)
+            sub_image = full_img.crop((left, top, left + w, top + h))
+            summary = data.get("summarization", {}).get(sub_key, "") or ""
+            table_text = data.get("data_extraction", {}).get(sub_key, "") or ""
+
+            for q_obj in q_list:
+                question = q_obj.get("question") or q_obj.get("questions", "")
+                question_type = q_obj.get("question_type", "")
+                answer_type = q_obj.get("answer_type", "")
+                raw_answer = q_obj.get("answer", "")
+
+                cleaned, is_valid = clean_answer(raw_answer, answer_type)
+                if not is_valid:
+                    continue
+
+                yield {
+                    "sample_id": data.get("sample_id", json_file.stem),
+                    "sub_figure": sub_key,
+                    "question": question,
+                    "question_type": question_type,
+                    "answer_type": answer_type,
+                    "answer": cleaned,
+                    "context": context,
+                    "summary": summary,
+                    "table": table_text,
+                    "image": sub_image,
+                    "bbox": [left, top, w, h],
+                }
+
+
 def build_vqa_dataset(
     categories: tuple[str, ...] = ("train", "dev", "test"),
     *,
@@ -72,84 +119,6 @@ def build_vqa_dataset(
     token: str | None = None,
     push_to_hub: bool = True,
 ) -> DatasetDict:
-    """Build a cleaned VQA DatasetDict from competition data and push to HF.
-
-    The returned dataset contains one row per (sample, sub-figure, question)
-    with the ``answer`` field already cleaned via :func:`clean_answer`.
-
-    Args:
-        categories: Competition split names to include
-            (e.g. ``("train", "dev")``).
-        repo_id: HuggingFace dataset repo to push to.
-            If ``None`` and *push_to_hub* is True, uses
-            :data:`~staged_qwen3_5_scivqa.config.HF_VQA_REPO`.
-        token: HF API token (uses ``HF_TOKEN`` env var if ``None``).
-        push_to_hub: Whether to push the dataset to the Hub.
-
-    Returns:
-        A :class:`datasets.DatasetDict` with splits ``train``, ``validation``,
-        ``test`` (as present).
-
-    Schema
-    ------
-    .. code-block:: python
-
-        {
-            "sample_id": str,
-            "sub_figure": str,
-            "question": str,
-            "question_type": str,
-            "answer_type": str,      # Yes/No | Factoid | List | Paragraph
-            "answer": str,            # already cleaned
-            "context": str,           # paper context
-            "summary": str,           # ground-truth sub-figure summary
-            "table": str,             # ground-truth sub-figure table (dense)
-            "image": PIL.Image,       # cropped sub-figure
-            "bbox": [x, y, w, h],    # crop coordinates
-        }
-
-    """
-    rows_by_split: dict[str, list[dict]] = {}
-    for cat in categories:
-        hf_split = _SPLIT_MAP.get(cat, cat)
-        cat_rows: list[dict] = []
-        for json_file, data in _competition_images(cat):
-            full_img = Image.open(json_file.with_suffix(".jpg").absolute())
-            context = get_paper_context(json_file, window_size=CONTEXT_WINDOW_SIZE)
-            bboxes = data.get("bbox", {})
-            for sub_key, q_list in data.get("vqa", {}).items():
-                box = bboxes.get(sub_key)
-                if box is None:
-                    continue
-                left, top, w, h = _bbox_to_tuple(box)
-                sub_image = full_img.crop((left, top, left + w, top + h))
-                summary = data.get("summarization", {}).get(sub_key, "") or ""
-                table_text = data.get("data_extraction", {}).get(sub_key, "") or ""
-                for q_obj in q_list:
-                    question = q_obj.get("question") or q_obj.get("questions", "")
-                    question_type = q_obj.get("question_type", "")
-                    answer_type = q_obj.get("answer_type", "")
-                    raw_answer = q_obj.get("answer", "")
-                    cleaned, is_valid = clean_answer(raw_answer, answer_type)
-                    if not is_valid:
-                        continue
-                    cat_rows.append(
-                        {
-                            "sample_id": data.get("sample_id", json_file.stem),
-                            "sub_figure": sub_key,
-                            "question": question,
-                            "question_type": question_type,
-                            "answer_type": answer_type,
-                            "answer": cleaned,
-                            "context": context,
-                            "summary": summary,
-                            "table": table_text,
-                            "image": sub_image,
-                            "bbox": [left, top, w, h],
-                        }
-                    )
-        rows_by_split[hf_split] = cat_rows
-
     features = Features(
         {
             "sample_id": Value("string"),
@@ -166,16 +135,55 @@ def build_vqa_dataset(
         }
     )
 
-    dd = DatasetDict(
-        {
-            split: Dataset.from_list(rows, features=features)
-            for split, rows in rows_by_split.items()
-        }
-    )
+    dataset_splits = {}
+    for cat in categories:
+        hf_split = _SPLIT_MAP.get(cat, cat)
+        # Dataset.from_generator streams data directly into PyArrow shards on disk
+        dataset_splits[hf_split] = Dataset.from_generator(
+            _generate_vqa_rows,
+            gen_kwargs={"cat": cat},
+            features=features,
+        )
+
+    dd = DatasetDict(dataset_splits)
+
     if push_to_hub:
         rid = repo_id or HF_VQA_REPO
+        print(f"Pushing dataset to Hugging Face Hub ({rid})...")
         dd.push_to_hub(rid, token=token, max_shard_size="500MB")
+
     return dd
+
+
+def _generate_summary_rows(cat: str) -> Generator[dict, None, None]:
+    """Yield cleaned summary dataset rows one by one for Dataset.from_generator."""
+    items = list(_competition_images(cat))
+    hf_split = _SPLIT_MAP.get(cat, cat)
+
+    for json_file, data in tqdm(items, desc=f"Building '{hf_split}' summary split"):
+        full_img = Image.open(json_file.with_suffix(".jpg").absolute())
+        context = get_paper_context(json_file, window_size=CONTEXT_WINDOW_SIZE)
+        bboxes = data.get("bbox", {})
+
+        for sub_key, summary_text in data.get("summarization", {}).items():
+            box = bboxes.get(sub_key)
+            if box is None:
+                continue
+
+            left, top, w, h = _bbox_to_tuple(box)
+            sub_image = full_img.crop((left, top, left + w, top + h))
+            cleaned, is_valid = clean_summary(summary_text)
+            if not is_valid:
+                continue
+
+            yield {
+                "sample_id": data.get("sample_id", json_file.stem),
+                "sub_figure": sub_key,
+                "summary": cleaned,
+                "context": context,
+                "image": sub_image,
+                "bbox": [left, top, w, h],
+            }
 
 
 def build_summary_dataset(
@@ -196,42 +204,10 @@ def build_summary_dataset(
             "sub_figure": str,
             "summary": str,            # cleaned summary
             "context": str,            # paper context
-            "image": PIL.Image,       # cropped sub-figure
+            "image": PIL.Image,        # cropped sub-figure
             "bbox": [x, y, w, h],
         }
     """
-    from datasets import Dataset, DatasetDict, Features, Sequence, Value
-    from datasets import Image as HfImage
-
-    rows_by_split: dict[str, list[dict]] = {}
-    for cat in categories:
-        hf_split = _SPLIT_MAP.get(cat, cat)
-        cat_rows: list[dict] = []
-        for json_file, data in _competition_images(cat):
-            full_img = Image.open(json_file.with_suffix(".jpg").absolute())
-            context = get_paper_context(json_file, window_size=CONTEXT_WINDOW_SIZE)
-            bboxes = data.get("bbox", {})
-            for sub_key, summary_text in data.get("summarization", {}).items():
-                box = bboxes.get(sub_key)
-                if box is None:
-                    continue
-                left, top, w, h = _bbox_to_tuple(box)
-                sub_image = full_img.crop((left, top, left + w, top + h))
-                cleaned, is_valid = clean_summary(summary_text)
-                if not is_valid:
-                    continue
-                cat_rows.append(
-                    {
-                        "sample_id": data.get("sample_id", json_file.stem),
-                        "sub_figure": sub_key,
-                        "summary": cleaned,
-                        "context": context,
-                        "image": sub_image,
-                        "bbox": [left, top, w, h],
-                    }
-                )
-        rows_by_split[hf_split] = cat_rows
-
     features = Features(
         {
             "sample_id": Value("string"),
@@ -243,16 +219,54 @@ def build_summary_dataset(
         }
     )
 
-    dd = DatasetDict(
-        {
-            split: Dataset.from_list(rows, features=features)
-            for split, rows in rows_by_split.items()
-        }
-    )
+    dataset_splits = {}
+    for cat in categories:
+        hf_split = _SPLIT_MAP.get(cat, cat)
+        dataset_splits[hf_split] = Dataset.from_generator(
+            _generate_summary_rows,
+            gen_kwargs={"cat": cat},
+            features=features,
+        )
+
+    dd = DatasetDict(dataset_splits)
+
     if push_to_hub:
         rid = repo_id or HF_SUMMARY_REPO
+        tqdm.write(f"Pushing summary dataset to Hugging Face Hub ({rid})...")
         dd.push_to_hub(rid, token=token, max_shard_size="500MB")
+
     return dd
+
+
+def _generate_table_rows(cat: str) -> Generator[dict, None, None]:
+    """Yield cleaned table dataset rows one by one for Dataset.from_generator."""
+    items = list(_competition_images(cat))
+    hf_split = _SPLIT_MAP.get(cat, cat)
+
+    for json_file, data in tqdm(items, desc=f"Building '{hf_split}' table split"):
+        full_img = Image.open(json_file.with_suffix(".jpg").absolute())
+        context = get_paper_context(json_file, window_size=CONTEXT_WINDOW_SIZE)
+        bboxes = data.get("bbox", {})
+
+        for sub_key, table_text in data.get("data_extraction", {}).items():
+            box = bboxes.get(sub_key)
+            if box is None:
+                continue
+
+            left, top, w, h = _bbox_to_tuple(box)
+            sub_image = full_img.crop((left, top, left + w, top + h))
+            cleaned, is_valid = clean_table(table_text)
+            if not is_valid:
+                continue
+
+            yield {
+                "sample_id": data.get("sample_id", json_file.stem),
+                "sub_figure": sub_key,
+                "table": cleaned,
+                "context": context,
+                "image": sub_image,
+                "bbox": [left, top, w, h],
+            }
 
 
 def build_table_dataset(
@@ -273,42 +287,10 @@ def build_table_dataset(
             "sub_figure": str,
             "table": str,              # cleaned, dense format (; rows, , cols)
             "context": str,            # paper context
-            "image": PIL.Image,       # cropped sub-figure
+            "image": PIL.Image,        # cropped sub-figure
             "bbox": [x, y, w, h],
         }
     """
-    from datasets import Dataset, DatasetDict, Features, Sequence, Value
-    from datasets import Image as HfImage
-
-    rows_by_split: dict[str, list[dict]] = {}
-    for cat in categories:
-        hf_split = _SPLIT_MAP.get(cat, cat)
-        cat_rows: list[dict] = []
-        for json_file, data in _competition_images(cat):
-            full_img = Image.open(json_file.with_suffix(".jpg").absolute())
-            context = get_paper_context(json_file, window_size=CONTEXT_WINDOW_SIZE)
-            bboxes = data.get("bbox", {})
-            for sub_key, table_text in data.get("data_extraction", {}).items():
-                box = bboxes.get(sub_key)
-                if box is None:
-                    continue
-                left, top, w, h = _bbox_to_tuple(box)
-                sub_image = full_img.crop((left, top, left + w, top + h))
-                cleaned, is_valid = clean_table(table_text)
-                if not is_valid:
-                    continue
-                cat_rows.append(
-                    {
-                        "sample_id": data.get("sample_id", json_file.stem),
-                        "sub_figure": sub_key,
-                        "table": cleaned,
-                        "context": context,
-                        "image": sub_image,
-                        "bbox": [left, top, w, h],
-                    }
-                )
-        rows_by_split[hf_split] = cat_rows
-
     features = Features(
         {
             "sample_id": Value("string"),
@@ -320,15 +302,22 @@ def build_table_dataset(
         }
     )
 
-    dd = DatasetDict(
-        {
-            split: Dataset.from_list(rows, features=features)
-            for split, rows in rows_by_split.items()
-        }
-    )
+    dataset_splits = {}
+    for cat in categories:
+        hf_split = _SPLIT_MAP.get(cat, cat)
+        dataset_splits[hf_split] = Dataset.from_generator(
+            _generate_table_rows,
+            gen_kwargs={"cat": cat},
+            features=features,
+        )
+
+    dd = DatasetDict(dataset_splits)
+
     if push_to_hub:
         rid = repo_id or HF_TABLE_REPO
+        tqdm.write(f"Pushing table dataset to Hugging Face Hub ({rid})...")
         dd.push_to_hub(rid, token=token, max_shard_size="500MB")
+
     return dd
 
 

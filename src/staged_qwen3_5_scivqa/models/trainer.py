@@ -51,7 +51,6 @@ def get_sft_config(
         lr_scheduler_type="linear",
         seed=3407,
         output_dir=output_dir,
-        report_to="none",
         remove_unused_columns=False,
         dataset_text_field="",
         dataset_kwargs={"skip_prepare_dataset": True},

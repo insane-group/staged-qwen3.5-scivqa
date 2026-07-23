@@ -665,15 +665,15 @@ EXAMPLES_PASS2: dict[str, str] = {
 
 
 class ModelConfig(BaseModel):
-    model_id: str = Field(default="unsloth/Qwen3.5-9B")
+    model_id: str = Field(default="unsloth/Qwen3.5-0.8B")
     load_in_4bit: bool = True
     max_seq_length: int = 4096
 
 
 class LoRAConfig(BaseModel):
     r: int = 16
-    alpha: int = 16
-    dropout: float = 0.0
+    lora_alpha: int = 16
+    lora_dropout: float = 0.0
     random_state: int = 3407
     finetune_vision_layers: bool = True
     finetune_language_layers: bool = True

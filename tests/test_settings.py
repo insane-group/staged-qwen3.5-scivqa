@@ -35,15 +35,15 @@ class TestLoRAConfig:
     def test_defaults(self):
         cfg = LoRAConfig()
         assert cfg.r == 16
-        assert cfg.alpha == 16
-        assert cfg.dropout == 0.0
+        assert cfg.lora_alpha == 16
+        assert cfg.lora_dropout == 0.0
         assert cfg.random_state == 3407
 
     def test_custom_values(self):
-        cfg = LoRAConfig(r=32, alpha=64, dropout=0.1)
+        cfg = LoRAConfig(r=32, lora_alpha=64, lora_dropout=0.1)
         assert cfg.r == 32
-        assert cfg.alpha == 64
-        assert cfg.dropout == 0.1
+        assert cfg.lora_alpha == 64
+        assert cfg.lora_dropout == 0.1
 
 
 @pytest.mark.unit
