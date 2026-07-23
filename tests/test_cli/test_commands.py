@@ -3,6 +3,7 @@
 import json
 from unittest.mock import MagicMock, patch
 
+import pandas as pd
 import pytest
 from typer.testing import CliRunner
 
@@ -421,8 +422,11 @@ class TestHFCommands:
             assert result.exit_code == 0
 
 
-@pytest.mark.integration
+@pytest.mark.unit
 class TestTrainStageIntegration:
+    def _make_mock_token_stats(self, n):
+        return pd.DataFrame({"total_tokens": [100] * n, "assistant_tokens": [10] * n})
+
     def test_train_stage_with_mocks(self, tmp_path):
         from staged_qwen3_5_scivqa.cli.commands import train_stage
         from staged_qwen3_5_scivqa.config import SciVQAConfig
@@ -433,6 +437,7 @@ class TestTrainStageIntegration:
         cfg.category = "test"
         cfg.training.epochs = 1
         cfg.wandb.enabled = False
+        cfg.hf.push_checkpoints = False
 
         mock_model = MagicMock()
         mock_tokenizer = MagicMock()
@@ -441,13 +446,12 @@ class TestTrainStageIntegration:
 
         with (
             patch("unsloth.FastVisionModel") as mock_fvm,
-            patch("staged_qwen3_5_scivqa.cli.commands.get_lora_config") as mock_lora,
-            patch("staged_qwen3_5_scivqa.cli.commands.get_sft_config") as mock_sft,
-            patch(
-                "staged_qwen3_5_scivqa.cli.commands.load_summary_dataset"
-            ) as mock_load,
+            patch("staged_qwen3_5_scivqa.models.lora.get_lora_config") as mock_lora,
+            patch("staged_qwen3_5_scivqa.models.trainer.get_sft_config") as mock_sft,
+            patch("staged_qwen3_5_scivqa.data.load_summary_dataset") as mock_load,
             patch("trl.SFTTrainer") as mock_trainer,
             patch("unsloth.UnslothVisionDataCollator"),
+            patch("staged_qwen3_5_scivqa.analysis.calculate_token_stats") as mock_stats,
         ):
             mock_fvm.from_pretrained.return_value = (mock_model, mock_tokenizer)
             mock_fvm.get_peft_model.return_value = mock_model
@@ -456,9 +460,494 @@ class TestTrainStageIntegration:
             mock_load.return_value = ([], 0, 0)
             mock_trainer_instance = MagicMock()
             mock_trainer.return_value = mock_trainer_instance
+            mock_stats.return_value = self._make_mock_token_stats(0)
 
             train_stage(cfg, "summary", tmp_path / "summary")
 
             mock_fvm.from_pretrained.assert_called_once()
             mock_trainer_instance.train.assert_called_once()
             mock_model.save_pretrained.assert_called_once()
+
+
+@pytest.mark.unit
+class TestFilterSamples:
+    def test_filters_samples_exceeding_limits(self):
+        from staged_qwen3_5_scivqa.cli.commands import _filter_samples
+
+        mock_tokenizer = MagicMock()
+        msg = [
+            {"content": [{"text": "img", "image": None}]},
+            {"content": [{"text": "short"}]},
+        ]
+        long_msg = [
+            {"content": [{"text": "img", "image": None}]},
+            {"content": [{"text": "a" * 1000}]},
+        ]
+        samples = [{"messages": msg}, {"messages": long_msg}]
+
+        with patch(
+            "staged_qwen3_5_scivqa.analysis.calculate_token_stats"
+        ) as mock_stats:
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [100, 5000],
+                    "assistant_tokens": [10, 2000],
+                }
+            )
+            result = _filter_samples(
+                samples,
+                mock_tokenizer,
+                max_seq_length=3072,
+                max_new_tokens=100,
+            )
+
+        assert len(result) == 1
+        assert result[0] == samples[0]
+
+    def test_keeps_all_samples_within_limits(self):
+        from staged_qwen3_5_scivqa.cli.commands import _filter_samples
+
+        mock_tokenizer = MagicMock()
+        msg = [
+            {"content": [{"text": "img", "image": None}]},
+            {"content": [{"text": "short"}]},
+        ]
+        samples = [{"messages": msg}]
+
+        with patch(
+            "staged_qwen3_5_scivqa.analysis.calculate_token_stats"
+        ) as mock_stats:
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [100],
+                    "assistant_tokens": [10],
+                }
+            )
+            result = _filter_samples(
+                samples,
+                mock_tokenizer,
+                max_seq_length=3072,
+                max_new_tokens=100,
+            )
+
+        assert len(result) == 1
+
+    def test_drops_all_samples_when_all_exceed(self):
+        from staged_qwen3_5_scivqa.cli.commands import _filter_samples
+
+        mock_tokenizer = MagicMock()
+        msg = [
+            {"content": [{"text": "img", "image": None}]},
+            {"content": [{"text": "a" * 1000}]},
+        ]
+        samples = [{"messages": msg}]
+
+        with patch(
+            "staged_qwen3_5_scivqa.analysis.calculate_token_stats"
+        ) as mock_stats:
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [5000],
+                    "assistant_tokens": [2000],
+                }
+            )
+            result = _filter_samples(
+                samples,
+                mock_tokenizer,
+                max_seq_length=3072,
+                max_new_tokens=100,
+            )
+
+        assert len(result) == 0
+
+
+@pytest.mark.unit
+class TestBalanceYesNo:
+    def test_balances_imbalanced_dataset(self):
+        from staged_qwen3_5_scivqa.cli.commands import _balance_yes_no
+
+        yes_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "Yes"}]},
+            ]
+        }
+        no_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "No"}]},
+            ]
+        }
+        samples = [yes_sample] * 8 + [no_sample] * 2
+
+        result = _balance_yes_no(samples)
+
+        answer = lambda s: s["messages"][1]["content"][0]["text"]  # noqa: E731
+        yes_count = sum(1 for s in result if answer(s) == "Yes")
+        no_count = sum(1 for s in result if answer(s) == "No")
+        assert yes_count == no_count == 8
+        assert len(result) == 16
+
+    def test_no_change_when_balanced(self):
+        from staged_qwen3_5_scivqa.cli.commands import _balance_yes_no
+
+        yes_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "Yes"}]},
+            ]
+        }
+        no_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "No"}]},
+            ]
+        }
+        samples = [yes_sample] * 5 + [no_sample] * 5
+
+        result = _balance_yes_no(samples)
+
+        assert len(result) == 10
+
+    def test_handles_no_samples(self):
+        from staged_qwen3_5_scivqa.cli.commands import _balance_yes_no
+
+        result = _balance_yes_no([])
+        assert result == []
+
+    def test_balances_when_no_is_majority(self):
+        from staged_qwen3_5_scivqa.cli.commands import _balance_yes_no
+
+        yes_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "Yes"}]},
+            ]
+        }
+        no_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "No"}]},
+            ]
+        }
+        samples = [no_sample] * 8 + [yes_sample] * 2
+
+        result = _balance_yes_no(samples)
+
+        answer = lambda s: s["messages"][1]["content"][0]["text"]  # noqa: E731
+        yes_count = sum(1 for s in result if answer(s) == "Yes")
+        no_count = sum(1 for s in result if answer(s) == "No")
+        assert yes_count == no_count == 8
+        assert len(result) == 16
+
+    def test_preserves_original_samples(self):
+        from staged_qwen3_5_scivqa.cli.commands import _balance_yes_no
+
+        yes_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "Yes"}]},
+            ]
+        }
+        no_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "No"}]},
+            ]
+        }
+        samples = [yes_sample] * 3 + [no_sample] * 1
+        original_len = len(samples)
+
+        result = _balance_yes_no(samples)
+
+        assert len(samples) == original_len
+        assert len(result) >= original_len
+
+
+@pytest.mark.unit
+class TestFilterSamplesEdgeCases:
+    def test_filters_by_assistant_tokens_only(self):
+        from staged_qwen3_5_scivqa.cli.commands import _filter_samples
+
+        mock_tokenizer = MagicMock()
+        msg = [
+            {"content": [{"text": "img", "image": None}]},
+            {"content": [{"text": "short"}]},
+        ]
+        samples = [{"messages": msg}, {"messages": msg}]
+
+        with patch(
+            "staged_qwen3_5_scivqa.analysis.calculate_token_stats"
+        ) as mock_stats:
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [100, 200],
+                    "assistant_tokens": [10, 200],
+                }
+            )
+            result = _filter_samples(
+                samples,
+                mock_tokenizer,
+                max_seq_length=3072,
+                max_new_tokens=50,
+            )
+
+        assert len(result) == 1
+        assert result[0] == samples[0]
+
+    def test_filters_by_total_tokens_only(self):
+        from staged_qwen3_5_scivqa.cli.commands import _filter_samples
+
+        mock_tokenizer = MagicMock()
+        msg = [
+            {"content": [{"text": "img", "image": None}]},
+            {"content": [{"text": "short"}]},
+        ]
+        samples = [{"messages": msg}, {"messages": msg}]
+
+        with patch(
+            "staged_qwen3_5_scivqa.analysis.calculate_token_stats"
+        ) as mock_stats:
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [100, 5000],
+                    "assistant_tokens": [10, 10],
+                }
+            )
+            result = _filter_samples(
+                samples,
+                mock_tokenizer,
+                max_seq_length=3072,
+                max_new_tokens=100,
+            )
+
+        assert len(result) == 1
+        assert result[0] == samples[0]
+
+    def test_empty_samples_returns_empty(self):
+        from staged_qwen3_5_scivqa.cli.commands import _filter_samples
+
+        mock_tokenizer = MagicMock()
+
+        with patch(
+            "staged_qwen3_5_scivqa.analysis.calculate_token_stats"
+        ) as mock_stats:
+            mock_stats.return_value = pd.DataFrame(
+                {"total_tokens": [], "assistant_tokens": []}
+            )
+            result = _filter_samples(
+                [],
+                mock_tokenizer,
+                max_seq_length=3072,
+                max_new_tokens=100,
+            )
+
+        assert result == []
+
+
+@pytest.mark.unit
+class TestTrainStageMultiCategory:
+    def test_train_stage_table(self, tmp_path):
+        from staged_qwen3_5_scivqa.cli.commands import train_stage
+        from staged_qwen3_5_scivqa.config import SciVQAConfig
+
+        cfg = SciVQAConfig()
+        cfg.paths.output_dir = tmp_path / "models"
+        cfg.paths.data_dir = tmp_path / "data"
+        cfg.category = "train"
+        cfg.training.epochs = 1
+        cfg.wandb.enabled = False
+        cfg.hf.push_checkpoints = False
+
+        mock_model = MagicMock()
+        mock_tokenizer = MagicMock()
+        mock_model.save_pretrained = MagicMock()
+        mock_tokenizer.save_pretrained = MagicMock()
+
+        with (
+            patch("unsloth.FastVisionModel") as mock_fvm,
+            patch("staged_qwen3_5_scivqa.models.lora.get_lora_config") as mock_lora,
+            patch("staged_qwen3_5_scivqa.models.trainer.get_sft_config") as mock_sft,
+            patch("staged_qwen3_5_scivqa.data.load_table_dataset") as mock_load,
+            patch("trl.SFTTrainer") as mock_trainer,
+            patch("unsloth.UnslothVisionDataCollator"),
+            patch("staged_qwen3_5_scivqa.analysis.calculate_token_stats") as mock_stats,
+        ):
+            mock_fvm.from_pretrained.return_value = (mock_model, mock_tokenizer)
+            mock_fvm.get_peft_model.return_value = mock_model
+            mock_lora.return_value = {"r": 16, "lora_alpha": 16}
+            mock_sft.return_value = MagicMock()
+            mock_load.return_value = ([], 0, 0)
+            mock_trainer_instance = MagicMock()
+            mock_trainer.return_value = mock_trainer_instance
+            mock_stats.return_value = pd.DataFrame(
+                {"total_tokens": [], "assistant_tokens": []}
+            )
+
+            train_stage(cfg, "table", tmp_path / "table")
+
+            mock_load.assert_called_once_with("train")
+            mock_trainer_instance.train.assert_called_once()
+
+    def test_train_stage_vqa_factoid(self, tmp_path):
+        from staged_qwen3_5_scivqa.cli.commands import train_stage
+        from staged_qwen3_5_scivqa.config import SciVQAConfig
+
+        cfg = SciVQAConfig()
+        cfg.paths.output_dir = tmp_path / "models"
+        cfg.paths.data_dir = tmp_path / "data"
+        cfg.category = "train"
+        cfg.training.epochs = 1
+        cfg.wandb.enabled = False
+        cfg.hf.push_checkpoints = False
+
+        mock_model = MagicMock()
+        mock_tokenizer = MagicMock()
+        mock_model.save_pretrained = MagicMock()
+        mock_tokenizer.save_pretrained = MagicMock()
+
+        with (
+            patch("unsloth.FastVisionModel") as mock_fvm,
+            patch("staged_qwen3_5_scivqa.models.lora.get_lora_config") as mock_lora,
+            patch("staged_qwen3_5_scivqa.models.trainer.get_sft_config") as mock_sft,
+            patch("staged_qwen3_5_scivqa.data.load_vqa_dataset") as mock_load,
+            patch("trl.SFTTrainer") as mock_trainer,
+            patch("unsloth.UnslothVisionDataCollator"),
+            patch("staged_qwen3_5_scivqa.analysis.calculate_token_stats") as mock_stats,
+        ):
+            mock_fvm.from_pretrained.return_value = (mock_model, mock_tokenizer)
+            mock_fvm.get_peft_model.return_value = mock_model
+            mock_lora.return_value = {"r": 16, "lora_alpha": 16}
+            mock_sft.return_value = MagicMock()
+            mock_load.return_value = ([], 0, 0)
+            mock_trainer_instance = MagicMock()
+            mock_trainer.return_value = mock_trainer_instance
+            mock_stats.return_value = pd.DataFrame(
+                {"total_tokens": [], "assistant_tokens": []}
+            )
+
+            train_stage(cfg, "factoid", tmp_path / "vqa_factoid")
+
+            mock_load.assert_called_once_with("train", ["factoid"])
+            mock_trainer_instance.train.assert_called_once()
+
+    def test_train_stage_yes_no_applies_balancing(self, tmp_path):
+        from staged_qwen3_5_scivqa.cli.commands import train_stage
+        from staged_qwen3_5_scivqa.config import SciVQAConfig
+
+        cfg = SciVQAConfig()
+        cfg.paths.output_dir = tmp_path / "models"
+        cfg.paths.data_dir = tmp_path / "data"
+        cfg.category = "train"
+        cfg.training.epochs = 1
+        cfg.wandb.enabled = False
+        cfg.hf.push_checkpoints = False
+
+        yes_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "Yes"}]},
+            ]
+        }
+        no_sample = {
+            "messages": [
+                {"content": [{"text": "img", "image": None}]},
+                {"content": [{"text": "No"}]},
+            ]
+        }
+        imbalanced = [yes_sample] * 8 + [no_sample] * 2
+
+        mock_model = MagicMock()
+        mock_tokenizer = MagicMock()
+        mock_model.save_pretrained = MagicMock()
+        mock_tokenizer.save_pretrained = MagicMock()
+
+        with (
+            patch("unsloth.FastVisionModel") as mock_fvm,
+            patch("staged_qwen3_5_scivqa.models.lora.get_lora_config") as mock_lora,
+            patch("staged_qwen3_5_scivqa.models.trainer.get_sft_config") as mock_sft,
+            patch("staged_qwen3_5_scivqa.data.load_vqa_dataset") as mock_load,
+            patch("trl.SFTTrainer") as mock_trainer,
+            patch("unsloth.UnslothVisionDataCollator"),
+            patch("staged_qwen3_5_scivqa.analysis.calculate_token_stats") as mock_stats,
+        ):
+            mock_fvm.from_pretrained.return_value = (mock_model, mock_tokenizer)
+            mock_fvm.get_peft_model.return_value = mock_model
+            mock_lora.return_value = {"r": 16, "lora_alpha": 16}
+            mock_sft.return_value = MagicMock()
+            mock_load.return_value = (imbalanced, 10, 0)
+            mock_trainer_instance = MagicMock()
+            mock_trainer.return_value = mock_trainer_instance
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [100] * 10,
+                    "assistant_tokens": [1] * 10,
+                }
+            )
+
+            train_stage(cfg, "yes_no", tmp_path / "vqa_yes_no")
+
+            train_dataset = mock_trainer.call_args.kwargs.get(
+                "train_dataset"
+            ) or mock_trainer.call_args[1].get("train_dataset")
+            if train_dataset is None:
+                args = mock_trainer.call_args
+                train_dataset = args[1].get("train_dataset") if len(args) > 1 else None
+            assert train_dataset is not None
+            assert len(train_dataset) == 16
+
+    def test_train_stage_multi_category(self, tmp_path):
+        from staged_qwen3_5_scivqa.cli.commands import train_stage
+        from staged_qwen3_5_scivqa.config import SciVQAConfig
+
+        cfg = SciVQAConfig()
+        cfg.paths.output_dir = tmp_path / "models"
+        cfg.paths.data_dir = tmp_path / "data"
+        cfg.category = "train,dev"
+        cfg.training.epochs = 1
+        cfg.wandb.enabled = False
+        cfg.hf.push_checkpoints = False
+
+        mock_model = MagicMock()
+        mock_tokenizer = MagicMock()
+        mock_model.save_pretrained = MagicMock()
+        mock_tokenizer.save_pretrained = MagicMock()
+
+        train_sample = {"id": "train_sample"}
+        dev_sample = {"id": "dev_sample"}
+
+        with (
+            patch("unsloth.FastVisionModel") as mock_fvm,
+            patch("staged_qwen3_5_scivqa.models.lora.get_lora_config") as mock_lora,
+            patch("staged_qwen3_5_scivqa.models.trainer.get_sft_config") as mock_sft,
+            patch("staged_qwen3_5_scivqa.data.load_summary_dataset") as mock_load,
+            patch("trl.SFTTrainer") as mock_trainer,
+            patch("unsloth.UnslothVisionDataCollator"),
+            patch("staged_qwen3_5_scivqa.analysis.calculate_token_stats") as mock_stats,
+        ):
+            mock_fvm.from_pretrained.return_value = (mock_model, mock_tokenizer)
+            mock_fvm.get_peft_model.return_value = mock_model
+            mock_lora.return_value = {"r": 16, "lora_alpha": 16}
+            mock_sft.return_value = MagicMock()
+            mock_load.side_effect = [
+                ([train_sample], 1, 0),
+                ([dev_sample], 1, 0),
+            ]
+            mock_trainer_instance = MagicMock()
+            mock_trainer.return_value = mock_trainer_instance
+            mock_stats.return_value = pd.DataFrame(
+                {
+                    "total_tokens": [100, 100],
+                    "assistant_tokens": [10, 10],
+                }
+            )
+
+            train_stage(cfg, "summary", tmp_path / "summary")
+
+            assert mock_load.call_count == 2
+            calls = [c.args[0] for c in mock_load.call_args_list]
+            assert calls == ["train", "dev"]
+
+            train_dataset = mock_trainer.call_args[1].get("train_dataset")
+            assert train_dataset is not None
+            assert len(train_dataset) == 2

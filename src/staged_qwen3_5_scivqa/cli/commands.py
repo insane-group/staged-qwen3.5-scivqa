@@ -10,6 +10,8 @@ Commands:
     hf push/pull/push-dataset/pull-dataset — HuggingFace Hub integration
 """
 
+import logging
+import random
 from pathlib import Path
 from typing import Annotated
 
@@ -33,6 +35,8 @@ from staged_qwen3_5_scivqa.cli.utils import (
     stage_has_output,
 )
 from staged_qwen3_5_scivqa.config import SciVQAConfig, load_config
+
+logger = logging.getLogger(__name__)
 
 train_app = typer.Typer(help="Train LoRA adapters for pipeline stages")
 inference_app = typer.Typer(help="Run inference with trained models")
@@ -150,6 +154,58 @@ def train_vqa(
         train_stage(cfg, atype, checkpoint_dir)
 
 
+def _filter_samples(
+    samples: list,
+    tokenizer,
+    max_seq_length: int,
+    max_new_tokens: int,
+) -> list:
+    """Filter out samples exceeding token limits (matches notebook logic)."""
+    from staged_qwen3_5_scivqa.analysis import calculate_token_stats
+
+    df_tokens = calculate_token_stats(samples, tokenizer)
+    original_size = len(samples)
+    samples = [
+        sample
+        for sample, total_tokens, assistant_tokens in zip(
+            samples,
+            df_tokens["total_tokens"],
+            df_tokens["assistant_tokens"],
+            strict=False,
+        )
+        if total_tokens <= max_seq_length and assistant_tokens <= max_new_tokens
+    ]
+    dropped = original_size - len(samples)
+    if dropped:
+        logger.info(
+            "Token filtering: %d -> %d samples (%d dropped)",
+            original_size,
+            len(samples),
+            dropped,
+        )
+    return samples
+
+
+def _balance_yes_no(samples: list) -> list:
+    """Balance Yes/No classes by upsampling minority (matches notebook logic)."""
+    answer = lambda s: s["messages"][1]["content"][0]["text"]  # noqa: E731
+    yes_samples = [s for s in samples if answer(s) == "Yes"]
+    no_samples = [s for s in samples if answer(s) == "No"]
+
+    if len(yes_samples) > len(no_samples):
+        majority, minority = yes_samples, no_samples
+    else:
+        majority, minority = no_samples, yes_samples
+
+    diff = len(majority) - len(minority)
+    if diff > 0:
+        upsampled = random.choices(minority, k=diff)
+        samples = majority + minority + upsampled
+        random.seed(3407)
+        random.shuffle(samples)
+    return samples
+
+
 def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
     """Train a single stage LoRA adapter."""
     setup_wandb(cfg.wandb)
@@ -185,6 +241,7 @@ def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
                 cfg.model.model_id,
                 load_in_4bit=cfg.model.load_in_4bit,
                 max_seq_length=budget.max_sequence_length,
+                use_gradient_checkpointing="unsloth",
             )
             model = FastVisionModel.get_peft_model(
                 model, **get_lora_config(**cfg.lora.model_dump())
@@ -193,13 +250,29 @@ def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
 
         with progress_context("Loading dataset...") as progress:
             progress.add_task(description="Loading dataset...", total=None)
-            if stage == "summary":
-                samples, _, _ = load_summary_dataset(cfg.category)
-            elif stage == "table":
-                samples, _, _ = load_table_dataset(cfg.category)
-            else:
-                answer_types = [stage] if stage != "vqa" else None
-                samples, _, _ = load_vqa_dataset(cfg.category, answer_types)
+            categories = [c.strip() for c in cfg.category.split(",")]
+            samples = []
+            for cat in categories:
+                if stage == "summary":
+                    cat_samples, _, _ = load_summary_dataset(cat)
+                elif stage == "table":
+                    cat_samples, _, _ = load_table_dataset(cat)
+                else:
+                    answer_types = [stage] if stage != "vqa" else None
+                    cat_samples, _, _ = load_vqa_dataset(cat, answer_types)
+                samples.extend(cat_samples)
+            cats_str = ", ".join(categories)
+            console.print(f"  Loaded {len(samples)} samples from {cats_str}")
+
+        samples = _filter_samples(
+            samples,
+            tokenizer,
+            max_seq_length=budget.max_sequence_length,
+            max_new_tokens=budget.max_new_tokens,
+        )
+
+        if stage == "yes_no":
+            samples = _balance_yes_no(samples)
 
         report_to = "wandb" if cfg.wandb.enabled else "none"
         sft_cfg = get_sft_config(
@@ -222,7 +295,12 @@ def train_stage(cfg: SciVQAConfig, stage: str, output_dir: Path):
             trainer = SFTTrainer(  # type: ignore[call-arg]
                 model=model,
                 tokenizer=tokenizer,
-                data_collator=UnslothVisionDataCollator(model, tokenizer),
+                data_collator=UnslothVisionDataCollator(
+                    model,
+                    tokenizer,
+                    max_seq_length=budget.max_sequence_length,
+                    resize="max",
+                ),
                 train_dataset=samples,
                 args=sft_cfg,
             )

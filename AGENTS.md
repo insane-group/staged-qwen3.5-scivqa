@@ -56,10 +56,13 @@ sci-vqa hf push ./checkpoint --repo-id user/model
 sci-vqa hf pull --repo-id user/model --output ./models/
 sci-vqa hf push-dataset ./data/dataset --repo-id user/data
 sci-vqa hf pull-dataset --repo-id user/data --output ./data/
+
+# Dataset build
+sci-vqa dataset build --task vqa --categories train,dev,test [--repo-id user/data]
 ```
 
 **Config**: `--config pipeline.yaml` (YAML), env vars (`SCIVQA_*`), or `.env` file.
-See `src/staged_qwen3_5_scivqa/settings.py` for all configurable fields.
+See `src/staged_qwen3_5_scivqa/config.py` for all configurable fields.
 
 ## Initialization
 
@@ -115,8 +118,7 @@ Use fixtures from `tests/conftest.py`: `mock_tokenizer`, `sample_annotation`,
 
 ```
 src/staged_qwen3_5_scivqa/
-├── config.py            # ALL constants: prompts, token budgets, SMT grammars, cvc5 path
-├── settings.py          # Pydantic Settings hierarchy for CLI config
+├── config.py            # ALL constants + Pydantic Settings (SciVQAConfig, load_config)
 ├── data.py              # Dataset loading functions
 ├── preprocessing.py     # Answer cleaning and validation
 ├── analysis.py          # Token statistics, quality reports
@@ -197,8 +199,9 @@ Competition JSON + JPG → [Summary LoRA] → data/summary_state.json
 - `vulture` dead code detection uses `vulture_whitelist.py` for intentionally unused strings (prompts, grammars).
 - `pyproject-fmt` hook enforces 2-space indent in `pyproject.toml`.
 - `prek` is used instead of `pre-commit` for running hooks (faster Rust implementation).
-- `config.py` (flat constants) and `settings.py` (Pydantic Settings) coexist.
-  Notebooks import from `config.py`; CLI uses `settings.py`.
+- `config.py` contains both flat constants (prompts, token budgets, SMT grammars, cvc5 path)
+  and the Pydantic Settings hierarchy (`SciVQAConfig`, `load_config`). Notebooks import from
+  `config.py`; CLI uses `load_config()` / `SciVQAConfig`.
 - `config.py`, `smt/grammars.py`, `smt/pipeline.py`, and `smt/reflection.py` have E501/C901 per-file ignores
   because prompts and SMT grammar strings are inherently long and complex.
 - `vulture_whitelist.py` has B018/F821 ignores — it contains bare names intentionally.

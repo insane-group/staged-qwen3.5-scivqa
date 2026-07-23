@@ -46,7 +46,6 @@ def load_smt_model(
         model_id,
         device_map="auto",
         quantization_config=bnb_config,
-        max_new_tokens=max_new_tokens,
     )
 
     return outlines.from_transformers(lm, tokenizer)  # type: ignore[arg-type]

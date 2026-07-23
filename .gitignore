@@ -187,3 +187,5 @@ unsloth_compiled_cache/
 notebooks/nohup.out
 notebooks/*.json
 notebooks/*.py
+docs/superpowers
+.opencode/
