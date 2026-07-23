@@ -101,9 +101,9 @@ class TestStateHelpers:
         assert loaded == data
 
     def test_stage_has_output_true(self, tmp_path):
-        state_file = tmp_path / "smt_test_state.json"
-        state_file.touch()
         cfg = SciVQAConfig(paths=PathsConfig(data_dir=tmp_path))
+        state_file = cfg.get_state_path("smt")
+        state_file.touch()
         assert stage_has_output(cfg, "smt") is True
 
     def test_stage_has_output_false(self, tmp_path):

@@ -25,8 +25,8 @@ from staged_qwen3_5_scivqa.config import (
 class TestModelConfig:
     def test_defaults(self):
         cfg = ModelConfig()
-        assert cfg.model_id == "unsloth/Qwen3.5-9B"
-        assert cfg.load_in_4bit is True
+        assert cfg.model_id == "unsloth/Qwen3.5-0.8B"
+        assert cfg.load_in_4bit is False
         assert cfg.max_seq_length == 4096
 
 
@@ -151,10 +151,10 @@ class TestWandbConfig:
 class TestSciVQAConfig:
     def test_defaults(self):
         cfg = SciVQAConfig()
-        assert cfg.model.model_id == "unsloth/Qwen3.5-9B"
+        assert cfg.model.model_id == "unsloth/Qwen3.5-0.8B"
         assert cfg.lora.r == 16
         assert cfg.training.epochs == 5
-        assert cfg.category == "test"
+        assert cfg.category == "train,dev"
 
     def test_get_stage_budget(self):
         cfg = SciVQAConfig()
@@ -165,10 +165,10 @@ class TestSciVQAConfig:
     def test_get_lora_checkpoint_name(self):
         cfg = SciVQAConfig()
         name = cfg.get_lora_checkpoint_name
-        assert name("summary") == "Sci-ImageMiner-Qwen3.5-9B-LORA-SUMMARY"
-        assert name("table") == "Sci-ImageMiner-Qwen3.5-9B-LORA-EXTRACTION"
-        assert name("factoid") == "Sci-ImageMiner-Qwen3.5-9B-LORA-FACTOID"
-        assert name("yes_no") == "Sci-ImageMiner-Qwen3.5-9B-LORA-YESNO"
+        assert name("summary") == "Sci-ImageMiner-Qwen3.5-0.8B-LORA-SUMMARY"
+        assert name("table") == "Sci-ImageMiner-Qwen3.5-0.8B-LORA-EXTRACTION"
+        assert name("factoid") == "Sci-ImageMiner-Qwen3.5-0.8B-LORA-FACTOID"
+        assert name("yes_no") == "Sci-ImageMiner-Qwen3.5-0.8B-LORA-YESNO"
 
     def test_get_state_path(self, tmp_path):
         cfg = SciVQAConfig(paths=PathsConfig(data_dir=tmp_path))
@@ -187,8 +187,8 @@ class TestSciVQAConfig:
 class TestLoadConfig:
     def test_load_defaults(self):
         cfg = load_config()
-        assert cfg.model.model_id == "unsloth/Qwen3.5-9B"
-        assert cfg.category == "test"
+        assert cfg.model.model_id == "unsloth/Qwen3.5-0.8B"
+        assert cfg.category == "train,dev"
 
     def test_load_with_category_override(self):
         cfg = load_config(category="dev")
