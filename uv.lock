@@ -4195,7 +4195,7 @@ wheels = [
 
 [[package]]
 name = "staged-qwen3-5-scivqa"
-version = "2.0.0"
+version = "2.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "apted" },
@@ -4274,7 +4274,7 @@ requires-dist = [
     { name = "tqdm", specifier = ">=4.67.3" },
     { name = "transformers", specifier = "==5.2" },
     { name = "trl", specifier = "==0.22.2" },
-    { name = "typer", extras = ["all"], specifier = ">=0.15" },
+    { name = "typer", specifier = ">=0.23.1" },
     { name = "unsloth", extras = ["base"], git = "https://github.com/unslothai/unsloth" },
     { name = "unsloth-zoo", extras = ["base"], git = "https://github.com/unslothai/unsloth-zoo" },
     { name = "xformers", specifier = "==0.0.32.post2" },

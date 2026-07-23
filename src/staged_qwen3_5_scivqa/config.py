@@ -666,7 +666,7 @@ EXAMPLES_PASS2: dict[str, str] = {
 
 class ModelConfig(BaseModel):
     model_id: str = Field(default="unsloth/Qwen3.5-0.8B")
-    load_in_4bit: bool = True
+    load_in_4bit: bool = False
     max_seq_length: int = 4096
 
 
@@ -807,7 +807,7 @@ class SciVQAConfig(BaseSettings):
     reflection: ReflectionConfig = Field(default_factory=ReflectionConfig)
     hf: HFConfig = Field(default_factory=HFConfig)
     wandb: WandbConfig = Field(default_factory=WandbConfig)
-    category: str = "test"
+    category: str = "train,dev"
 
     @classmethod
     def settings_customise_sources(
