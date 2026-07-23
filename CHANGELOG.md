@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v2.1.0 (2026-07-23)
+
+### Features
+
+- Align CLI training with notebooks (source of truth)
+  ([#40](https://github.com/insane-group/staged-qwen3.5-scivqa/pull/40),
+  [`2f8dae5`](https://github.com/insane-group/staged-qwen3.5-scivqa/commit/2f8dae569af2a0928de31bba0d11532f9975b974))
+
+
 ## v2.0.1 (2026-07-23)
 
 ### Bug Fixes
